@@ -14,13 +14,13 @@ interface Experience {
 const experiences: Experience[] = [
   {
     title: "IT-utvikler",
-    description: "Teknologiporten, NTNU - Full-stack utvikling med React.js",
+    description: "Teknologiporten, NTNU - Full-stack utvikler",
     year: "2023 - Nå",
     icon: Code
   },
   {
     title: "Teamleder Markedsføring",
-    description: "EMIL-Link - Leder team med fokus på forhandling og samarbeid",
+    description: "EMIL-Link - Leder team med fokus på forhandling og samarbeid, og utviklet ferdig nettside",
     year: "2024",
     icon: Users
   },

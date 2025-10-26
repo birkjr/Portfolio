@@ -18,17 +18,17 @@ export function Footer() {
           </div>
           <div className="flex space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/birkjr" target="_blank" rel="noopener noreferrer">
                 <Github className="w-4 h-4" />
               </a>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <a href="https://linkedin.com/in/birkramstad" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/birkjramstad/" target="_blank" rel="noopener noreferrer">
                 <Linkedin className="w-4 h-4" />
               </a>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <a href="mailto:birk@example.com">
+              <a href="mailto:birkrams@gmail.com">
                 <Mail className="w-4 h-4" />
               </a>
             </Button>

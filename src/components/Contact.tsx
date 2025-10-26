@@ -32,18 +32,13 @@ export function Contact() {
                   </a>
                 </Button>
                 <Button variant="outline" className="h-12" asChild>
-                  <a href="www.linkedin.com/in/birkjramstad" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/in/birkjramstad/" target="_blank" rel="noopener noreferrer">
                     <LinkedinIcon className="w-4 h-4 mr-2" />
                     LinkedIn
                   </a>
                 </Button>
               </div>
-              <div className="text-center">
-                <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Start en samtale
-                </Button>
-              </div>
+
             </CardContent>
           </Card>
         </div>

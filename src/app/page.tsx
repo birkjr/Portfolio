@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
 import { Experience } from "@/components/Experience";
@@ -9,13 +10,16 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="pt-20 scroll-smooth">
-      <Hero />
-      <Projects />
-      <Experience />
-      <Skills />
-      <Contact />
-      <Footer />
-    </div>
+    <>
+      <Navbar />
+      <div className="pt-20 scroll-smooth">
+        <Hero />
+        <Projects />
+        <Experience />
+        <Skills />
+        <Contact />
+        <Footer />
+      </div>
+    </>
   );
 }

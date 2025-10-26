@@ -24,7 +24,7 @@ export function Hero() {
               <h1 className="text-5xl lg:text-6xl font-bold animate-fade-in leading-tight">
                 Hei, jeg er{" "}
                 <span className="text-gradient">
-                  Birk Ramstad
+                  Birk Jonathan Ramstad
                 </span>
               </h1>
               
@@ -33,17 +33,6 @@ export function Hero() {
                 som gjør en forskjell. Spesialisert i moderne webteknologier og 
                 brukeropplevelse.
               </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 neon-glow hover-glow transition-all duration-300">
-                <Download className="w-4 h-4 mr-2" />
-                Last ned CV
-              </Button>
-              <Button variant="outline" size="lg" className="border-purple-500/50 hover:border-purple-400 hover-glow" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
-                <Mail className="w-4 h-4 mr-2" />
-                Kontakt meg
-              </Button>
             </div>
 
             <div className="flex items-center space-x-6 pt-6">

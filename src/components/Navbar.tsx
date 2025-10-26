@@ -29,10 +29,10 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 border border-white flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">BR</span>
+              <span className="text-white font-semibold text-sm">BJR</span>
             </div>
             <span className="text-white/80 text-lg font-normal">
-              Birk Ramstad
+              Birk Jonathan Ramstad
             </span>
           </div>
 

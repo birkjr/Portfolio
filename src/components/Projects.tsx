@@ -2,9 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Github, ExternalLink, Code, Star } from "lucide-react";
+import { Code, Star } from "lucide-react";
 
 interface Project {
   title: string;
@@ -17,28 +15,20 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "E-commerce Platform",
-    description: "Full-stack webapplikasjon med React, Node.js og PostgreSQL",
-    technologies: ["React", "Node.js", "PostgreSQL", "Tailwind"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: "Teknologiporten NTNU",
+    description: "Offisiell nettside for Teknologiporten - IT-utvikler rolle",
+    technologies: ["React", "Next.js", "Backend: Supabase", "Full-stack", "TypeScript", "Tailwind"],
+    github: "https://github.com/Teknologiporten/tp-nettside",
+    demo: "",
     featured: true
   },
   {
-    title: "Mobile App",
-    description: "React Native app for produktivitet med offline-støtte",
-    technologies: ["React Native", "TypeScript", "Redux"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: "EMIL-Link",
+    description: "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
+    technologies: ["Webdesign", "Backend: Supabase", "Full-stack", "TypeScript", "Tailwind", "React"],
+    github: "",
+    demo: "https://www.emil-link.no",
     featured: true
-  },
-  {
-    title: "API Service",
-    description: "RESTful API med autentisering og dokumentasjon",
-    technologies: ["Python", "FastAPI", "MongoDB", "Docker"],
-    github: "https://github.com",
-    demo: "https://demo.com",
-    featured: false
   }
 ];
 
@@ -59,9 +49,18 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <Card key={index} className={`group overflow-hidden glass hover-glow transition-all duration-500 ${project.featured ? 'md:col-span-2 lg:col-span-1 border-purple-500/50' : 'border-border/50'}`}>
+        <div className="flex flex-wrap justify-center gap-8">
+          {projects.map((project, index) => {
+            const link = project.demo || project.github;
+            return (
+              <a
+                key={index}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full max-w-md"
+              >
+                <Card className="group overflow-hidden glass hover-glow transition-all duration-500 border-border/50 h-full cursor-pointer">
               <div className="aspect-video bg-gradient-to-br from-purple-900/20 to-blue-900/20 flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Code className="w-16 h-16 text-purple-400 group-hover:text-purple-300 transition-colors duration-300" />
@@ -88,24 +87,11 @@ export function Projects() {
                     </Badge>
                   ))}
                 </div>
-                <Separator className="mb-4 bg-border/50" />
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm" className="flex-1 border-purple-500/50 hover:border-purple-400 hover:bg-purple-500/10 transition-all duration-300" asChild>
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4 mr-2" />
-                      Kode
-                    </a>
-                  </Button>
-                  <Button variant="outline" size="sm" className="flex-1 border-blue-500/50 hover:border-blue-400 hover:bg-blue-500/10 transition-all duration-300" asChild>
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Demo
-                    </a>
-                  </Button>
-                </div>
               </CardContent>
             </Card>
-          ))}
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -13,17 +13,19 @@ const skills: Skill[] = [
   { name: "React.js", level: 90, category: "Frontend" },
   { name: "TypeScript", level: 85, category: "Frontend" },
   { name: "Webutvikling", level: 90, category: "Frontend" },
-  { name: "Supabase", level: 80, category: "Backend" },
+  { name: "Supabase", level: 90, category: "Backend" },
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "IT-utvikling", level: 85, category: "Development" },
   { name: "Forhandling", level: 85, category: "Leadership" },
-  { name: "Ledelse", level: 80, category: "Leadership" },
+  { name: "Ledelse", level: 75, category: "Leadership" },
   { name: "Markedsføring", level: 75, category: "Business" },
   { name: "Webdesign", level: 80, category: "Design" },
   { name: "Samarbeid", level: 90, category: "Skills" },
   { name: "Kundeservice", level: 85, category: "Skills" },
   { name: "Salg", level: 80, category: "Skills" },
-  { name: "Git", level: 85, category: "Tools" }
+  { name: "Git", level: 95, category: "Tools" },
+  { name: "Gitlab", level: 75, category: "Tools" }
+
 ];
 
 export function Skills() {
