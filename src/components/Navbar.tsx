@@ -7,10 +7,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Hjem", href: "#home" },
-    { name: "Om Meg", href: "#about" },
+    { name: "Om Meg", href: "#home" },
     { name: "Prosjekter", href: "#projects" },
-    { name: "Oppnåelser", href: "#achievements" },
+    { name: "Erfaringer", href: "#experience" },
     { name: "Ferdigheter", href: "#skills" },
     { name: "Kontakt", href: "#contact" },
   ];
