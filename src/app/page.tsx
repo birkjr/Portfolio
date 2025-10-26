@@ -93,7 +93,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="pt-20 scroll-smooth">
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
         {/* Animated background */}
@@ -153,7 +153,7 @@ export default function Home() {
                 <div className="gradient-border p-1">
                   <div className="w-80 h-80 rounded-full flex items-center justify-center glass relative overflow-hidden">
                     <Avatar className="w-72 h-72">
-                      <AvatarImage src="/api/placeholder/300/300" />
+                      <AvatarImage src="/profile.jpg" alt="Birk Ramstad" />
                       <AvatarFallback className="text-6xl font-bold text-gradient bg-transparent">
                         BR
                       </AvatarFallback>
