@@ -23,7 +23,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-md" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+    <nav
+      className="fixed top-0 w-full z-50 backdrop-blur-md"
+      style={{
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      }}
+    >
       <div className="container mx-auto px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}

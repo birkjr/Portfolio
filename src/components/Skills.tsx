@@ -24,14 +24,13 @@ const skills: Skill[] = [
   { name: "Kundeservice", level: 85, category: "Skills" },
   { name: "Salg", level: 80, category: "Skills" },
   { name: "Git", level: 95, category: "Tools" },
-  { name: "Gitlab", level: 75, category: "Tools" }
-
+  { name: "Gitlab", level: 75, category: "Tools" },
 ];
 
 export function Skills() {
   return (
     <section id="skills" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
@@ -45,22 +44,42 @@ export function Skills() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {['Frontend', 'Backend', 'Development', 'Leadership', 'Business', 'Design', 'Skills', 'Tools'].map((category) => (
-            <Card key={category} className="glass hover-glow transition-all duration-300">
+          {[
+            "Frontend",
+            "Backend",
+            "Development",
+            "Leadership",
+            "Business",
+            "Design",
+            "Skills",
+            "Tools",
+          ].map((category) => (
+            <Card
+              key={category}
+              className="glass hover-glow transition-all duration-300"
+            >
               <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center text-gradient">{category}</CardTitle>
+                <CardTitle className="text-xl font-semibold text-center text-gradient">
+                  {category}
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {skills.filter(skill => skill.category === category).map((skill, index) => (
-                    <div key={index} className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium text-foreground">{skill.name}</span>
-                        <span className="text-sm text-purple-400 font-semibold">{skill.level}%</span>
+                  {skills
+                    .filter((skill) => skill.category === category)
+                    .map((skill, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm font-medium text-foreground">
+                            {skill.name}
+                          </span>
+                          <span className="text-sm text-purple-400 font-semibold">
+                            {skill.level}%
+                          </span>
+                        </div>
+                        <Progress value={skill.level} className="h-2" />
                       </div>
-                      <Progress value={skill.level} className="h-2" />
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </CardContent>
             </Card>

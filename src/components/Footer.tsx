@@ -13,17 +13,25 @@ export function Footer() {
               <span className="text-white font-bold text-xs">BR</span>
             </div>
             <span className="text-sm text-muted-foreground">
-              © 2024 Birk Ramstad. Alle rettigheter forbeholdt.
+              © 2025 Birk Jonathan Ramstad.
             </span>
           </div>
           <div className="flex space-x-4">
             <Button variant="ghost" size="sm" asChild>
-              <a href="https://github.com/birkjr" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://github.com/birkjr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Github className="w-4 h-4" />
               </a>
             </Button>
             <Button variant="ghost" size="sm" asChild>
-              <a href="https://www.linkedin.com/in/birkjramstad/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.linkedin.com/in/birkjramstad/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Linkedin className="w-4 h-4" />
               </a>
             </Button>

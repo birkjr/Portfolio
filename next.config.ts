@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: require('path').join(__dirname, '.'),
+  outputFileTracingRoot: require("path").join(__dirname, "."),
   /* config options here */
 };
 

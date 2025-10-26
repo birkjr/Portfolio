@@ -1,6 +1,12 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, LinkedinIcon } from "lucide-react";
 
@@ -11,7 +17,7 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Kontakt meg</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Har du et prosjekt på lur? La oss snakke sammen og se hvordan jeg kan hjelpe deg.
+            Er min profil spennende eller har du noe spørsmål? Kontakt meg!
           </p>
         </div>
 
@@ -32,13 +38,16 @@ export function Contact() {
                   </a>
                 </Button>
                 <Button variant="outline" className="h-12" asChild>
-                  <a href="https://www.linkedin.com/in/birkjramstad/" target="_blank" rel="noopener noreferrer">
+                  <a
+                    href="https://www.linkedin.com/in/birkjramstad/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <LinkedinIcon className="w-4 h-4 mr-2" />
                     LinkedIn
                   </a>
                 </Button>
               </div>
-
             </CardContent>
           </Card>
         </div>
