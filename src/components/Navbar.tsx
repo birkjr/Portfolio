@@ -8,6 +8,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: "Om Meg", href: "#home" },
+    { name: "Utdanning", href: "#education" },
     { name: "Prosjekter", href: "#projects" },
     { name: "Erfaringer", href: "#experience" },
     { name: "Ferdigheter", href: "#skills" },

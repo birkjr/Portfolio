@@ -40,9 +40,9 @@ export function Hero() {
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-2xl animate-slide-up leading-relaxed">
-                Full-stack utvikler med lidenskap for å skape innovative
-                løsninger som gjør en forskjell. Spesialisert i moderne
-                webteknologier og brukeropplevelse.
+                Student ved NTNU som driver med full-stack utvikling. Kombinerer 
+                studier i datateknologi med praktisk erfaring i moderne webutvikling 
+                og brukeropplevelse.
               </p>
             </div>
 

@@ -15,7 +15,8 @@ const skills: Skill[] = [
   { name: "Webutvikling", level: 90, category: "Frontend" },
   { name: "Supabase", level: 90, category: "Backend" },
   { name: "Firebase", level: 50, category: "Backend" },
-  { name: "IT-utvikling", level: 85, category: "Development" },
+  { name: "ChatGPT", level: 100, category: "AI" },
+  { name: "Cursor", level: 100, category: "AI" },
   { name: "Forhandling", level: 85, category: "Leadership" },
   { name: "Ledelse", level: 75, category: "Leadership" },
   { name: "Markedsføring", level: 75, category: "Business" },
@@ -47,7 +48,7 @@ export function Skills() {
           {[
             "Frontend",
             "Backend",
-            "Development",
+            "AI",
             "Leadership",
             "Business",
             "Design",
