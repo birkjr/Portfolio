@@ -7,10 +7,10 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "Hjem", href: "#home" },
-    { name: "Om Meg", href: "#about" },
+    { name: "Om Meg", href: "#home" },
+    { name: "Utdanning", href: "#education" },
     { name: "Prosjekter", href: "#projects" },
-    { name: "Oppnåelser", href: "#achievements" },
+    { name: "Erfaringer", href: "#experience" },
     { name: "Ferdigheter", href: "#skills" },
     { name: "Kontakt", href: "#contact" },
   ];
@@ -24,16 +24,22 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-md" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', borderBottom: '1px solid rgba(255, 255, 255, 0.1)' }}>
+    <nav
+      className="fixed top-0 w-full z-50 backdrop-blur-md"
+      style={{
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      }}
+    >
       <div className="container mx-auto px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 border border-white flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">BR</span>
+              <span className="text-white font-semibold text-sm">BJR</span>
             </div>
             <span className="text-white/80 text-lg font-normal">
-              Birk Ramstad
+              Birk Jonathan Ramstad
             </span>
           </div>
 

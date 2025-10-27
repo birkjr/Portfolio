@@ -1,10 +1,13 @@
 # Portfolio
+
 Personal website for Birk Ramstad
 
 ## About
+
 Modern portfolio website built with Next.js, featuring a dark theme design with glassmorphism effects, neon glows, and smooth animations.
 
 ## Tech Stack
+
 - **Framework:** Next.js 15.5.4
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
@@ -14,6 +17,7 @@ Modern portfolio website built with Next.js, featuring a dark theme design with 
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 20+
 - pnpm
 
@@ -36,6 +40,7 @@ pnpm start
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Features
+
 - 🌙 Dark theme design
 - ✨ Glassmorphism effects
 - 🎨 Neon glow animations
