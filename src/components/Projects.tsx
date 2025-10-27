@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Star } from "lucide-react";
+import { Code } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface Project {
@@ -18,6 +18,7 @@ interface Project {
   github: string;
   demo: string;
   featured: boolean;
+  image: string;
 }
 
 const projects_no: Project[] = [
@@ -35,6 +36,7 @@ const projects_no: Project[] = [
     github: "https://github.com/Teknologiporten/tp-nettside",
     demo: "",
     featured: true,
+    image: "/teknologiporten_nettside.png",
   },
   {
     title: "EMIL-Link",
@@ -50,6 +52,7 @@ const projects_no: Project[] = [
     github: "",
     demo: "https://www.emil-link.no",
     featured: true,
+    image: "/emil_link.png",
   },
 ];
 
@@ -68,6 +71,7 @@ const projects_en: Project[] = [
     github: "https://github.com/Teknologiporten/tp-nettside",
     demo: "",
     featured: true,
+    image: "/teknologiporten_nettside.png",
   },
   {
     title: "EMIL-Link",
@@ -83,6 +87,7 @@ const projects_en: Project[] = [
     github: "",
     demo: "https://www.emil-link.no",
     featured: true,
+    image: "/emil_link.png",
   },
 ];
 
@@ -134,12 +139,15 @@ export function Projects() {
               >
                 <Card className="group overflow-hidden glass hover-glow transition-all duration-500 border-border/50 h-full cursor-pointer">
                   <div className="aspect-video bg-gradient-to-br from-blue-950/20 to-cyan-950/20 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <Code className="w-16 h-16 text-blue-400 group-hover:text-blue-300 transition-colors duration-300" />
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
                     {project.featured && (
                       <div className="absolute top-4 right-4">
                         <Badge className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-0">
-                          <Star className="w-3 h-3 mr-1" />
+                          <Code className="w-3 h-3 mr-1" />
                         </Badge>
                       </div>
                     )}
