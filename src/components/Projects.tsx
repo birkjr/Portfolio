@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code, Star } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Project {
   title: string;
@@ -19,7 +20,7 @@ interface Project {
   featured: boolean;
 }
 
-const projects: Project[] = [
+const projects_no: Project[] = [
   {
     title: "Teknologiporten NTNU",
     description: "Offisiell nettside for Teknologiporten - IT-utvikler rolle",
@@ -37,8 +38,7 @@ const projects: Project[] = [
   },
   {
     title: "EMIL-Link",
-    description:
-      "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
+    description: "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
     technologies: [
       "Webdesign",
       "Backend: Supabase",
@@ -53,7 +53,57 @@ const projects: Project[] = [
   },
 ];
 
+const projects_en: Project[] = [
+  {
+    title: "Teknologiporten NTNU",
+    description: "Official website for Teknologiporten - IT developer role",
+    technologies: [
+      "React",
+      "Next.js",
+      "Backend: Supabase",
+      "Full-stack",
+      "TypeScript",
+      "Tailwind",
+    ],
+    github: "https://github.com/Teknologiporten/tp-nettside",
+    demo: "",
+    featured: true,
+  },
+  {
+    title: "EMIL-Link",
+    description: "Marketing and web design project as Marketing Team Leader",
+    technologies: [
+      "Web Design",
+      "Backend: Supabase",
+      "Full-stack",
+      "TypeScript",
+      "Tailwind",
+      "React",
+    ],
+    github: "",
+    demo: "https://www.emil-link.no",
+    featured: true,
+  },
+];
+
+const content = {
+  no: {
+    label: "Prosjekter",
+    title: "Mine Prosjekter",
+    subtitle: "Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er designet med fokus på brukeropplevelse og skalerbarhet."
+  },
+  en: {
+    label: "Projects",
+    title: "My Projects",
+    subtitle: "Explore some of the projects I've worked on. Each solution is designed with focus on user experience and scalability."
+  }
+};
+
 export function Projects() {
+  const { language } = useLanguage();
+  const projects = language === 'no' ? projects_no : projects_en;
+  const t = content[language];
+
   return (
     <section id="projects" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
@@ -61,14 +111,13 @@ export function Projects() {
         <div className="text-center mb-16 animate-slide-up">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">Prosjekter</span>
+            <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
           <h2 className="text-4xl font-bold mb-4 text-gradient">
-            Mine Prosjekter
+            {t.title}
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er
-            designet med fokus på brukeropplevelse og skalerbarhet.
+            {t.subtitle}
           </p>
         </div>
 

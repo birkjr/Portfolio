@@ -9,24 +9,43 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, LinkedinIcon } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+
+const content = {
+  no: {
+    title: "Kontakt meg",
+    subtitle: "Er min profil spennende eller har du noe spørsmål? Kontakt meg!",
+    cardTitle: "Send meg en melding",
+    cardDescription: "Jeg svarer vanligvis innen 24 timer på arbeidsdager."
+  },
+  en: {
+    title: "Contact me",
+    subtitle: "Is my profile interesting or do you have any questions? Contact me!",
+    cardTitle: "Send me a message",
+    cardDescription: "I usually reply within 24 hours on weekdays."
+  }
+};
 
 export function Contact() {
+  const { language } = useLanguage();
+  const t = content[language];
+
   return (
     <section className="pt-32 pb-20 flex-grow flex flex-col justify-center">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4">Kontakt meg</h2>
+          <h2 className="text-4xl font-bold mb-4">{t.title}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Er min profil spennende eller har du noe spørsmål? Kontakt meg!
+            {t.subtitle}
           </p>
         </div>
 
         <div className="max-w-2xl mx-auto">
           <Card>
             <CardHeader>
-              <CardTitle>Send meg en melding</CardTitle>
+              <CardTitle>{t.cardTitle}</CardTitle>
               <CardDescription>
-                Jeg svarer vanligvis innen 24 timer på arbeidsdager.
+                {t.cardDescription}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8 py-8">
