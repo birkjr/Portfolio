@@ -8,13 +8,15 @@ export function Footer() {
     <footer className="py-8 border-t">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center justify-center">
-              <span className="text-white font-bold text-xs">BR</span>
+          <div className="flex flex-col sm:flex-row items-center sm:space-x-2 mb-4 md:mb-0 text-center sm:text-left">
+            <div className="flex items-center space-x-2">
+              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-xs">BR</span>
+              </div>
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                © 2025 Birk Jonathan Ramstad.
+              </span>
             </div>
-            <span className="text-sm text-muted-foreground">
-              © 2025 Birk Jonathan Ramstad.
-            </span>
           </div>
           <div className="flex space-x-4">
             <Button variant="ghost" size="sm" asChild>
