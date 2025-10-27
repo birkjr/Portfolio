@@ -3,7 +3,14 @@
 @tailwind utilities;
 
 html {
-  scroll-padding-top: 80px;
+  scroll-padding-top: 120px;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -210,4 +217,47 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground));
+}
+
+/* Smooth scroll container */
+.scroll-container {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar but keep functionality */
+}
+
+.scroll-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.section-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  scroll-snap-align: start;
+  scroll-margin-top: 0;
+}
+
+.section-container:first-child {
+  padding-top: 80px;
+}
+
+.contact-with-footer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+footer {
+  position: relative;
+  width: 100%;
+  margin-top: 0;
+  flex-shrink: 0;
 }
