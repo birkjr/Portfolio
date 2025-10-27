@@ -1,18 +1,40 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Download,
-  Mail,
   Calendar,
   MapPin,
   Code,
   Sparkles,
-  Zap,
 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Hero() {
+  const { language } = useLanguage();
+
+  const content = {
+    no: {
+      info: "Datateknologi student ved NTNU",
+      role: "Full-Stack Developer",
+      greeting: "Hei, jeg er",
+      name: "Birk Jonathan Ramstad",
+      description: "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling og brukeropplevelse.",
+      location: "Trondheim/Oslo, Norge",
+      born: "Født 2003"
+    },
+    en: {
+      info: "Computer Science student at NTNU",
+      role: "Full-Stack Developer",
+      greeting: "Hello, I'm",
+      name: "Birk Jonathan Ramstad",
+      description: "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development and user experience.",
+      location: "Trondheim/Oslo, Norway",
+      born: "Born 2003"
+    }
+  };
+
+  const t = content[language];
+
   return (
     <section
       id="home"
@@ -30,30 +52,35 @@ export function Hero() {
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
                 <span className="text-sm text-blue-400 font-medium">
-                  Full-Stack Developer
+                  {t.info}
                 </span>
+              </div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-sm text-blue-400 font-medium">
+                  {t.role}
+                </span>
+                
               </div>
 
               <h1 className="text-5xl lg:text-6xl font-bold animate-fade-in leading-tight">
-                Hei, jeg er{" "}
-                <span className="text-gradient">Birk Jonathan Ramstad</span>
+                {t.greeting}{" "}
+                <span className="text-gradient">{t.name}</span>
               </h1>
 
               <p className="text-xl text-muted-foreground max-w-2xl animate-slide-up leading-relaxed">
-                Student ved NTNU som driver med full-stack utvikling. Kombinerer 
-                studier i datateknologi med praktisk erfaring i moderne webutvikling 
-                og brukeropplevelse.
+                {t.description}
               </p>
             </div>
 
             <div className="flex items-center space-x-6 pt-6">
               <div className="flex items-center space-x-2 glass rounded-full px-3 py-2">
                 <MapPin className="w-4 h-4 text-blue-400" />
-                <span className="text-sm">Trondheim/Oslo, Norge</span>
+                <span className="text-sm">{t.location}</span>
               </div>
               <div className="flex items-center space-x-2 glass rounded-full px-3 py-2">
                 <Calendar className="w-4 h-4 text-green-400" />
-                <span className="text-sm">Født 2003</span>
+                <span className="text-sm">{t.born}</span>
               </div>
             </div>
           </div>

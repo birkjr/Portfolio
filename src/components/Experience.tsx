@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code, Users, TrendingUp, Star, Brain, LucideIcon } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Experience {
   title: string;
@@ -17,7 +18,7 @@ interface Experience {
   icon: LucideIcon;
 }
 
-const experiences: Experience[] = [
+const experiences_no: Experience[] = [
   {
     title: "IT-utvikler",
     description: "Teknologiporten, NTNU - Full-stack utvikler",
@@ -32,8 +33,7 @@ const experiences: Experience[] = [
   },
   {
     title: "Teamleder Markedsføring",
-    description:
-      "EMIL-Link - Leder team med fokus på forhandling og samarbeid, og utviklet ferdig nettside",
+    description: "EMIL-Link - Leder team med fokus på forhandling og samarbeid, og utviklet ferdig nettside",
     year: "2024",
     icon: Users,
   },
@@ -51,7 +51,57 @@ const experiences: Experience[] = [
   },
 ];
 
+const experiences_en: Experience[] = [
+  {
+    title: "IT Developer",
+    description: "Teknologiporten, NTNU - Full-stack developer",
+    year: "2023 - Now",
+    icon: Code,
+  },
+  {
+    title: "AI and Machine Learning Analyst",
+    description: "Concentrix - Analysis and development of AI solutions with focus on machine learning and artificial intelligence",
+    year: "2025",
+    icon: Brain,
+  },
+  {
+    title: "Marketing Team Leader",
+    description: "EMIL-Link - Leads team with focus on negotiation and collaboration, and developed finished website",
+    year: "2024",
+    icon: Users,
+  },
+  {
+    title: "Marketing Team Member",
+    description: "EMIL-Link - Marketing and web design",
+    year: "2023-2024",
+    icon: TrendingUp,
+  },
+  {
+    title: "Waiter",
+    description: "Risør Fish Processing - Customer service and sales",
+    year: "2024",
+    icon: Star,
+  },
+];
+
+const content = {
+  no: {
+    label: "Erfaringer",
+    title: "Erfaringer",
+    subtitle: "Noen milepæler og prestasjoner jeg er stolt av gjennom karrieren."
+  },
+  en: {
+    label: "Experience",
+    title: "Experience",
+    subtitle: "Some milestones and achievements I am proud of throughout my career."
+  }
+};
+
 export function Experience() {
+  const { language } = useLanguage();
+  const experiences = language === 'no' ? experiences_no : experiences_en;
+  const t = content[language];
+
   return (
     <section id="experience" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
@@ -59,11 +109,11 @@ export function Experience() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">Erfaringer</span>
+            <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">Erfaringer</h2>
+          <h2 className="text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Noen milepæler og prestasjoner jeg er stolt av gjennom karrieren.
+            {t.subtitle}
           </p>
         </div>
 

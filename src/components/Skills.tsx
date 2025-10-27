@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Skill {
   name: string;
@@ -9,7 +10,7 @@ interface Skill {
   category: string;
 }
 
-const skills: Skill[] = [
+const skills_no: Skill[] = [
   { name: "React.js", level: 85, category: "Frontend" },
   { name: "TypeScript", level: 90, category: "Frontend" },
   { name: "Webutvikling", level: 90, category: "Frontend" },
@@ -26,8 +27,8 @@ const skills: Skill[] = [
   { name: "Cursor", level: 100, category: "AI" },
   { name: "Claude", level: 100, category: "AI" },
   { name: "Gemini", level: 100, category: "AI" },
-  { name: "Forhandling", level: 75, category: "Leadership" },
-  { name: "Ledelse", level: 85, category: "Leadership" },
+  { name: "Forhandling", level: 75, category: "Ledelse" },
+  { name: "Ledelse", level: 85, category: "Ledelse" },
   { name: "Markedsføring", level: 75, category: "Business" },
   { name: "Webdesign", level: 80, category: "Design" },
   { name: "Samarbeid", level: 90, category: "Skills" },
@@ -37,7 +38,58 @@ const skills: Skill[] = [
   { name: "Gitlab", level: 75, category: "Tools" },
 ];
 
+const skills_en: Skill[] = [
+  { name: "React.js", level: 85, category: "Frontend" },
+  { name: "TypeScript", level: 90, category: "Frontend" },
+  { name: "Web Development", level: 90, category: "Frontend" },
+  { name: "Python", level: 90, category: "Frontend" },
+  { name: "Java", level: 75, category: "Backend" },
+  { name: "JavaScript", level: 75, category: "Frontend" },
+  { name: "HTML", level: 70, category: "Frontend" },
+  { name: "CSS", level: 80, category: "Frontend" },
+  { name: "Tailwind", level: 85, category: "Frontend" },
+  { name: "MySQL", level: 80, category: "Backend" },
+  { name: "Supabase", level: 90, category: "Backend" },
+  { name: "Firebase", level: 50, category: "Backend" },
+  { name: "ChatGPT", level: 100, category: "AI" },
+  { name: "Cursor", level: 100, category: "AI" },
+  { name: "Claude", level: 100, category: "AI" },
+  { name: "Gemini", level: 100, category: "AI" },
+  { name: "Negotiation", level: 75, category: "Leadership" },
+  { name: "Leadership", level: 85, category: "Leadership" },
+  { name: "Marketing", level: 75, category: "Business" },
+  { name: "Web Design", level: 80, category: "Design" },
+  { name: "Collaboration", level: 90, category: "Skills" },
+  { name: "Customer Service", level: 85, category: "Skills" },
+  { name: "Sales", level: 70, category: "Skills" },
+  { name: "Github", level: 95, category: "Tools" },
+  { name: "Gitlab", level: 75, category: "Tools" },
+];
+
+const categories = {
+  no: ["Frontend", "Backend", "AI", "Ledelse", "Business", "Design", "Skills", "Tools"],
+  en: ["Frontend", "Backend", "AI", "Leadership", "Business", "Design", "Skills", "Tools"]
+};
+
+const content = {
+  no: {
+    label: "Ferdigheter",
+    title: "Ferdigheter",
+    subtitle: "Teknologier og verktøy jeg jobber med for å skape løsninger."
+  },
+  en: {
+    label: "Skills",
+    title: "Skills",
+    subtitle: "Technologies and tools I work with to create solutions."
+  }
+};
+
 export function Skills() {
+  const { language } = useLanguage();
+  const skills = language === 'no' ? skills_no : skills_en;
+  const categories_list = categories[language];
+  const t = content[language];
+
   return (
     <section id="skills" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
@@ -45,25 +97,16 @@ export function Skills() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">Ferdigheter</span>
+            <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">Ferdigheter</h2>
+          <h2 className="text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Teknologier og verktøy jeg jobber med for å skape løsninger.
+            {t.subtitle}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {[
-            "Frontend",
-            "Backend",
-            "AI",
-            "Leadership",
-            "Business",
-            "Design",
-            "Skills",
-            "Tools",
-          ].map((category) => (
+          {categories_list.map((category) => (
             <Card
               key={category}
               className="glass hover-glow transition-all duration-300"
