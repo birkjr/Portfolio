@@ -18,7 +18,7 @@ export default function Navbar() {
       { name: "Kontakt", href: "#contact" },
     ],
     en: [
-      { name: "About", href: "#home" },
+      { name: "About Me", href: "#home" },
       { name: "Education", href: "#education" },
       { name: "Projects", href: "#projects" },
       { name: "Experience", href: "#experience" },
