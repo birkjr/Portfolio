@@ -33,7 +33,7 @@ const experiences_no: Experience[] = [
     description: "Concentrix - Analyse og utvikling av AI-løsninger med fokus på machine learning og kunstig intelligens",
     year: "2025",
     icon: Brain,
-    detailedDescription: "I rollen som AI and Machine Learning Analyst hos Concentrix arbeider jeg med analyse og utvikling av AI-løsninger. Jeg fokuserer på machine learning og kunstig intelligens for å lage løsninger som kan forbedre forretningsprosesser og forbrukeropplevelsen. Dette inkluderer arbeid med datasett, modellutvikling og testing av ulike ML-algoritmer."
+    detailedDescription: "I rollen som AI and Machine Learning Analyst hos Concentrix arbeidet jeg med analyse og utvikling av AI-løsninger."
   },
   {
     title: "Teamleder Markedsføring",
@@ -71,7 +71,7 @@ const experiences_en: Experience[] = [
     description: "Concentrix - Analysis and development of AI solutions with focus on machine learning and artificial intelligence",
     year: "2025",
     icon: Brain,
-    detailedDescription: "In the role of AI and Machine Learning Analyst at Concentrix, I work with analysis and development of AI solutions. I focus on machine learning and artificial intelligence to create solutions that can improve business processes and consumer experience. This includes work with datasets, model development, and testing of various ML algorithms."
+    detailedDescription: "In the role of AI and Machine Learning Analyst at Concentrix, I worked with analysis and development of AI solutions."
   },
   {
     title: "Marketing Team Leader",

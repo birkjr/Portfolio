@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, School, LucideIcon, X } from "lucide-react";
+import { GraduationCap, School, LucideIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface Education {
@@ -102,7 +101,6 @@ export function Education() {
   const { language } = useLanguage();
   const educations = language === 'no' ? educations_no : educations_en;
   const t = content[language];
-  const [selectedEducation, setSelectedEducation] = useState<number | null>(null);
 
   return (
     <section id="education" className="py-20 relative">
@@ -119,50 +117,6 @@ export function Education() {
           </p>
         </div>
 
-        {/* Modal Overlay */}
-        {selectedEducation !== null && (
-          <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedEducation(null)}
-          >
-            <Card
-              className="glass hover-glow w-full max-w-2xl relative animate-fade-in"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setSelectedEducation(null)}
-                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    {(() => {
-                      const IconComponent = educations[selectedEducation].icon;
-                      return <IconComponent className="w-6 h-6 text-white" />;
-                    })()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <CardTitle className="text-2xl mb-2">{educations[selectedEducation].institution}</CardTitle>
-                    <CardDescription className="text-blue-300 font-medium text-lg mb-2">
-                      {educations[selectedEducation].program}
-                    </CardDescription>
-                    <Badge variant="outline" className="text-sm">
-                      {educations[selectedEducation].period}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg text-muted-foreground/90 leading-relaxed">
-                  {educations[selectedEducation].detailedDescription || educations[selectedEducation].description}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {educations.map((education, index) => {
@@ -170,12 +124,7 @@ export function Education() {
             return (
               <Card
                 key={index}
-                className="glass hover-glow transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedEducation(index)}
-                style={{
-                  opacity: selectedEducation !== null && selectedEducation !== index ? 0.3 : 1,
-                  transform: selectedEducation === index ? 'scale(1.05)' : 'scale(1)',
-                }}
+                className="glass hover-glow transition-all duration-300"
               >
                 <CardHeader>
                   <div className="flex items-start gap-4">
