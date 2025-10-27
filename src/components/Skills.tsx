@@ -64,6 +64,8 @@ const skills_en: Skill[] = [
   { name: "Sales", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
+  { name: "Vite", level: 80, category: "Tools" },
+  { name: "Next.js", level: 90, category: "Tools" },
 ];
 
 const categories = {
