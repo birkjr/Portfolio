@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Users, TrendingUp, Star, LucideIcon } from "lucide-react";
+import { Code, Users, TrendingUp, Star, Brain, LucideIcon } from "lucide-react";
 
 interface Experience {
   title: string;
@@ -23,6 +23,12 @@ const experiences: Experience[] = [
     description: "Teknologiporten, NTNU - Full-stack utvikler",
     year: "2023 - Nå",
     icon: Code,
+  },
+  {
+    title: "AI and Machine Learning Analyst",
+    description: "Concentrix - Analyse og utvikling av AI-løsninger med fokus på machine learning og kunstig intelligens",
+    year: "2025",
+    icon: Brain,
   },
   {
     title: "Teamleder Markedsføring",
