@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, Users, TrendingUp, Star, LucideIcon } from "lucide-react";
+import { Code, Users, TrendingUp, Star, Brain, LucideIcon } from "lucide-react";
 
 interface Experience {
   title: string;
@@ -23,6 +23,12 @@ const experiences: Experience[] = [
     description: "Teknologiporten, NTNU - Full-stack utvikler",
     year: "2023 - Nå",
     icon: Code,
+  },
+  {
+    title: "AI and Machine Learning Analyst",
+    description: "Concentrix - Analyse og utvikling av AI-løsninger med fokus på machine learning og kunstig intelligens",
+    year: "2025",
+    icon: Brain,
   },
   {
     title: "Teamleder Markedsføring",
@@ -61,7 +67,7 @@ export function Experience() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {experiences.map((experience, index) => {
             const IconComponent = experience.icon;
             return (

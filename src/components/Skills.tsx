@@ -10,21 +10,30 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  { name: "React.js", level: 90, category: "Frontend" },
-  { name: "TypeScript", level: 85, category: "Frontend" },
+  { name: "React.js", level: 85, category: "Frontend" },
+  { name: "TypeScript", level: 90, category: "Frontend" },
   { name: "Webutvikling", level: 90, category: "Frontend" },
+  { name: "Python", level: 90, category: "Frontend" },
+  { name: "Java", level: 75, category: "Backend" },
+  { name: "JavaScript", level: 75, category: "Frontend" },
+  { name: "HTML", level: 70, category: "Frontend" },
+  { name: "CSS", level: 80, category: "Frontend" },
+  { name: "Tailwind", level: 85, category: "Frontend" },
+  { name: "MySQL", level: 80, category: "Backend" },
   { name: "Supabase", level: 90, category: "Backend" },
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "ChatGPT", level: 100, category: "AI" },
   { name: "Cursor", level: 100, category: "AI" },
-  { name: "Forhandling", level: 85, category: "Leadership" },
-  { name: "Ledelse", level: 75, category: "Leadership" },
+  { name: "Claude", level: 100, category: "AI" },
+  { name: "Gemini", level: 100, category: "AI" },
+  { name: "Forhandling", level: 75, category: "Leadership" },
+  { name: "Ledelse", level: 85, category: "Leadership" },
   { name: "Markedsføring", level: 75, category: "Business" },
   { name: "Webdesign", level: 80, category: "Design" },
   { name: "Samarbeid", level: 90, category: "Skills" },
   { name: "Kundeservice", level: 85, category: "Skills" },
-  { name: "Salg", level: 80, category: "Skills" },
-  { name: "Git", level: 95, category: "Tools" },
+  { name: "Salg", level: 70, category: "Skills" },
+  { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
 ];
 
@@ -44,7 +53,7 @@ export function Skills() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {[
             "Frontend",
             "Backend",
