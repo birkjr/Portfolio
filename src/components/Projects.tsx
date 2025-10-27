@@ -118,10 +118,10 @@ export function Projects() {
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
             {t.title}
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             {t.subtitle}
           </p>
         </div>
@@ -154,11 +154,11 @@ export function Projects() {
                   </div>
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="group-hover:text-blue-400 transition-colors duration-300">
+                      <CardTitle className="group-hover:text-blue-400 transition-colors duration-300 text-base sm:text-lg">
                         {project.title}
                       </CardTitle>
                     </div>
-                    <CardDescription className="text-muted-foreground/80">
+                    <CardDescription className="text-muted-foreground/80 text-sm sm:text-base">
                       {project.description}
                     </CardDescription>
                   </CardHeader>
@@ -168,7 +168,7 @@ export function Projects() {
                         <Badge
                           key={techIndex}
                           variant="outline"
-                          className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10 transition-colors duration-300"
+                          className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10 transition-colors duration-300 text-xs"
                         >
                           {tech}
                         </Badge>

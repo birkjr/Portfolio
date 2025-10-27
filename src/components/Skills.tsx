@@ -99,8 +99,8 @@ export function Skills() {
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             {t.subtitle}
           </p>
         </div>
@@ -112,7 +112,7 @@ export function Skills() {
               className="glass hover-glow transition-all duration-300"
             >
               <CardHeader>
-                <CardTitle className="text-xl font-semibold text-center text-gradient">
+                <CardTitle className="text-lg sm:text-xl font-semibold text-center text-gradient">
                   {category}
                 </CardTitle>
               </CardHeader>
@@ -123,10 +123,10 @@ export function Skills() {
                     .map((skill, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-foreground">
+                          <span className="text-xs sm:text-sm font-medium text-foreground">
                             {skill.name}
                           </span>
-                          <span className="text-sm text-purple-400 font-semibold">
+                          <span className="text-xs sm:text-sm text-purple-400 font-semibold">
                             {skill.level}%
                           </span>
                         </div>

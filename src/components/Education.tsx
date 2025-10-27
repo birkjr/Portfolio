@@ -111,8 +111,8 @@ export function Education() {
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             {t.subtitle}
           </p>
         </div>
@@ -127,13 +127,13 @@ export function Education() {
                 className="glass hover-glow transition-all duration-300"
               >
                 <CardHeader>
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                      <IconComponent className="w-6 h-6 text-white" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <CardTitle className="text-lg mb-2">{education.institution}</CardTitle>
-                      <CardDescription className="text-blue-300 font-medium mb-2">
+                      <CardTitle className="text-base sm:text-lg mb-2">{education.institution}</CardTitle>
+                      <CardDescription className="text-blue-300 font-medium text-sm sm:text-base mb-2">
                         {education.program}
                       </CardDescription>
                       <Badge variant="outline" className="text-xs">

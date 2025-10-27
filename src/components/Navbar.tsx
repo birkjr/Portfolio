@@ -55,12 +55,15 @@ export default function Navbar() {
       <div className="container mx-auto mr-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 border border-white flex items-center justify-center">
-              <span className="text-white font-semibold text-sm">BJR</span>
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 border border-white flex items-center justify-center">
+              <span className="text-white font-semibold text-xs sm:text-sm">BJR</span>
             </div>
-            <span className="text-white/80 text-lg font-normal">
+            <span className="text-white/80 text-sm sm:text-base md:text-lg font-normal hidden sm:inline">
               Birk Jonathan Ramstad
+            </span>
+            <span className="text-white/80 text-sm font-normal sm:hidden">
+              BJR
             </span>
           </div>
 

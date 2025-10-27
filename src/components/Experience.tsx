@@ -124,8 +124,8 @@ export function Experience() {
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             {t.subtitle}
           </p>
         </div>
@@ -189,11 +189,11 @@ export function Experience() {
                 }}
               >
                 <CardHeader>
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <IconComponent className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                   </div>
-                  <CardTitle className="text-lg">{experience.title}</CardTitle>
-                  <CardDescription>{experience.description}</CardDescription>
+                  <CardTitle className="text-base sm:text-lg">{experience.title}</CardTitle>
+                  <CardDescription className="text-sm sm:text-base">{experience.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Badge variant="outline">{experience.year}</Badge>
