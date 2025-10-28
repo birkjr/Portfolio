@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="scroll-container">
+      <div className="scroll-container relative z-10">
         <section id="home" className="section-container">
           <Hero />
         </section>
