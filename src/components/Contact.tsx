@@ -16,14 +16,15 @@ const content = {
     title: "Kontakt meg",
     subtitle: "Er min profil spennende eller har du noe spørsmål? Kontakt meg!",
     cardTitle: "Send meg en melding",
-    cardDescription: "Jeg svarer vanligvis innen 24 timer på arbeidsdager."
+    cardDescription: "Jeg svarer vanligvis innen 24 timer på arbeidsdager.",
   },
   en: {
     title: "Contact me",
-    subtitle: "Is my profile interesting or do you have any questions? Contact me!",
+    subtitle:
+      "Is my profile interesting or do you have any questions? Contact me!",
     cardTitle: "Send me a message",
-    cardDescription: "I usually reply within 24 hours on weekdays."
-  }
+    cardDescription: "I usually reply within 24 hours on weekdays.",
+  },
 };
 
 export function Contact() {
@@ -44,14 +45,15 @@ export function Contact() {
           <Card>
             <CardHeader>
               <CardTitle>{t.cardTitle}</CardTitle>
-              <CardDescription>
-                {t.cardDescription}
-              </CardDescription>
+              <CardDescription>{t.cardDescription}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-8 py-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <Button variant="outline" className="h-14 sm:h-16" asChild>
-                  <a href="mailto:birkrams@gmail.com" className="text-sm sm:text-base">
+                  <a
+                    href="mailto:birkrams@gmail.com"
+                    className="text-sm sm:text-base"
+                  >
                     <Mail className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     <span className="truncate">birkrams@gmail.com</span>
                   </a>

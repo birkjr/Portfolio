@@ -40,7 +40,8 @@ const projects_no: Project[] = [
   },
   {
     title: "EMIL-Link",
-    description: "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
+    description:
+      "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
     technologies: [
       "Webdesign",
       "Backend: Supabase",
@@ -95,18 +96,20 @@ const content = {
   no: {
     label: "Prosjekter",
     title: "Mine Prosjekter",
-    subtitle: "Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er designet med fokus på brukeropplevelse og skalerbarhet."
+    subtitle:
+      "Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er designet med fokus på brukeropplevelse og skalerbarhet.",
   },
   en: {
     label: "Projects",
     title: "My Projects",
-    subtitle: "Explore some of the projects I've worked on. Each solution is designed with focus on user experience and scalability."
-  }
+    subtitle:
+      "Explore some of the projects I've worked on. Each solution is designed with focus on user experience and scalability.",
+  },
 };
 
 export function Projects() {
   const { language } = useLanguage();
-  const projects = language === 'no' ? projects_no : projects_en;
+  const projects = language === "no" ? projects_no : projects_en;
   const t = content[language];
 
   return (

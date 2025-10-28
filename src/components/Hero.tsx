@@ -1,12 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Calendar,
-  MapPin,
-  Code,
-  Sparkles,
-} from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Hero() {
@@ -18,19 +13,21 @@ export function Hero() {
       role: "Full-Stack Developer",
       greeting: "Hei, jeg er",
       name: "Birk Jonathan Ramstad",
-      description: "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling og brukeropplevelse.",
+      description:
+        "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling og brukeropplevelse.",
       location: "Trondheim/Oslo, Norge",
-      born: "Født 2003"
+      born: "Født 2003",
     },
     en: {
       info: "Computer Science student at NTNU",
       role: "Full-Stack Developer",
       greeting: "Hello, I'm",
       name: "Birk Jonathan Ramstad",
-      description: "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development and user experience.",
+      description:
+        "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development and user experience.",
       location: "Trondheim/Oslo, Norway",
-      born: "Born 2003"
-    }
+      born: "Born 2003",
+    },
   };
 
   const t = content[language];
@@ -60,12 +57,10 @@ export function Hero() {
                 <span className="text-sm text-blue-400 font-medium">
                   {t.role}
                 </span>
-                
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold animate-fade-in leading-tight">
-                {t.greeting}{" "}
-                <span className="text-gradient">{t.name}</span>
+                {t.greeting} <span className="text-gradient">{t.name}</span>
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl animate-slide-up leading-relaxed">

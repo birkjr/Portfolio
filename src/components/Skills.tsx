@@ -69,26 +69,44 @@ const skills_en: Skill[] = [
 ];
 
 const categories = {
-  no: ["Frontend", "Backend", "AI", "Ledelse", "Business", "Design", "Skills", "Tools"],
-  en: ["Frontend", "Backend", "AI", "Leadership", "Business", "Design", "Skills", "Tools"]
+  no: [
+    "Frontend",
+    "Backend",
+    "AI",
+    "Ledelse",
+    "Business",
+    "Design",
+    "Skills",
+    "Tools",
+  ],
+  en: [
+    "Frontend",
+    "Backend",
+    "AI",
+    "Leadership",
+    "Business",
+    "Design",
+    "Skills",
+    "Tools",
+  ],
 };
 
 const content = {
   no: {
     label: "Ferdigheter",
     title: "Ferdigheter",
-    subtitle: "Teknologier og verktøy jeg jobber med for å skape løsninger."
+    subtitle: "Teknologier og verktøy jeg jobber med for å skape løsninger.",
   },
   en: {
     label: "Skills",
     title: "Skills",
-    subtitle: "Technologies and tools I work with to create solutions."
-  }
+    subtitle: "Technologies and tools I work with to create solutions.",
+  },
 };
 
 export function Skills() {
   const { language } = useLanguage();
-  const skills = language === 'no' ? skills_no : skills_en;
+  const skills = language === "no" ? skills_no : skills_en;
   const categories_list = categories[language];
   const t = content[language];
 
@@ -101,7 +119,9 @@ export function Skills() {
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
             <span className="text-blue-400 font-medium">{t.label}</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">{t.title}</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
+            {t.title}
+          </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             {t.subtitle}
           </p>
