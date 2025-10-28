@@ -62,9 +62,6 @@ export default function Navbar() {
             <span className="text-white/80 text-sm sm:text-base md:text-lg font-normal hidden sm:inline">
               Birk Jonathan Ramstad
             </span>
-            <span className="text-white/80 text-sm font-normal sm:hidden">
-              BJR
-            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -89,8 +86,15 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile: Language button + Menu button */}
+          <div className="md:hidden flex items-center gap-3">
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center space-x-1 text-white text-sm font-normal hover:text-white/80 transition-colors cursor-pointer"
+            >
+              <Globe className="w-4 h-4" />
+              <span className="uppercase">{language}</span>
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:text-white/80 transition-colors cursor-pointer"
@@ -113,13 +117,6 @@ export default function Navbar() {
                   {item.name}
                 </button>
               ))}
-              <button
-                onClick={() => { toggleLanguage(); setIsOpen(false); }}
-                className="flex items-center space-x-1 text-white text-sm font-normal hover:text-white/80 transition-colors py-2 cursor-pointer"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="uppercase">{language}</span>
-              </button>
             </div>
           </div>
         )}
