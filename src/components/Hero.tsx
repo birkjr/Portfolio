@@ -4,8 +4,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Calendar,
   MapPin,
-  Code,
-  Sparkles,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
