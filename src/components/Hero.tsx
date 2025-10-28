@@ -100,15 +100,6 @@ export function Hero() {
                       BR
                     </AvatarFallback>
                   </Avatar>
-
-                  {/* Floating elements */}
-                  <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center animate-bounce neon-glow">
-                    <Code className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
-                  </div>
-
-                  <div className="absolute -bottom-1 -left-1 sm:-bottom-2 sm:-left-2 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-r from-pink-400 to-rose-500 rounded-full flex items-center justify-center animate-pulse">
-                    <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-                  </div>
                 </div>
               </div>
             </div>
