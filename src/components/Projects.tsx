@@ -23,6 +23,25 @@ interface Project {
 
 const projects_no: Project[] = [
   {
+    title: "Cheatsheet",
+    description: "En nettside som senere skal bli til en app. Programmet skal være et cheatsheet for studenter, hovedsakelig for NTNU. Innebygd AI-assistent som skal hjelpe studenter fram mot eksamen.",
+    technologies: [
+      "React",
+      "Next.js",
+      "Backend: Supabase",
+      "Full-stack",
+      "TypeScript",
+      "Tailwind",
+      "AI",
+      "OpenAI",
+      "Vercel",
+    ],
+    github: "",
+    demo: "https://cheatsheet-ntnu.vercel.app/",
+    featured: true,
+    image: "/Cheatsheet.png",
+  },
+  {
     title: "Teknologiporten NTNU",
     description: "Offisiell nettside for Teknologiporten - IT-utvikler rolle",
     technologies: [
@@ -57,6 +76,20 @@ const projects_no: Project[] = [
 ];
 
 const projects_en: Project[] = [
+  {
+    title: "Cheatsheet",
+    description: "A comprehensive collection of developer resources and reference guides",
+    technologies: [
+      "Documentation",
+      "Developer Resources",
+      "Reference Guides",
+      "Code Examples",
+    ],
+    github: "",
+    demo: "",
+    featured: true,
+    image: "/Cheatsheet.png",
+  },
   {
     title: "Teknologiporten NTNU",
     description: "Official website for Teknologiporten - IT developer role",
