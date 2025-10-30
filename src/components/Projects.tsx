@@ -24,7 +24,8 @@ interface Project {
 const projects_no: Project[] = [
   {
     title: "Cheatsheet",
-    description: "En nettside som senere skal bli til en app. Programmet skal være et cheatsheet for studenter, hovedsakelig for NTNU. Innebygd AI-assistent som skal hjelpe studenter fram mot eksamen.",
+    description:
+      "En nettside som senere skal bli til en app. Programmet skal være et cheatsheet for studenter, hovedsakelig for NTNU. Innebygd AI-assistent som skal hjelpe studenter fram mot eksamen.",
     technologies: [
       "React",
       "Next.js",
@@ -59,7 +60,8 @@ const projects_no: Project[] = [
   },
   {
     title: "EMIL-Link",
-    description: "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
+    description:
+      "Markedsførings- og webdesign prosjekt som Teamleder Markedsføring",
     technologies: [
       "Webdesign",
       "Backend: Supabase",
@@ -78,7 +80,8 @@ const projects_no: Project[] = [
 const projects_en: Project[] = [
   {
     title: "Cheatsheet",
-    description: "A comprehensive collection of developer resources and reference guides",
+    description:
+      "A comprehensive collection of developer resources and reference guides",
     technologies: [
       "Documentation",
       "Developer Resources",
@@ -86,7 +89,7 @@ const projects_en: Project[] = [
       "Code Examples",
     ],
     github: "",
-    demo: "",
+    demo: "https://cheatsheet-ntnu.vercel.app/",
     featured: true,
     image: "/Cheatsheet.png",
   },
@@ -128,18 +131,20 @@ const content = {
   no: {
     label: "Prosjekter",
     title: "Mine Prosjekter",
-    subtitle: "Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er designet med fokus på brukeropplevelse og skalerbarhet."
+    subtitle:
+      "Utforsk noen av prosjektene jeg har jobbet med. Hver løsning er designet med fokus på brukeropplevelse og skalerbarhet.",
   },
   en: {
     label: "Projects",
     title: "My Projects",
-    subtitle: "Explore some of the projects I've worked on. Each solution is designed with focus on user experience and scalability."
-  }
+    subtitle:
+      "Explore some of the projects I've worked on. Each solution is designed with focus on user experience and scalability.",
+  },
 };
 
 export function Projects() {
   const { language } = useLanguage();
-  const projects = language === 'no' ? projects_no : projects_en;
+  const projects = language === "no" ? projects_no : projects_en;
   const t = content[language];
 
   return (

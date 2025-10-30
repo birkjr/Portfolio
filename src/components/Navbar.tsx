@@ -28,17 +28,17 @@ export default function Navbar() {
   };
 
   const toggleLanguage = () => {
-    setLanguage(language === 'no' ? 'en' : 'no');
+    setLanguage(language === "no" ? "en" : "no");
   };
-  
+
   const currentNavItems = navItems[language];
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
       });
     }
     setIsOpen(false);
@@ -57,7 +57,9 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             <div className="w-7 h-7 sm:w-8 sm:h-8 border border-white flex items-center justify-center">
-              <span className="text-white font-semibold text-xs sm:text-sm">BJR</span>
+              <span className="text-white font-semibold text-xs sm:text-sm">
+                BJR
+              </span>
             </div>
             <span className="text-white/80 text-sm sm:text-base md:text-lg font-normal hidden sm:inline">
               Birk Jonathan Ramstad
