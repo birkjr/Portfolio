@@ -11,7 +11,7 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row items-center sm:space-x-2 mb-4 md:mb-0 text-center sm:text-left">
             <div className="flex items-center space-x-2">
               <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-xs">BR</span>
+                <span className="text-white font-bold text-xs">BJR</span>
               </div>
               <span className="text-xs sm:text-sm text-muted-foreground">
                 © 2025 Birk Jonathan Ramstad.

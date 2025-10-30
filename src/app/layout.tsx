@@ -8,10 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="no" className="dark" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground" suppressHydrationWarning>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+      <body
+        className="min-h-screen bg-background text-foreground"
+        suppressHydrationWarning
+      >
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

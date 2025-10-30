@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 html {
   scroll-padding-top: 120px;
   scroll-behavior: smooth;
@@ -19,7 +18,7 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
@@ -237,8 +236,8 @@ body::before {
 }
 
 .scroll-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .section-container {
@@ -279,6 +278,8 @@ footer {
 }
 
 /* Pointer cursor for clickable elements */
-a, button, [role="button"] {
+a,
+button,
+[role="button"] {
   cursor: pointer;
 }
