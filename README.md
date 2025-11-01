@@ -52,3 +52,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new):
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/birkjr/Portfolio)
+
+## Commit
+
+Auto lint and prettier when committing, with .husky -> pre-commit.
