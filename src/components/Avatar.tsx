@@ -7,8 +7,14 @@ export const HumanAvatar: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const leftEyeRef = useRef<HTMLDivElement | null>(null);
   const rightEyeRef = useRef<HTMLDivElement | null>(null);
-  const [leftOffset, setLeftOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [rightOffset, setRightOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [leftOffset, setLeftOffset] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const [rightOffset, setRightOffset] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
   const [isBlinking, setIsBlinking] = useState(false);
 
   useEffect(() => {
@@ -111,12 +117,22 @@ export const HumanAvatar: React.FC = () => {
     >
       <div ref={leftEyeRef} style={eyeStyle}>
         <div style={eyelidTop} />
-        <div style={{ ...pupilStyle, transform: `translate3d(${leftOffset.x}px, ${leftOffset.y}px, 0)` }} />
+        <div
+          style={{
+            ...pupilStyle,
+            transform: `translate3d(${leftOffset.x}px, ${leftOffset.y}px, 0)`,
+          }}
+        />
         <div style={eyelidBottom} />
       </div>
       <div ref={rightEyeRef} style={eyeStyle}>
         <div style={eyelidTop} />
-        <div style={{ ...pupilStyle, transform: `translate3d(${rightOffset.x}px, ${rightOffset.y}px, 0)` }} />
+        <div
+          style={{
+            ...pupilStyle,
+            transform: `translate3d(${rightOffset.x}px, ${rightOffset.y}px, 0)`,
+          }}
+        />
         <div style={eyelidBottom} />
       </div>
     </div>

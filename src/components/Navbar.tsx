@@ -68,7 +68,13 @@ export default function Navbar() {
             </span>
             */}
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <HumanAvatar />
             </div>
           </div>
@@ -94,7 +100,6 @@ export default function Navbar() {
               <span className="uppercase">{language}</span>
             </button>
           </div>
-          
 
           {/* Mobile: Language button + Menu button */}
           <div className="md:hidden flex items-center gap-3">
