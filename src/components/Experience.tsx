@@ -114,7 +114,7 @@ const experiences_en: Experience[] = [
     year: "2024",
     icon: Star,
     detailedDescription:
-      "As a waiter at Risør Fish Processing, I gained valuable experience in customer service and sales. This role taught me to work under time pressure, handle different customer situations, and ensure high service quality. Although this was not a technical role, I developed skills in communication, problem-solving, and adaptability that are transferable to all aspects of my career.",
+      "As a waiter at Risør Fiskemottak Restaurant, I gained valuable experience in customer service and sales. This role taught me to work under time pressure, handle different customer situations, and ensure high service quality. Although this was not a technical role, I developed skills in communication, problem-solving, and adaptability that are transferable to all aspects of my career.",
   },
 ];
 
