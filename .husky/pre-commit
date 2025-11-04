@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Fail fast
+set -e
+
+# Auto-fix formatting, then lint and type-check
+pnpm format
+pnpm lint
+pnpm type-check
+
+
