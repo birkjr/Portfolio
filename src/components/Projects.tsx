@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -177,10 +178,12 @@ export function Projects() {
               >
                 <Card className="group overflow-hidden glass hover-glow transition-all duration-500 border-border/50 h-full cursor-pointer">
                   <div className="aspect-video bg-gradient-to-br from-blue-950/20 to-cyan-950/20 flex items-center justify-center relative overflow-hidden">
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     {project.featured && (
                       <div className="absolute top-4 right-4">
