@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">BJR Favicon</title>
+  <desc id="desc">Square icon with white BJR letters on a dark blue background.</desc>
+  <defs>
+    <linearGradient id="bg" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#102753" />
+      <stop offset="100%" stop-color="#040b1f" />
+    </linearGradient>
+  </defs>
+  <rect x="32" y="32" width="448" height="448" rx="64" fill="url(#bg)" />
+  <rect x="80" y="80" width="352" height="352" rx="56" fill="#0b142b" />
+  <text
+    x="256"
+    y="302"
+    font-family="'Inter', 'Helvetica Neue', Arial, sans-serif"
+    font-size="176"
+    font-weight="700"
+    text-anchor="middle"
+    fill="#ffffff"
+  >
+    BJR
+  </text>
+</svg>

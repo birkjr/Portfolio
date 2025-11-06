@@ -49,9 +49,16 @@ export default function Navbar() {
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({
+      const navElement = document.querySelector("nav");
+      const navOffset =
+        navElement instanceof HTMLElement ? navElement.offsetHeight : 0;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(elementPosition - navOffset, 0);
+
+      window.scrollTo({
+        top: offsetPosition,
         behavior: "smooth",
-        block: "start",
       });
     }
     setIsOpen(false);
@@ -233,10 +240,13 @@ export default function Navbar() {
 
           {/* Menu Content */}
           <div
-            className={`relative h-full w-full flex flex-col items-center justify-center px-6 transition-transform duration-500 ${
+            className={`relative flex h-full w-full flex-col items-center px-6 pt-28 transition-transform duration-500 ${
               isOpen ? "translate-y-0" : "translate-y-8"
             }`}
             onClick={(e) => e.stopPropagation()}
+            style={{
+              paddingBottom: "calc(2.75rem + env(safe-area-inset-bottom, 0px))",
+            }}
           >
             {/* Close Button */}
             <button
@@ -248,12 +258,12 @@ export default function Navbar() {
             </button>
 
             {/* Navigation Items */}
-            <nav className="w-full max-w-md space-y-3 px-4">
+            <nav className="flex w-full max-w-md flex-1 flex-col justify-center space-y-3 px-2">
               {currentNavItems.map((item, index) => (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className="group relative w-full flex items-center justify-between px-6 py-5 rounded-2xl bg-slate-800/90 border-2 border-slate-700/50 hover:border-blue-500 hover:bg-slate-800 transition-all duration-300 overflow-hidden shadow-2xl hover:shadow-blue-500/20"
+                  className="group relative w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-slate-800/90 border-2 border-slate-700/50 hover:border-blue-500 hover:bg-slate-800 transition-all duration-300 overflow-hidden shadow-2xl hover:shadow-blue-500/20"
                   style={{
                     animationDelay: `${index * 60}ms`,
                     animation: isOpen
@@ -283,22 +293,6 @@ export default function Navbar() {
                 </button>
               ))}
             </nav>
-
-            {/* Language Toggle at Bottom */}
-            <div className="absolute bottom-8 left-0 right-0 flex justify-center px-4">
-              <button
-                onClick={toggleLanguage}
-                className="flex items-center gap-3 px-8 py-4 rounded-full bg-slate-800/90 border-2 border-slate-700/50 hover:bg-slate-700 hover:border-blue-500 transition-all duration-300 group shadow-xl hover:shadow-blue-500/30 hover:scale-105"
-              >
-                <Globe
-                  size={22}
-                  className="text-slate-300 group-hover:text-blue-400 transition-colors duration-300 group-hover:rotate-12"
-                />
-                <span className="text-white font-semibold uppercase tracking-wider text-lg group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-400 transition-all duration-300">
-                  {language}
-                </span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

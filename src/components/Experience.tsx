@@ -161,43 +161,49 @@ export function Experience() {
         {/* Modal Overlay */}
         {selectedExperience !== null && (
           <div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4 py-6 sm:px-6"
             onClick={() => setSelectedExperience(null)}
           >
             <Card
-              className="glass hover-glow w-full max-w-2xl relative animate-fade-in text-left"
+              className="glass hover-glow relative w-full max-w-3xl animate-fade-in text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)]"
               onClick={(e) => e.stopPropagation()}
+              style={{ maxHeight: "90vh" }}
             >
               <button
                 onClick={() => setSelectedExperience(null)}
-                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+                className="absolute right-4 top-4 rounded-full bg-slate-900/70 p-2 text-white/80 transition-colors hover:text-white"
               >
-                <X className="w-6 h-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <CardHeader className="space-y-4 pb-4 sm:pb-6">
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 sm:h-16 sm:w-16">
                     {(() => {
                       const IconComponent =
                         experiences[selectedExperience].icon;
-                      return <IconComponent className="w-8 h-8 text-white" />;
+                      return (
+                        <IconComponent className="h-7 w-7 text-white sm:h-8 sm:w-8" />
+                      );
                     })()}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <CardTitle className="text-2xl mb-2">
+                  <div className="min-w-0 flex-1">
+                    <CardTitle className="text-xl sm:text-2xl">
                       {experiences[selectedExperience].title}
                     </CardTitle>
-                    <CardDescription className="text-blue-300 font-medium text-lg mb-2">
+                    <CardDescription className="mb-2 text-sm font-medium text-blue-300 sm:text-lg">
                       {experiences[selectedExperience].description}
                     </CardDescription>
-                    <Badge variant="outline" className="text-sm">
+                    <Badge variant="outline" className="text-xs sm:text-sm">
                       {experiences[selectedExperience].year}
                     </Badge>
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-lg text-muted-foreground/90 leading-relaxed">
+              <CardContent className="pt-0 sm:pt-2">
+                <p className="text-sm leading-relaxed text-muted-foreground/90 sm:hidden">
+                  {experiences[selectedExperience].description}
+                </p>
+                <p className="hidden text-base leading-relaxed text-muted-foreground/90 sm:block md:text-lg">
                   {experiences[selectedExperience].detailedDescription ||
                     experiences[selectedExperience].description}
                 </p>
