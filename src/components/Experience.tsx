@@ -38,13 +38,13 @@ const experiences_no: Experience[] = [
       "Som IT-utvikler ved Teknologiporten har jeg jobbet med utvikling av organisasjonens offisielle nettside. Gjennom dette prosjektet har jeg tatt hovedansvar for frontend-utvikling med React og Next.js, samt backend-utvikling med Supabase. Jeg har også samarbeidet tett med teamet for å sikre at løsningen oppfyller organisasjonens behov og standarder. Denne rollen har gitt meg verdifull erfaring innen full-stack utvikling, prosjektledelse og samarbeid med tverrfaglige team.",
   },
   {
-    title: "AI and Machine Learning Analyst",
+    title: "AI og maskinlærings Analytiker",
     description:
       "Concentrix - Analyse og utvikling av AI-løsninger med fokus på machine learning og kunstig intelligens",
     year: "2025",
     icon: Brain,
     detailedDescription:
-      "I rollen som AI and Machine Learning Analyst hos Concentrix arbeidet jeg med analyse og utvikling av AI-løsninger.",
+      "I rollen som AI og maskinlærings analytiker hos Concentrix arbeidet jeg med analyse og utvikling av AI-løsninger.",
   },
   {
     title: "Teamleder Markedsføring",
