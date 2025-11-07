@@ -49,6 +49,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.birkramstad.no",
   },
+  other: {
+    "msvalidate.01": "C3310BF5C41DA7FEC73FA709C89E893B",
+  },
 };
 
 export default function RootLayout({
