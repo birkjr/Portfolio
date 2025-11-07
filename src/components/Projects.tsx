@@ -45,7 +45,7 @@ const projects_no: Project[] = [
   },
   {
     title: "Teknologiporten NTNU",
-    description: "Offisiell nettside for Teknologiporten - IT-utvikler rolle",
+    description: "Offisiell nettside for Teknologiporten - IT-utvikler",
     technologies: [
       "React",
       "Next.js",
@@ -96,7 +96,7 @@ const projects_en: Project[] = [
   },
   {
     title: "Teknologiporten NTNU",
-    description: "Official website for Teknologiporten - IT developer role",
+    description: "Official website for Teknologiporten - IT developer",
     technologies: [
       "React",
       "Next.js",
