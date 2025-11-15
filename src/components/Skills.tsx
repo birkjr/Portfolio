@@ -12,6 +12,7 @@ interface Skill {
 
 const skills_no: Skill[] = [
   { name: "React.js", level: 85, category: "Frontend" },
+  { name: "React Native", level: 80, category: "Frontend" },
   { name: "TypeScript", level: 90, category: "Frontend" },
   { name: "Webutvikling", level: 90, category: "Frontend" },
   { name: "Python", level: 90, category: "Frontend" },
@@ -36,10 +37,13 @@ const skills_no: Skill[] = [
   { name: "Salg", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
+  { name: "Expo", level: 80, category: "Tools" },
+  { name: "Expo Go", level: 80, category: "Tools" },
 ];
 
 const skills_en: Skill[] = [
   { name: "React.js", level: 85, category: "Frontend" },
+  { name: "React Native", level: 80, category: "Frontend" },
   { name: "TypeScript", level: 90, category: "Frontend" },
   { name: "Web Development", level: 90, category: "Frontend" },
   { name: "Python", level: 90, category: "Frontend" },
@@ -66,6 +70,8 @@ const skills_en: Skill[] = [
   { name: "Gitlab", level: 75, category: "Tools" },
   { name: "Vite", level: 80, category: "Tools" },
   { name: "Next.js", level: 90, category: "Tools" },
+  { name: "Expo", level: 80, category: "Tools" },
+  { name: "Expo Go", level: 80, category: "Tools" },
 ];
 
 const categories = {
