@@ -22,7 +22,7 @@ const skills_no: Skill[] = [
   { name: "CSS", level: 80, category: "Frontend" },
   { name: "Tailwind", level: 85, category: "Frontend" },
   { name: "MySQL", level: 80, category: "Backend" },
-  { name: "Supabase", level: 90, category: "Backend" },
+  { name: "Supabase", level: 95, category: "Backend" },
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "ChatGPT", level: 100, category: "AI" },
   { name: "Cursor", level: 100, category: "AI" },

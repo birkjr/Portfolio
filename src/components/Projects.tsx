@@ -24,6 +24,26 @@ interface Project {
 
 const projects_no: Project[] = [
   {
+    title: "Thylo Insight",
+    description:
+      "Medgründer og CTO for Thylo Insight, et startup som leverer innsikt og analyse av kundenes stoffskifte-data. Både app og nettside er bygget med React (Native og JS).",
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Tailwind",
+      "Supabase",
+      "FastAPI",
+      "Vercel",
+      "React JS",
+      "Next.js",
+    ],
+    github: "",
+    demo: "",
+    featured: true,
+    image: "/ThyloInsight.png",
+  },
+  {
     title: "Cheatsheet",
     description:
       "En nettside som senere skal bli til en app. Programmet skal være et cheatsheet for studenter, hovedsakelig for NTNU. Innebygd AI-assistent som skal hjelpe studenter fram mot eksamen.",
@@ -79,6 +99,26 @@ const projects_no: Project[] = [
 ];
 
 const projects_en: Project[] = [
+  {
+    title: "Thylo Insight",
+    description:
+      "Co-founder and CTO of Thylo Insight, a startup that provides insights and analysis of customers Thyroid data. Both App and Website are built with React Native and React JS.",
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Tailwind",
+      "Supabase",
+      "FastAPI",
+      "Vercel",
+      "React JS",
+      "Next.js",
+    ],
+    github: "",
+    demo: "",
+    featured: true,
+    image: "/ThyloInsight.png",
+  },
   {
     title: "Cheatsheet",
     description:
