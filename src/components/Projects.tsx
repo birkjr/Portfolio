@@ -76,16 +76,6 @@ const projects_no: Project[] = [
     featured: true,
     image: "/emil_link.png",
   },
-  {
-    title: "Game Hub for studenter",
-    description:
-      "Spill for studenter mens de studerer. Spillene skal være gratis og tilgjengelige for alle studenter.",
-    technologies: ["React", "Next.js", "Full-stack", "TypeScript", "Vercel"],
-    github: "",
-    demo: "https://games-student.vercel.app/",
-    featured: true,
-    image: "/games_student.png",
-  },
 ];
 
 const projects_en: Project[] = [
@@ -135,15 +125,6 @@ const projects_en: Project[] = [
     demo: "https://www.emil-link.no",
     featured: true,
     image: "/emil_link.png",
-  },
-  {
-    title: "Game Hub for students",
-    description: "Games for students while they study.",
-    technologies: ["React", "Next.js", "Full-stack", "TypeScript", "Vercel"],
-    github: "",
-    demo: "https://games-student.vercel.app/",
-    featured: true,
-    image: "/games_student.png",
   },
 ];
 
