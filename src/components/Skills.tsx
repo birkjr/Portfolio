@@ -26,8 +26,8 @@ const skills_no: Skill[] = [
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "ChatGPT", level: 100, category: "AI" },
   { name: "Cursor", level: 100, category: "AI" },
-  { name: "Claude", level: 100, category: "AI" },
-  { name: "Gemini", level: 100, category: "AI" },
+  { name: "Claude", level: 90, category: "AI" },
+  { name: "Gemini", level: 90, category: "AI" },
   { name: "Forhandling", level: 75, category: "Ledelse" },
   { name: "Ledelse", level: 85, category: "Ledelse" },
   { name: "Markedsføring", level: 75, category: "Business" },
@@ -39,6 +39,8 @@ const skills_no: Skill[] = [
   { name: "Gitlab", level: 75, category: "Tools" },
   { name: "Expo", level: 80, category: "Tools" },
   { name: "Expo Go", level: 80, category: "Tools" },
+  { name: "Swift", level: 70, category: "Frontend" },
+  { name: "SwiftUI", level: 70, category: "Frontend" },
 ];
 
 const skills_en: Skill[] = [
@@ -57,8 +59,8 @@ const skills_en: Skill[] = [
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "ChatGPT", level: 100, category: "AI" },
   { name: "Cursor", level: 100, category: "AI" },
-  { name: "Claude", level: 100, category: "AI" },
-  { name: "Gemini", level: 100, category: "AI" },
+  { name: "Claude", level: 90, category: "AI" },
+  { name: "Gemini", level: 90, category: "AI" },
   { name: "Negotiation", level: 75, category: "Leadership" },
   { name: "Leadership", level: 85, category: "Leadership" },
   { name: "Marketing", level: 75, category: "Business" },
@@ -72,6 +74,8 @@ const skills_en: Skill[] = [
   { name: "Next.js", level: 90, category: "Tools" },
   { name: "Expo", level: 80, category: "Tools" },
   { name: "Expo Go", level: 80, category: "Tools" },
+  { name: "Swift", level: 70, category: "Frontend" },
+  { name: "SwiftUI", level: 70, category: "Frontend" },
 ];
 
 const categories = {
