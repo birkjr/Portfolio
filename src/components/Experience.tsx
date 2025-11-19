@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
+  Activity,
   Code,
   Users,
   TrendingUp,
@@ -29,6 +30,14 @@ interface Experience {
 }
 
 const experiences_no: Experience[] = [
+  {
+    title: "Medgründer og CTO",
+    description: "Thylo Insight - Helsetech startup",
+    year: "2025 - Nå",
+    icon: Activity,
+    detailedDescription:
+      "Som medgründer og CTO for Thylo Insight har jeg jobbet med utvikling av appen og nettsiden. Gjennom dette prosjektet har jeg tatt hovedansvar for frontend-utvikling med React Native og React, samt backend-utvikling med Supabase. Jeg har også samarbeidet tett med teamet for å sikre at løsningen oppfyller organisasjonens behov og standarder. Denne rollen har gitt meg verdifull erfaring innen full-stack utvikling, prosjektledelse og samarbeid med tverrfaglige team.",
+  },
   {
     title: "IT-utvikler",
     description: "Teknologiporten, NTNU - Full-stack utvikler",
@@ -74,6 +83,14 @@ const experiences_no: Experience[] = [
 ];
 
 const experiences_en: Experience[] = [
+  {
+    title: "Co-founder and CTO",
+    description: "Thylo Insight - Helsetech startup",
+    year: "2025 - Now",
+    icon: Activity,
+    detailedDescription:
+      "As co-founder and CTO of Thylo Insight, I have worked on developing the app and website. Through this project, I have taken primary responsibility for frontend development with React Native and React, as well as backend development with Supabase. I have also collaborated closely with the team to ensure that the solution meets the organization's needs and standards. This role has given me valuable experience in full-stack development, project management, and collaboration with interdisciplinary teams.",
+  },
   {
     title: "IT Developer",
     description: "Teknologiporten, NTNU - Full-stack developer",
