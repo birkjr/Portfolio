@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/context/LanguageContext";
+import { SkillsRadarChart } from "@/components/SkillsRadarChart";
 
 interface Skill {
   name: string;
@@ -169,6 +170,16 @@ export function Skills() {
               </CardContent>
             </Card>
           ))}
+          <Card className="glass hover-glow transition-all duration-300">
+            <CardHeader>
+              <CardTitle className="text-lg sm:text-xl font-semibold text-center text-gradient">
+                {language === "no" ? "Ferdighetsoversikt" : "Skills Overview"}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <SkillsRadarChart skills={skills} categories={categories_list} />
+            </CardContent>
+          </Card>
         </div>
       </div>
     </section>

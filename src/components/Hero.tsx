@@ -3,6 +3,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { GitHubCommitsChart } from "@/components/GitHubCommitsChart";
+import TextType from "@/components/TextType";
 
 export function Hero() {
   const { language } = useLanguage();
@@ -60,7 +62,16 @@ export function Hero() {
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold animate-fade-in leading-tight">
-                {t.greeting} <span className="text-gradient">{t.name}</span>
+                {t.greeting}{" "}
+                <span className="text-gradient">
+                  <TextType
+                    text={["Birk Jonathan Ramstad"]}
+                    typingSpeed={75}
+                    pauseDuration={1500}
+                    showCursor={true}
+                    cursorCharacter="|"
+                  />
+                </span>
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl animate-slide-up leading-relaxed">
@@ -81,7 +92,7 @@ export function Hero() {
           </div>
 
           <div className="flex justify-center lg:justify-end animate-slide-in-right mt-8 lg:mt-0">
-            <div className="relative">
+            <div className="relative flex flex-col items-center">
               {/* Main avatar circle with gradient border */}
               <div className="gradient-border p-1">
                 <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center glass relative overflow-hidden">
@@ -96,6 +107,13 @@ export function Hero() {
                     </AvatarFallback>
                   </Avatar>
                 </div>
+              </div>
+              {/* GitHub commits chart */}
+              <div className="w-full max-w-xs mt-4">
+                <GitHubCommitsChart
+                  username="birkjr"
+                  githubToken={process.env.NEXT_PUBLIC_GITHUB_TOKEN}
+                />
               </div>
             </div>
           </div>
