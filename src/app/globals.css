@@ -15,6 +15,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: hsl(222 84% 5%);
   color: hsl(210 40% 98%);
+  cursor: none;
+}
+
+/* Hide default cursor on all elements */
+* {
+  cursor: none !important;
 }
 
 body::before {

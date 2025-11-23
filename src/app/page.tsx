@@ -8,10 +8,12 @@ import { Experience } from "@/components/Experience";
 import { Skills } from "@/components/Skills";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import CustomCursor from "@/components/CustomCursor";
 
 export default function Home() {
   return (
     <>
+      <CustomCursor />
       <Navbar />
       <div className="relative z-10">
         <section id="home" className="section-container">
