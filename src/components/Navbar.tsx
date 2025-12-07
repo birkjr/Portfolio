@@ -102,14 +102,7 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div
-                className="relative"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
+              <div className="relative hidden md:flex items-center justify-center">
                 {/* Subtle glow around avatar */}
                 <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md opacity-0 hover:opacity-100 transition-opacity duration-300" />
                 <HumanAvatar />
