@@ -8,6 +8,7 @@ interface TextTypeProps {
   pauseDuration?: number;
   showCursor?: boolean;
   cursorCharacter?: string;
+  loop?: boolean;
 }
 
 export default function TextType({
@@ -16,23 +17,33 @@ export default function TextType({
   pauseDuration = 1500,
   showCursor = true,
   cursorCharacter = "|",
+  loop = false,
 }: TextTypeProps) {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     if (text.length === 0) return;
+    if (isComplete && !loop) return; // Stop if complete and loop is disabled
 
     const currentText = text[currentTextIndex];
     let timeout: NodeJS.Timeout;
 
     if (isPaused) {
-      timeout = setTimeout(() => {
-        setIsPaused(false);
-        setIsDeleting(true);
-      }, pauseDuration);
+      if (loop) {
+        timeout = setTimeout(() => {
+          setIsPaused(false);
+          setIsDeleting(true);
+        }, pauseDuration);
+      } else {
+        // If not looping, just stop and hide cursor after pause
+        timeout = setTimeout(() => {
+          setIsComplete(true);
+        }, pauseDuration);
+      }
     } else if (isDeleting) {
       if (displayedText.length > 0) {
         timeout = setTimeout(() => {
@@ -48,7 +59,11 @@ export default function TextType({
           setDisplayedText((prev) => currentText.slice(0, prev.length + 1));
         }, typingSpeed);
       } else {
-        setIsPaused(true);
+        if (loop) {
+          setIsPaused(true);
+        } else {
+          setIsComplete(true);
+        }
       }
     }
 
@@ -63,12 +78,14 @@ export default function TextType({
     text,
     typingSpeed,
     pauseDuration,
+    loop,
+    isComplete,
   ]);
 
   return (
     <span>
       {displayedText}
-      {showCursor && (
+      {showCursor && !isComplete && (
         <span className="animate-pulse" style={{ opacity: 1 }}>
           {cursorCharacter}
         </span>

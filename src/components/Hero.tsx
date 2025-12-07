@@ -44,7 +44,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto py-10 sm:py-0 px-4 sm:px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8 animate-slide-in-left">
             <div className="space-y-6">

@@ -52,3 +52,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 The easiest way to deploy is using the [Vercel Platform](https://vercel.com/new):
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/birkjr/Portfolio)
+
+## Next JS
+
+- pnpm update next@latest
+- pnpm update eslint-config-next@latest
