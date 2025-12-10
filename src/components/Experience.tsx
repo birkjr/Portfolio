@@ -32,7 +32,8 @@ interface Experience {
 const experiences_no: Experience[] = [
   {
     title: "Medgründer og CTO",
-    description: "Thylo Insight - Helsetech startup",
+    description:
+      "Thylo Insight - Helsetech startup som leverer innsikt og analyse av kundenes Thyroid data ved hjelp av AI",
     year: "2025 - Nå",
     icon: Activity,
     detailedDescription:
@@ -85,7 +86,8 @@ const experiences_no: Experience[] = [
 const experiences_en: Experience[] = [
   {
     title: "Co-founder and CTO",
-    description: "Thylo Insight - Helsetech startup",
+    description:
+      "Thylo Insight - Health-tech startup that provides insights and analysis of customers Thyroid data using AI",
     year: "2025 - Now",
     icon: Activity,
     detailedDescription:
