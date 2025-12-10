@@ -25,6 +25,7 @@ export default function Navbar() {
     no: [
       { name: "Om Meg", href: "#home" },
       { name: "Utdanning", href: "#education" },
+      { name: "CTF Scripts", href: "#ctf-scripts" },
       { name: "Prosjekter", href: "#projects" },
       { name: "Erfaringer", href: "#experience" },
       { name: "Ferdigheter", href: "#skills" },
@@ -33,6 +34,7 @@ export default function Navbar() {
     en: [
       { name: "About Me", href: "#home" },
       { name: "Education", href: "#education" },
+      { name: "CTF Scripts", href: "#ctf-scripts" },
       { name: "Projects", href: "#projects" },
       { name: "Experience", href: "#experience" },
       { name: "Skills", href: "#skills" },
