@@ -41,6 +41,7 @@ const skills_no: Skill[] = [
   { name: "Salg", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
+  { name: "Vercel", level: 95, category: "Tools" },
   { name: "Expo", level: 80, category: "Tools" },
   { name: "Expo Go", level: 80, category: "Tools" },
   { name: "Swift", level: 70, category: "Frontend" },
@@ -59,7 +60,7 @@ const skills_en: Skill[] = [
   { name: "CSS", level: 80, category: "Frontend" },
   { name: "Tailwind", level: 85, category: "Frontend" },
   { name: "MySQL", level: 80, category: "Backend" },
-  { name: "Supabase", level: 90, category: "Backend" },
+  { name: "Supabase", level: 95, category: "Backend" },
   { name: "Firebase", level: 50, category: "Backend" },
   { name: "Ghidra", level: 80, category: "Reverse Engineering" },
   { name: "Binary Analysis", level: 75, category: "Reverse Engineering" },
@@ -77,8 +78,7 @@ const skills_en: Skill[] = [
   { name: "Sales", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
-  { name: "Vite", level: 80, category: "Tools" },
-  { name: "Next.js", level: 90, category: "Tools" },
+  { name: "Vercel", level: 95, category: "Tools" },
   { name: "Expo", level: 80, category: "Tools" },
   { name: "Expo Go", level: 80, category: "Tools" },
   { name: "Swift", level: 70, category: "Frontend" },
@@ -139,9 +139,6 @@ export function Skills() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
             {t.title}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            {t.subtitle}
-          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">

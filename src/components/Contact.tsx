@@ -16,14 +16,14 @@ const content = {
     title: "Kontakt meg",
     subtitle: "Er min profil spennende eller har du noe spørsmål? Kontakt meg!",
     cardTitle: "Send meg en melding",
-    cardDescription: "Jeg svarer vanligvis innen 24 timer på arbeidsdager.",
+    cardDescription: "Jeg svarer alltid kjapt.",
   },
   en: {
     title: "Contact me",
     subtitle:
       "Is my profile interesting or do you have any questions? Contact me!",
     cardTitle: "Send me a message",
-    cardDescription: "I usually reply within 24 hours on weekdays.",
+    cardDescription: "I always reply fast.",
   },
 };
 

@@ -16,7 +16,7 @@ export function Hero() {
       greeting: "Hei, jeg er",
       name: "Birk Jonathan Ramstad",
       description:
-        "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling og brukeropplevelse.",
+        "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling, brukeropplevelse og cybersikkerhet.",
       location: "Trondheim/Oslo, Norge",
       born: "Født 2003",
     },
@@ -26,7 +26,7 @@ export function Hero() {
       greeting: "Hello, I'm",
       name: "Birk Jonathan Ramstad",
       description:
-        "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development and user experience.",
+        "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development, user experience and cybersecurity.",
       location: "Trondheim/Oslo, Norway",
       born: "Born 2003",
     },

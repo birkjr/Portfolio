@@ -124,10 +124,15 @@ const projects_en: Project[] = [
     description:
       "A comprehensive collection of developer resources and reference guides",
     technologies: [
-      "Documentation",
-      "Developer Resources",
-      "Reference Guides",
-      "Code Examples",
+      "React",
+      "Next.js",
+      "Backend: Supabase",
+      "Full-stack",
+      "TypeScript",
+      "Tailwind",
+      "AI",
+      "OpenAI",
+      "Vercel",
     ],
     github: "",
     demo: "https://cheatsheet-ntnu.vercel.app/",
@@ -200,9 +205,6 @@ export function Projects() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
             {t.title}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            {t.subtitle}
-          </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-8">
