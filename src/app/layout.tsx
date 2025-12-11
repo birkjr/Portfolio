@@ -15,6 +15,15 @@ export const metadata: Metadata = {
     default: "Birk Jonathan Ramstad | Full-Stack Developer",
     template: "%s | Birk Jonathan Ramstad",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon.png", // hvis du ønsker apple-touch-icon (valgfritt)
+  },
+
   description:
     "Birk Jonathan Ramstad – full-stack utvikler og datateknologistudent ved NTNU. Portefølje med prosjekter, erfaring og ferdigheter innen web development, reverse engineering og cybersecurity.",
   keywords: [
