@@ -77,14 +77,6 @@ export const metadata: Metadata = {
         ? "https://www.birkramstad.no"
         : undefined,
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-    apple: "/icon.svg",
-    shortcut: "/favicon.ico",
-  },
   verification: {
     other: {
       "msvalidate.01": "C3310BF5C41DA7FEC73FA709C89E893B",
