@@ -90,7 +90,6 @@ const content = {
   no: {
     label: "Utdanning",
     title: "Utdanning",
-    subtitle: "Mitt utdanningsløp",
   },
   en: {
     label: "Education",
@@ -116,9 +115,6 @@ export function Education() {
           <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
             {t.title}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            {t.subtitle}
-          </p>
         </div>
 
         {/* Grid */}
