@@ -123,6 +123,9 @@ importers:
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
+      svg-to-ico:
+        specifier: ^1.0.17
+        version: 1.0.17
       typescript:
         specifier: ^5
         version: 5.9.3
@@ -2133,6 +2136,9 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  ico-endec@0.1.6:
+    resolution: {integrity: sha512-ZdLU38ZoED3g1j3iEyzcQj+wAkY2xfWNkymszfJPoxucIUhK7NayQ+/C4Kv0nDFMIsbtbEHldv3V8PU494/ueQ==}
+
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
@@ -2958,6 +2964,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  svg-to-ico@1.0.17:
+    resolution: {integrity: sha512-uUctiHbubgWYuImLPgWpZma0XWJw3IdzBlOw2wA0GlTKRBytR4+XTtXUX2rGwHm0VwtO5sjK6I3ii5zwT7MnHQ==}
+    hasBin: true
+
   tailwind-merge@3.3.1:
     resolution: {integrity: sha512-gBXpgUm/3rp1lMZZrM/w7D8GKqshif0zAymAhbCyIt8KMe+0v9DQ7cdYLR4FHH/cKpdTXb+A/tKKU3eolfsI+g==}
 
@@ -3524,8 +3534,7 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@img/colour@1.0.0':
-    optional: true
+  '@img/colour@1.0.0': {}
 
   '@img/sharp-darwin-arm64@0.34.5':
     optionalDependencies:
@@ -5184,6 +5193,8 @@ snapshots:
 
   husky@9.1.7: {}
 
+  ico-endec@0.1.6: {}
+
   ignore@5.3.2: {}
 
   ignore@7.0.5: {}
@@ -5919,7 +5930,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.5
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
-    optional: true
 
   shebang-command@2.0.0:
     dependencies:
@@ -6056,6 +6066,11 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  svg-to-ico@1.0.17:
+    dependencies:
+      ico-endec: 0.1.6
+      sharp: 0.34.5
 
   tailwind-merge@3.3.1: {}
 
