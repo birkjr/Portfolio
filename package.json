@@ -53,6 +53,7 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.6.2",
+    "sharp": "^0.34.5",
     "svg-to-ico": "^1.0.17",
     "typescript": "^5"
   },
