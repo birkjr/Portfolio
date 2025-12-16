@@ -21,14 +21,14 @@ export default function Home() {
         <section id="education" className="section-container">
           <Education />
         </section>
-        <section id="ctf-scripts" className="section-container">
-          <CTFScripts />
+        <section id="experience" className="section-container">
+          <Experience />
         </section>
         <section id="projects" className="section-container">
           <Projects />
         </section>
-        <section id="experience" className="section-container">
-          <Experience />
+        <section id="ctf-scripts" className="section-container">
+          <CTFScripts />
         </section>
         <section id="skills" className="section-container">
           <Skills />
