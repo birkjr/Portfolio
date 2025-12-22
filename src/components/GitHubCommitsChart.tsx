@@ -87,9 +87,11 @@ export function GitHubCommitsChart({
 
       // Get repositories for the user
       // Use /user/repos endpoint if token is provided (includes private repos)
+      // Include owner, collaborator, and organization_member affiliations to get all repos user has access to
+      // Note: Cannot use 'type' parameter when using 'affiliation' parameter
       // Otherwise use /users/{username}/repos (public repos only)
       const reposUrl = githubToken
-        ? `https://api.github.com/user/repos?per_page=100&sort=updated&affiliation=owner`
+        ? `https://api.github.com/user/repos?per_page=100&sort=updated&affiliation=owner,collaborator,organization_member`
         : `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
 
       let reposResponse = await fetch(reposUrl, { headers });
@@ -130,6 +132,7 @@ export function GitHubCommitsChart({
       }
 
       console.log(`Found ${repos.length} repositories`);
+      console.log(`Using token: ${useToken ? "Yes" : "No"}`);
 
       // Get commits from the last 30 days
       const commitsByDate: Record<string, number> = {};
@@ -138,9 +141,10 @@ export function GitHubCommitsChart({
       const sinceDate = thirtyDaysAgo.toISOString();
 
       // Fetch commits from recent repositories (limit to avoid rate limits)
+      // Include forks too since user might have commits in forked repos
       const recentRepos = (repos as GitHubRepo[])
-        .filter((repo) => !repo.fork && repo.size > 0) // Exclude forks and empty repos
-        .slice(0, 20); // Increase to 20 repos for better coverage
+        .filter((repo) => repo.size > 0) // Only exclude empty repos, keep forks
+        .slice(0, 50); // Increase to 50 repos for better coverage of all user's activity
 
       console.log(
         `Fetching commits from ${recentRepos.length} repositories (since ${sinceDate})`
@@ -155,18 +159,51 @@ export function GitHubCommitsChart({
           const commitHeaders = useToken
             ? headers
             : { Accept: "application/vnd.github.v3+json" };
-          // Remove author filter to get all commits (we'll filter by email/name if needed)
-          const commitsResponse = await fetch(
-            `https://api.github.com/repos/${repoOwner}/${repo.name}/commits?since=${sinceDate}&per_page=100`,
-            { headers: commitHeaders }
-          );
 
-          if (!commitsResponse.ok) {
-            return [];
+          // Fetch commits with pagination to get all commits (not just first 100)
+          let allCommits: GitHubCommit[] = [];
+          let page = 1;
+          let hasMore = true;
+          const maxPages = 10; // Limit to avoid too many requests
+
+          while (hasMore && page <= maxPages) {
+            // Fetch commits - use author filter when token is available to get user's commits
+            // Note: author parameter only works with authenticated requests
+            let commitsUrl = `https://api.github.com/repos/${repoOwner}/${repo.name}/commits?since=${sinceDate}&per_page=100&page=${page}`;
+
+            // Only add author filter if we have a token (required for author filtering)
+            if (useToken) {
+              commitsUrl += `&author=${username}`;
+            }
+
+            const commitsResponse = await fetch(commitsUrl, {
+              headers: commitHeaders,
+            });
+
+            if (!commitsResponse.ok) {
+              // If we get 404, repo might not exist or we don't have access
+              if (commitsResponse.status === 404) {
+                console.log(`Repo ${repo.name} not accessible (404)`);
+              }
+              break;
+            }
+
+            const commits = await commitsResponse.json();
+            if (Array.isArray(commits) && commits.length > 0) {
+              allCommits = allCommits.concat(commits);
+              // If we got less than 100 commits, we've reached the end
+              hasMore = commits.length === 100;
+              page++;
+            } else {
+              hasMore = false;
+            }
           }
 
-          const commits = await commitsResponse.json();
-          return Array.isArray(commits) ? commits : [];
+          if (allCommits.length > 0) {
+            console.log(`Found ${allCommits.length} commits in ${repo.name}`);
+          }
+
+          return allCommits;
         } catch (error) {
           console.error(`Error fetching commits from ${repo.name}:`, error);
           return [];
@@ -186,16 +223,20 @@ export function GitHubCommitsChart({
                 commit.commit.committer?.name?.toLowerCase() || "";
               const authorEmail =
                 commit.commit.author?.email?.toLowerCase() || "";
+              const authorLogin = commit.author?.login?.toLowerCase() || "";
               const usernameLower = username.toLowerCase();
 
-              // Include commit if author/committer matches username or if we can't determine
-              const isUserCommit =
-                authorName.includes(usernameLower) ||
-                committerName.includes(usernameLower) ||
-                authorEmail.includes(usernameLower) ||
-                commit.author?.login?.toLowerCase() === usernameLower;
+              // Include commit if author/committer matches username
+              // If using token with author filter, trust the API and include all commits
+              // Otherwise check multiple fields to match user
+              const isUserCommit = useToken
+                ? true // If using author filter with token, all commits are from user
+                : authorLogin === usernameLower ||
+                  authorName.includes(usernameLower) ||
+                  committerName.includes(usernameLower) ||
+                  authorEmail.includes(usernameLower);
 
-              if (isUserCommit || !commit.author) {
+              if (isUserCommit) {
                 const commitDate = new Date(commit.commit.author.date);
                 const dateStr = commitDate.toISOString().split("T")[0];
                 commitsByDate[dateStr] = (commitsByDate[dateStr] || 0) + 1;
@@ -209,50 +250,52 @@ export function GitHubCommitsChart({
         (a, b) => a + b,
         0
       );
-      console.log("Total commits found:", totalCommits);
+      console.log("Total commits found from repos:", totalCommits);
+      console.log("Commits by date:", commitsByDate);
 
-      // If no commits found via repos, try using events API as fallback
-      if (totalCommits === 0) {
-        console.log("Trying events API as fallback...");
-        try {
-          // Events API - use public endpoint if token failed or not provided
-          const eventsHeaders = useToken
-            ? headers
-            : { Accept: "application/vnd.github.v3+json" };
-          const eventsUrl = useToken
-            ? `https://api.github.com/users/${username}/events?per_page=100`
-            : `https://api.github.com/users/${username}/events/public?per_page=100`;
+      // Always try using events API as supplement to catch commits from repos we might have missed
+      // This is especially useful for repos where user is a collaborator or organization member
+      console.log("Fetching events API as supplement...");
+      try {
+        // Events API - use authenticated endpoint if token is available
+        const eventsHeaders = useToken
+          ? headers
+          : { Accept: "application/vnd.github.v3+json" };
+        const eventsUrl = useToken
+          ? `https://api.github.com/users/${username}/events?per_page=300`
+          : `https://api.github.com/users/${username}/events/public?per_page=300`;
 
-          const eventsResponse = await fetch(eventsUrl, {
-            headers: eventsHeaders,
-          });
+        const eventsResponse = await fetch(eventsUrl, {
+          headers: eventsHeaders,
+        });
 
-          if (eventsResponse.ok) {
-            const events = (await eventsResponse.json()) as GitHubEvent[];
-            events.forEach((event) => {
-              if (event.type === "PushEvent" && event.created_at) {
-                const eventDate = new Date(event.created_at);
-                const dateStr = eventDate.toISOString().split("T")[0];
-                const daysDiff = Math.floor(
-                  (Date.now() - eventDate.getTime()) / (1000 * 60 * 60 * 24)
-                );
+        if (eventsResponse.ok) {
+          const events = (await eventsResponse.json()) as GitHubEvent[];
+          events.forEach((event) => {
+            if (event.type === "PushEvent" && event.created_at) {
+              const eventDate = new Date(event.created_at);
+              const dateStr = eventDate.toISOString().split("T")[0];
+              const daysDiff = Math.floor(
+                (Date.now() - eventDate.getTime()) / (1000 * 60 * 60 * 24)
+              );
 
-                if (daysDiff <= 30) {
-                  const commitCount = event.payload?.commits?.length || 1;
-                  commitsByDate[dateStr] =
-                    (commitsByDate[dateStr] || 0) + commitCount;
-                }
+              // Only include events from last 30 days
+              if (daysDiff <= 30) {
+                const commitCount = event.payload?.commits?.length || 1;
+                // Add to existing count (don't replace, as we might have commits from repo API too)
+                commitsByDate[dateStr] =
+                  (commitsByDate[dateStr] || 0) + commitCount;
               }
-            });
-            totalCommits = Object.values(commitsByDate).reduce(
-              (a, b) => a + b,
-              0
-            );
-            console.log("Commits from events:", totalCommits);
-          }
-        } catch (eventsError) {
-          console.error("Error fetching events:", eventsError);
+            }
+          });
+          totalCommits = Object.values(commitsByDate).reduce(
+            (a, b) => a + b,
+            0
+          );
+          console.log("Total commits after events API:", totalCommits);
         }
+      } catch (eventsError) {
+        console.error("Error fetching events:", eventsError);
       }
 
       // Fill in missing dates with 0 commits and format for display
