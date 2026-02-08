@@ -18,7 +18,7 @@ export function Hero() {
       description:
         "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling, brukeropplevelse og cybersikkerhet.",
       location: "Trondheim/Oslo, Norge",
-      born: "Født 2003",
+      born: "Født 5. april 2003",
     },
     en: {
       info: "Computer Science student at NTNU",
@@ -28,7 +28,7 @@ export function Hero() {
       description:
         "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development, user experience and cybersecurity.",
       location: "Trondheim/Oslo, Norway",
-      born: "Born 2003",
+      born: "Born April 5th, 2003",
     },
   };
 
