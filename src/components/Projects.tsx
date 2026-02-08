@@ -44,26 +44,6 @@ const projects_no: Project[] = [
     image: "/ThyloInsight.png",
   },
   {
-    title: "Cheatsheet",
-    description:
-      "En nettside som senere skal bli til en app. Programmet skal være et cheatsheet for studenter, hovedsakelig for NTNU. Innebygd AI-assistent som skal hjelpe studenter fram mot eksamen.",
-    technologies: [
-      "React",
-      "Next.js",
-      "Backend: Supabase",
-      "Full-stack",
-      "TypeScript",
-      "Tailwind",
-      "AI",
-      "OpenAI",
-      "Vercel",
-    ],
-    github: "",
-    demo: "https://cheatsheet-ntnu.vercel.app/",
-    featured: true,
-    image: "/Cheatsheet.png",
-  },
-  {
     title: "Teknologiporten NTNU",
     description: "Offisiell nettside for Teknologiporten - IT-utvikler",
     technologies: [
@@ -118,26 +98,6 @@ const projects_en: Project[] = [
     demo: "https://thyloinsight.no",
     featured: true,
     image: "/ThyloInsight.png",
-  },
-  {
-    title: "Cheatsheet",
-    description:
-      "A comprehensive collection of developer resources and reference guides",
-    technologies: [
-      "React",
-      "Next.js",
-      "Backend: Supabase",
-      "Full-stack",
-      "TypeScript",
-      "Tailwind",
-      "AI",
-      "OpenAI",
-      "Vercel",
-    ],
-    github: "",
-    demo: "https://cheatsheet-ntnu.vercel.app/",
-    featured: true,
-    image: "/Cheatsheet.png",
   },
   {
     title: "Teknologiporten NTNU",
@@ -207,7 +167,7 @@ export function Projects() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-6xl mx-auto">
           {projects.map((project, index) => {
             const link = project.demo || project.github;
             return (
