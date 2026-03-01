@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import GradientText from "./GradientText";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   LineChart,
   Line,
@@ -55,11 +56,14 @@ interface GitHubEvent {
   };
 }
 
+const chartTitle = { no: "Git aktivitet", en: "Git activity" };
+
 export function GitHubCommitsChart({
   username = "birkjr",
   githubToken,
   pollInterval = 5 * 60 * 1000, // Default: 5 minutes
 }: GitHubCommitsChartProps) {
+  const { language } = useLanguage();
   const [commitData, setCommitData] = useState<CommitData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -373,7 +377,7 @@ export function GitHubCommitsChart({
         showBorder={false}
         className="text-sm text-muted-foreground bg-transparent p-2"
       >
-        Git commits
+        {chartTitle[language]}
       </GradientText>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart

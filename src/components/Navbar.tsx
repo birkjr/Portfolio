@@ -68,16 +68,15 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 w-full z-50"
+      className="fixed top-0 w-full z-50 px-4 sm:px-6 pt-4"
       style={{
         position: "fixed",
       }}
     >
-      {/* Gradient border bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
-
-      {/* Main navbar container - Darker at bottom for more contrast */}
-      <div className="relative w-full backdrop-blur-xl bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border-b border-slate-800/50 shadow-2xl shadow-black/40">
+      {/* Main navbar container - rounded, not full width */}
+      <div className="relative w-full max-w-7xl mx-auto rounded-2xl overflow-hidden backdrop-blur-xl bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/50 shadow-2xl shadow-black/40">
+        {/* Gradient border bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
         {/* Subtle glow effect - stronger at bottom */}
         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-transparent to-black/30 pointer-events-none" />
 
