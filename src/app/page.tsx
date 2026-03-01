@@ -9,11 +9,13 @@ import { Experience } from "@/components/Experience";
 import { Skills } from "@/components/Skills";
 import { Footer } from "@/components/Footer";
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { ScrollProgressLine } from "@/components/ScrollProgressLine";
 
 export default function Home() {
   return (
     <>
       <Navbar />
+      <ScrollProgressLine />
       <div className="relative z-10 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <section id="home" className="section-container">
