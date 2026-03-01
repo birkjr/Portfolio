@@ -37,14 +37,9 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative"
     >
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
-        <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
-      </div>
-
-      <div className="container mx-auto py-10 sm:py-0 px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto py-10 sm:py-0 px-4 sm:px-6">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="space-y-6 sm:space-y-8 animate-slide-in-left">
             <div className="space-y-6">
@@ -103,7 +98,7 @@ export function Hero() {
                       className="object-cover"
                     />
                     <AvatarFallback className="text-4xl sm:text-5xl md:text-6xl font-bold text-gradient bg-transparent">
-                      BR
+                      BJR
                     </AvatarFallback>
                   </Avatar>
                 </div>
