@@ -139,15 +139,16 @@ const ctfScripts_en: CTFScript[] = [
 
 const content = {
   no: {
-    label: "CTF Scripts",
-    title: "CTF Scripts",
-    empty: "Ingen scripts lagt til ennå",
+    label: "Reverse Engineering",
+    title: "Reverse Engineering",
+    empty: "Ingen prosjekter lagt til ennå",
   },
   en: {
-    label: "CTF Scripts",
-    title: "CTF Scripts",
-    subtitle: "Scripts and tools I've created for Capture The Flag challenges",
-    empty: "No scripts added yet",
+    label: "Reverse Engineering",
+    title: "Reverse Engineering",
+    subtitle:
+      "Projects and tooling I've built for reverse engineering and security",
+    empty: "No projects added yet",
   },
 };
 
@@ -157,7 +158,7 @@ export function CTFScripts() {
   const t = content[language];
 
   return (
-    <section id="ctf-scripts" className="py-20 relative">
+    <section id="reverse-engineering" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">

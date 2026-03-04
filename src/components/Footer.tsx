@@ -33,13 +33,13 @@ export function Footer() {
 
   return (
     <section id="contact" className="pt-20 pb-2">
-      {/* Rounded footer container - lett skygge, bakgrunn skinner gjennom, tydelig mørk blå ramme */}
-      <footer className="w-full rounded-2xl overflow-hidden border-2 border-blue-950/90 bg-slate-950/20 shadow-xl shadow-black/20 backdrop-blur-[2px]">
+      {/* Rounded footer container - mørk, samme stil som navbar, i både light og dark */}
+      <footer className="w-full rounded-2xl overflow-hidden border-2 border-slate-800/50 bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 shadow-2xl shadow-black/40 backdrop-blur-[4px]">
         {/* Contact section inside footer */}
         <div className="px-4 sm:px-6 lg:px-8 pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="text-center mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t.title}</h2>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
+            <p className="text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto px-2">
               {t.subtitle}
             </p>
           </div>
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-slate-800/50 mx-4 sm:mx-6 lg:mx-8" />
+          <div className="border-t border-slate-800/60 mx-4 sm:mx-6 lg:mx-8" />
 
           {/* Footer bar: logo, copyright, socials */}
           <div className="py-6 px-4 sm:px-6 lg:px-8">
@@ -87,7 +87,7 @@ export function Footer() {
                 <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center justify-center">
                   <span className="text-white font-bold text-xs">BJR</span>
                 </div>
-                <span className="text-xs sm:text-sm text-muted-foreground">
+                <span className="text-xs sm:text-sm text-slate-300">
                   © 2026 Birk Jonathan Ramstad.
                 </span>
               </div>

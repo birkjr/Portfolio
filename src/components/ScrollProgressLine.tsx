@@ -6,7 +6,7 @@ const SECTION_IDS = [
   "education",
   "experience",
   "projects",
-  "ctf-scripts",
+  "reverse-engineering",
   "skills",
 ];
 const HEADING_BOX_HEIGHT = 140;

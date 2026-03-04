@@ -13,14 +13,8 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  /* Match Hero gradient (slate-900 / blue-950) so no visible gap above navbar */
-  background: linear-gradient(
-    to bottom right,
-    rgb(15 23 42),
-    rgb(23 37 84),
-    rgb(15 23 42)
-  );
-  color: hsl(210 40% 98%);
+  background: var(--page-gradient);
+  color: hsl(var(--foreground));
 }
 
 body::before {
@@ -32,7 +26,7 @@ body::before {
   height: 100%;
   background-image: radial-gradient(
     circle at 2px 2px,
-    rgba(255, 255, 255, 0.24) 1px,
+    var(--page-grid-dot) 1px,
     transparent 0
   );
   background-size: 20px 20px;
@@ -41,31 +35,45 @@ body::before {
 }
 
 :root {
-  --background: 222 84% 5%;
-  --foreground: 210 40% 98%;
-  --card: 222 84% 5%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222 84% 5%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 217 91% 60%;
+  /* Light theme (off-white) */
+  --background: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 217 91% 55%;
   --primary-foreground: 210 40% 98%;
-  --secondary: 217 32% 17%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217 32% 17%;
-  --muted-foreground: 215 20% 65%;
-  --accent: 217 32% 17%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
+  --secondary: 210 16% 93%;
+  --secondary-foreground: 222 47% 11%;
+  --muted: 210 16% 93%;
+  --muted-foreground: 215 16% 40%;
+  --accent: 210 16% 93%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84% 55%;
   --destructive-foreground: 210 40% 98%;
-  --border: 217 32% 17%;
-  --input: 217 32% 17%;
-  --ring: 217 91% 60%;
+  --border: 214 15% 86%;
+  --input: 214 15% 86%;
+  --ring: 217 91% 55%;
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
   --radius: 0.75rem;
+
+  /* Page chrome */
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(248 250 252),
+    rgb(241 245 249),
+    rgb(248 250 252)
+  );
+  --page-grid-dot: rgba(15, 23, 42, 0.12);
+  --grid-pattern-dot: rgba(15, 23, 42, 0.22);
+
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(15, 23, 42, 0.1);
 }
 
 .dark {
@@ -93,6 +101,18 @@ body::before {
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(15 23 42),
+    rgb(23 37 84),
+    rgb(15 23 42)
+  );
+  --page-grid-dot: rgba(255, 255, 255, 0.24);
+  --grid-pattern-dot: rgba(255, 255, 255, 0.652);
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 .animate-fade-in {
@@ -116,9 +136,9 @@ body::before {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border);
 }
 
 .glass-dark {
@@ -164,7 +184,7 @@ body::before {
 .bg-grid-pattern {
   background-image: radial-gradient(
     circle at 2px 2px,
-    rgba(255, 255, 255, 0.652) 1px,
+    var(--grid-pattern-dot) 1px,
     transparent 0
   );
   background-size: 20px 20px;
