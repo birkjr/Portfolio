@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const isProduction = process.env.NODE_ENV === "production";
 const baseUrl = isProduction
@@ -126,7 +127,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="no" className="dark" suppressHydrationWarning>
+    <html lang="no" suppressHydrationWarning>
       <body
         className="min-h-screen bg-background text-foreground"
         suppressHydrationWarning
@@ -136,7 +137,14 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <LanguageProvider>{children}</LanguageProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

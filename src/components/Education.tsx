@@ -105,7 +105,6 @@ export function Education() {
 
   return (
     <section id="education" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 mb-4">
