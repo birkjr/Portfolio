@@ -19,6 +19,8 @@ import {
   FileSearch,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "next-themes";
+import { SectionContainer } from "./SectionContainer";
 
 interface CTFScript {
   title: string;
@@ -141,6 +143,8 @@ const content = {
   no: {
     label: "Reverse Engineering",
     title: "Reverse Engineering",
+    subtitle:
+      "Prosjekter og verktøy jeg har bygget for reverse engineering og sikkerhet",
     empty: "Ingen prosjekter lagt til ennå",
   },
   en: {
@@ -154,82 +158,90 @@ const content = {
 
 export function CTFScripts() {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const scripts = language === "no" ? ctfScripts_no : ctfScripts_en;
   const t = content[language];
 
   return (
-    <section id="reverse-engineering" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">{t.label}</span>
+    <SectionContainer id="reverse-engineering">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+              {t.label}
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
-            {t.title}
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
         </div>
 
         {/* Grid */}
         {scripts.length === 0 ? (
-          <div className="text-center py-12">
+          <div className="text-center py-16">
             <Code2 className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
-            <p className="text-muted-foreground">{t.empty}</p>
+            <p className="text-muted-foreground text-lg">{t.empty}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {scripts.map((script, index) => {
               const IconComponent = script.icon;
               return (
                 <Card
                   key={index}
-                  className="glass hover-glow transition-all duration-300"
+                  className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 flex flex-col"
+                  style={{
+                    background:
+                      theme === "dark"
+                        ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                        : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
+                  }}
                 >
-                  <CardHeader>
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <CardHeader className="flex-1 p-4 pb-2">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                         <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <CardTitle className="text-base sm:text-lg mb-2">
+                        <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                           {script.title}
                         </CardTitle>
-                        <CardDescription className="text-purple-300 font-medium text-sm sm:text-base mb-2">
+                        <CardDescription className="text-purple-600 dark:text-purple-400 font-semibold text-xs sm:text-sm mb-2">
                           {script.category}
                         </CardDescription>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <Badge variant="outline" className="text-xs">
-                            {script.language}
-                          </Badge>
-                        </div>
+                        <Badge variant="outline" className="text-xs">
+                          {script.language}
+                        </Badge>
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
+                  <CardContent className="pt-0 px-4 pb-4">
+                    <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed mb-3">
                       {script.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 mb-3">
                       {script.tags.map((tag, tagIndex) => (
                         <Badge
                           key={tagIndex}
                           variant="secondary"
-                          className="text-xs"
+                          className="text-xs font-medium"
                         >
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4 pt-2">
                       {script.github && (
                         <a
                           href={script.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                          className="group/link flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                         >
-                          <Github className="w-4 h-4" />
+                          <Github className="w-4 h-4 group-hover/link:scale-110 transition-transform" />
                           <span>GitHub</span>
                         </a>
                       )}
@@ -238,9 +250,9 @@ export function CTFScripts() {
                           href={script.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                          className="group/link flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                         >
-                          <ExternalLink className="w-4 h-4" />
+                          <ExternalLink className="w-4 h-4 group-hover/link:scale-110 transition-transform" />
                           <span>Demo</span>
                         </a>
                       )}
@@ -252,6 +264,6 @@ export function CTFScripts() {
           </div>
         )}
       </div>
-    </section>
+    </SectionContainer>
   );
 }
