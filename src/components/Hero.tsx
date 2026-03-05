@@ -20,24 +20,24 @@ export function Hero() {
 
   const content = {
     no: {
-      info: "Datateknologi student ved NTNU",
+      info: "Gründer av Thylo Insight",
       role: "Full-Stack Developer",
       greeting: "Hei, jeg er",
       name: "Birk Jonathan Ramstad",
       description:
-        "Student ved NTNU som driver med full-stack utvikling. Kombinerer studier i datateknologi med praktisk erfaring i moderne webutvikling, brukeropplevelse og cybersikkerhet.",
+        "Gründer av Thylo Insight. Full-stack utvikler fokusert på AI-systemer, cybersikkerhet og moderne web-infrastruktur.",
       location: "Trondheim/Oslo, Norge",
       born: "Født 5. april 2003",
       cta: "Se prosjekter",
       ctaSecondary: "Kontakt meg",
     },
     en: {
-      info: "Computer Science student at NTNU",
+      info: "Founder of Thylo Insight",
       role: "Full-Stack Developer",
       greeting: "Hello, I'm",
       name: "Birk Jonathan Ramstad",
       description:
-        "Student at NTNU working with full-stack development. Combines studies in computer science with practical experience in modern web development, user experience and cybersecurity.",
+        "Founder of Thylo Insight. Full-stack engineer focused on AI systems, cybersecurity and modern web infrastructure.",
       location: "Trondheim/Oslo, Norway",
       born: "Born April 5th, 2003",
       cta: "View Projects",

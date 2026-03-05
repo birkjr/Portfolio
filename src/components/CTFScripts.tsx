@@ -19,7 +19,6 @@ import {
   FileSearch,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "next-themes";
 import { SectionContainer } from "./SectionContainer";
 
 interface CTFScript {
@@ -158,7 +157,6 @@ const content = {
 
 export function CTFScripts() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
   const scripts = language === "no" ? ctfScripts_no : ctfScripts_en;
   const t = content[language];
 
@@ -192,13 +190,7 @@ export function CTFScripts() {
               return (
                 <Card
                   key={index}
-                  className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 flex flex-col"
-                  style={{
-                    background:
-                      theme === "dark"
-                        ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                        : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
-                  }}
+                  className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 flex flex-col card-gradient-bg"
                 >
                   <CardHeader className="flex-1 p-4 pb-2">
                     <div className="flex items-start gap-3">

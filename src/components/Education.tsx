@@ -10,7 +10,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, School, LucideIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "next-themes";
 import { SectionContainer } from "./SectionContainer";
 
 interface Education {
@@ -103,7 +102,6 @@ const content = {
 
 export function Education() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
   const educations = language === "no" ? educations_no : educations_en;
   const t = content[language];
 
@@ -131,13 +129,7 @@ export function Education() {
             return (
               <Card
                 key={index}
-                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
-                style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
-                }}
+                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
               >
                 <CardHeader className="p-4">
                   <div className="flex items-start gap-3">

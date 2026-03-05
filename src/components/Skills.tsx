@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "next-themes";
 import { SkillsRadarChart } from "@/components/SkillsRadarChart";
 import { SectionContainer } from "./SectionContainer";
 
@@ -126,7 +125,6 @@ const content = {
 
 export function Skills() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
   const skills = language === "no" ? skills_no : skills_en;
   const categories_list = categories[language];
   const t = content[language];
@@ -159,13 +157,7 @@ export function Skills() {
             return (
               <Card
                 key={category}
-                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
-                style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
-                }}
+                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
               >
                 <CardHeader className="p-4 pb-3">
                   <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
@@ -200,15 +192,7 @@ export function Skills() {
           })}
 
           {/* Skills Overview Chart */}
-          <Card
-            className="hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
-            style={{
-              background:
-                theme === "dark"
-                  ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                  : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
-            }}
-          >
+          <Card className="hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg">
             <CardHeader className="p-4 pb-3">
               <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 {language === "no" ? "Ferdighetsoversikt" : "Skills Overview"}
