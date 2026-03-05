@@ -21,7 +21,6 @@ import {
   X,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "next-themes";
 import { SectionContainer } from "./SectionContainer";
 
 interface Experience {
@@ -157,7 +156,6 @@ const content = {
 
 export function Experience() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
   const experiences = language === "no" ? experiences_no : experiences_en;
   const t = content[language];
   const [selectedExperience, setSelectedExperience] = useState<number | null>(
@@ -188,12 +186,8 @@ export function Experience() {
             onClick={() => setSelectedExperience(null)}
           >
             <Card
-              className="hover-glow relative w-full max-w-3xl animate-fade-in text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl"
+              className="hover-glow relative w-full max-w-3xl animate-fade-in text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl card-gradient-bg"
               style={{
-                background:
-                  theme === "dark"
-                    ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                    : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
                 maxHeight: "90vh",
               }}
               onClick={(e) => e.stopPropagation()}
@@ -248,12 +242,8 @@ export function Experience() {
             return (
               <Card
                 key={index}
-                className="group text-center hover-glow transition-all duration-300 cursor-pointer h-full flex flex-col border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
+                className="group text-center hover-glow transition-all duration-300 cursor-pointer h-full flex flex-col border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
                 style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
                   opacity:
                     selectedExperience !== null && selectedExperience !== index
                       ? 0.3

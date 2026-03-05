@@ -15,9 +15,9 @@ export default function Home() {
       <Navbar />
       <main className="relative z-10">
         <Hero />
+        <Projects />
         <Education />
         <Experience />
-        <Projects />
         <CTFScripts />
         <Skills />
         <Footer />

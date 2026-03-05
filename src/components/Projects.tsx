@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Code, ExternalLink, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useTheme } from "next-themes";
 import { SectionContainer } from "./SectionContainer";
 
 interface Project {
@@ -44,7 +43,7 @@ const projects_no: Project[] = [
     github: "",
     demo: "https://thyloinsight.no",
     featured: true,
-    image: "/ThyloInsight.png",
+    image: "/ThyloInsightv2.png",
   },
   {
     title: "Teknologiporten NTNU",
@@ -100,7 +99,7 @@ const projects_en: Project[] = [
     github: "",
     demo: "https://thyloinsight.no",
     featured: true,
-    image: "/ThyloInsight.png",
+    image: "/ThyloInsightv2.png",
   },
   {
     title: "Teknologiporten NTNU",
@@ -157,7 +156,6 @@ const content = {
 
 export function Projects() {
   const { language } = useLanguage();
-  const { theme } = useTheme();
   const projects = language === "no" ? projects_no : projects_en;
   const t = content[language];
 
@@ -185,13 +183,7 @@ export function Projects() {
             return (
               <Card
                 key={index}
-                className="group relative overflow-hidden h-full flex flex-col hover-glow transition-all duration-500 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10"
-                style={{
-                  background:
-                    theme === "dark"
-                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
-                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
-                }}
+                className="group relative overflow-hidden h-full flex flex-col hover-glow transition-all duration-500 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/10 card-gradient-bg"
               >
                 {/* Image Container */}
                 <div className="relative aspect-video bg-gradient-to-br from-blue-950/20 to-cyan-950/20 overflow-hidden">
@@ -201,6 +193,7 @@ export function Projects() {
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={project.image.includes("ThyloInsight")}
                   />
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
