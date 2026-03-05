@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Activity,
   Code,
@@ -20,6 +21,8 @@ import {
   X,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "next-themes";
+import { SectionContainer } from "./SectionContainer";
 
 interface Experience {
   title: string;
@@ -154,6 +157,7 @@ const content = {
 
 export function Experience() {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const experiences = language === "no" ? experiences_no : experiences_en;
   const t = content[language];
   const [selectedExperience, setSelectedExperience] = useState<number | null>(
@@ -161,17 +165,20 @@ export function Experience() {
   );
 
   return (
-    <section id="experience" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">{t.label}</span>
+    <SectionContainer id="experience">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+              {t.label}
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
-            {t.title}
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
         </div>
 
         {/* Modal Overlay */}
@@ -181,13 +188,19 @@ export function Experience() {
             onClick={() => setSelectedExperience(null)}
           >
             <Card
-              className="glass hover-glow relative w-full max-w-3xl animate-fade-in text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)]"
+              className="hover-glow relative w-full max-w-3xl animate-fade-in text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl"
+              style={{
+                background:
+                  theme === "dark"
+                    ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                    : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
+                maxHeight: "90vh",
+              }}
               onClick={(e) => e.stopPropagation()}
-              style={{ maxHeight: "90vh" }}
             >
               <button
                 onClick={() => setSelectedExperience(null)}
-                className="absolute right-4 top-4 rounded-full bg-slate-900/70 p-2 text-white/80 transition-colors hover:text-white"
+                className="absolute right-4 top-4 rounded-full bg-slate-900/70 dark:bg-slate-800/70 p-2 text-white/80 transition-colors hover:text-white hover:bg-slate-800 dark:hover:bg-slate-700 z-10"
               >
                 <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
@@ -203,10 +216,10 @@ export function Experience() {
                     })()}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <CardTitle className="text-xl sm:text-2xl">
+                    <CardTitle className="text-xl sm:text-2xl text-foreground">
                       {experiences[selectedExperience].title}
                     </CardTitle>
-                    <CardDescription className="mb-2 text-sm font-medium text-blue-300 sm:text-lg">
+                    <CardDescription className="mb-2 text-sm font-medium text-blue-600 dark:text-blue-400 sm:text-lg">
                       {experiences[selectedExperience].description}
                     </CardDescription>
                     <Badge variant="outline" className="text-xs sm:text-sm">
@@ -229,15 +242,18 @@ export function Experience() {
         )}
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 max-w-7xl mx-auto">
           {experiences.map((experience, index) => {
             const IconComponent = experience.icon;
             return (
               <Card
                 key={index}
-                className="text-center glass hover-glow transition-all duration-300 cursor-pointer"
-                onClick={() => setSelectedExperience(index)}
+                className="group text-center hover-glow transition-all duration-300 cursor-pointer h-full flex flex-col border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
                 style={{
+                  background:
+                    theme === "dark"
+                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
                   opacity:
                     selectedExperience !== null && selectedExperience !== index
                       ? 0.3
@@ -245,26 +261,29 @@ export function Experience() {
                   transform:
                     selectedExperience === index ? "scale(1.05)" : "scale(1)",
                 }}
+                onClick={() => setSelectedExperience(index)}
               >
-                <CardHeader>
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <IconComponent className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
+                <CardHeader className="flex-1 p-4 pb-2">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
-                  <CardTitle className="text-base sm:text-lg">
+                  <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {experience.title}
                   </CardTitle>
-                  <CardDescription className="text-sm sm:text-base">
+                  <CardDescription className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed">
                     {experience.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Badge variant="outline">{experience.year}</Badge>
+                <CardContent className="pt-0 pb-4 px-4">
+                  <Badge variant="outline" className="text-xs">
+                    {experience.year}
+                  </Badge>
                 </CardContent>
               </Card>
             );
           })}
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

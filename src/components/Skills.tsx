@@ -2,8 +2,11 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "next-themes";
 import { SkillsRadarChart } from "@/components/SkillsRadarChart";
+import { SectionContainer } from "./SectionContainer";
 
 interface Skill {
   name: string;
@@ -123,68 +126,100 @@ const content = {
 
 export function Skills() {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const skills = language === "no" ? skills_no : skills_en;
   const categories_list = categories[language];
   const t = content[language];
 
   return (
-    <section id="skills" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent"></div>
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">{t.label}</span>
+    <SectionContainer id="skills">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+              {t.label}
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
-            {t.title}
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {categories_list.map((category) => (
-            <Card
-              key={category}
-              className="glass hover-glow transition-all duration-300"
-            >
-              <CardHeader>
-                <CardTitle className="text-lg sm:text-xl font-semibold text-center text-gradient">
-                  {category}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {skills
-                    .filter((skill) => skill.category === category)
-                    .map((skill, index) => (
+        {/* Skills Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+          {categories_list.map((category) => {
+            const categorySkills = skills.filter(
+              (skill) => skill.category === category
+            );
+            if (categorySkills.length === 0) return null;
+
+            return (
+              <Card
+                key={category}
+                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
+                style={{
+                  background:
+                    theme === "dark"
+                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
+                }}
+              >
+                <CardHeader className="p-4 pb-3">
+                  <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    {category}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                  <div className="space-y-3">
+                    {categorySkills.map((skill, index) => (
                       <div key={index} className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs sm:text-sm font-medium text-foreground">
+                          <span className="text-sm font-medium text-foreground">
                             {skill.name}
                           </span>
-                          <span className="text-xs sm:text-sm text-purple-400 font-semibold">
+                          <Badge
+                            variant="outline"
+                            className="text-xs font-semibold border-blue-500/30 text-blue-600 dark:text-blue-400"
+                          >
                             {skill.level}%
-                          </span>
+                          </Badge>
                         </div>
-                        <Progress value={skill.level} className="h-2" />
+                        <Progress
+                          value={skill.level}
+                          className="h-2 bg-muted"
+                        />
                       </div>
                     ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-          <Card className="glass hover-glow transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="text-lg sm:text-xl font-semibold text-center text-gradient">
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+
+          {/* Skills Overview Chart */}
+          <Card
+            className="hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
+            style={{
+              background:
+                theme === "dark"
+                  ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                  : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
+            }}
+          >
+            <CardHeader className="p-4 pb-3">
+              <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 {language === "no" ? "Ferdighetsoversikt" : "Skills Overview"}
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4 pt-0">
               <SkillsRadarChart skills={skills} categories={categories_list} />
             </CardContent>
           </Card>
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

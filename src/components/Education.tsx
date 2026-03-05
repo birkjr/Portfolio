@@ -10,6 +10,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, School, LucideIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "next-themes";
+import { SectionContainer } from "./SectionContainer";
 
 interface Education {
   institution: string;
@@ -90,6 +92,7 @@ const content = {
   no: {
     label: "Utdanning",
     title: "Utdanning",
+    subtitle: "Min utdanningsreise",
   },
   en: {
     label: "Education",
@@ -100,41 +103,52 @@ const content = {
 
 export function Education() {
   const { language } = useLanguage();
+  const { theme } = useTheme();
   const educations = language === "no" ? educations_no : educations_en;
   const t = content[language];
 
   return (
-    <section id="education" className="py-20 relative">
-      <div className="container mx-auto px-4 relative">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-            <span className="text-blue-400 font-medium">{t.label}</span>
+    <SectionContainer id="education">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
+            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
+            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
+              {t.label}
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gradient">
-            {t.title}
-          </h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            {t.subtitle}
+          </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {educations.map((education, index) => {
             const IconComponent = education.icon;
             return (
               <Card
                 key={index}
-                className="glass hover-glow transition-all duration-300"
+                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10"
+                style={{
+                  background:
+                    theme === "dark"
+                      ? "linear-gradient(to bottom, rgb(15 23 42 / 0.9), rgb(2 6 23 / 0.95), rgb(0 0 0 / 0.98))"
+                      : "linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5)",
+                }}
               >
-                <CardHeader>
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <CardHeader className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <CardTitle className="text-base sm:text-lg mb-2">
+                      <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {education.institution}
                       </CardTitle>
-                      <CardDescription className="text-blue-300 font-medium text-sm sm:text-base mb-2">
+                      <CardDescription className="text-blue-600 dark:text-blue-400 font-semibold text-xs sm:text-sm mb-2">
                         {education.program}
                       </CardDescription>
                       <Badge variant="outline" className="text-xs">
@@ -143,18 +157,18 @@ export function Education() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  {education.description && (
-                    <p className="text-sm text-muted-foreground/80 leading-relaxed">
+                {education.description && (
+                  <CardContent className="p-4 pt-0">
+                    <p className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed">
                       {education.description}
                     </p>
-                  )}
-                </CardContent>
+                  </CardContent>
+                )}
               </Card>
             );
           })}
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }
