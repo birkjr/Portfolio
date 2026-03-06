@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
-import { SkillsRadarChart } from "@/components/SkillsRadarChart";
 import { SectionContainer } from "./SectionContainer";
 
 interface Skill {
@@ -34,13 +33,6 @@ const skills_no: Skill[] = [
   { name: "C", level: 75, category: "Reverse Engineering" },
   { name: "Debugging", level: 80, category: "Reverse Engineering" },
   { name: "Static Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Forhandling", level: 75, category: "Ledelse" },
-  { name: "Ledelse", level: 85, category: "Ledelse" },
-  { name: "Markedsføring", level: 75, category: "Business" },
-  { name: "Webdesign", level: 80, category: "Design" },
-  { name: "Samarbeid", level: 90, category: "Skills" },
-  { name: "Kundeservice", level: 85, category: "Skills" },
-  { name: "Salg", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
   { name: "Vercel", level: 95, category: "Tools" },
@@ -71,13 +63,6 @@ const skills_en: Skill[] = [
   { name: "C", level: 75, category: "Reverse Engineering" },
   { name: "Debugging", level: 80, category: "Reverse Engineering" },
   { name: "Static Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Negotiation", level: 75, category: "Leadership" },
-  { name: "Leadership", level: 85, category: "Leadership" },
-  { name: "Marketing", level: 75, category: "Business" },
-  { name: "Web Design", level: 80, category: "Design" },
-  { name: "Collaboration", level: 90, category: "Skills" },
-  { name: "Customer Service", level: 85, category: "Skills" },
-  { name: "Sales", level: 70, category: "Skills" },
   { name: "Github", level: 95, category: "Tools" },
   { name: "Gitlab", level: 75, category: "Tools" },
   { name: "Vercel", level: 95, category: "Tools" },
@@ -88,26 +73,8 @@ const skills_en: Skill[] = [
 ];
 
 const categories = {
-  no: [
-    "Frontend",
-    "Backend",
-    "Reverse Engineering",
-    "Ledelse",
-    "Business",
-    "Design",
-    "Skills",
-    "Tools",
-  ],
-  en: [
-    "Frontend",
-    "Backend",
-    "Reverse Engineering",
-    "Leadership",
-    "Business",
-    "Design",
-    "Skills",
-    "Tools",
-  ],
+  no: ["Frontend", "Backend", "Reverse Engineering", "Tools"],
+  en: ["Frontend", "Backend", "Reverse Engineering", "Tools"],
 };
 
 const content = {
@@ -146,8 +113,8 @@ export function Skills() {
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        {/* Skills Grid (4 boxes) */}
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
           {categories_list.map((category) => {
             const categorySkills = skills.filter(
               (skill) => skill.category === category
@@ -190,18 +157,6 @@ export function Skills() {
               </Card>
             );
           })}
-
-          {/* Skills Overview Chart */}
-          <Card className="hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg">
-            <CardHeader className="p-4 pb-3">
-              <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                {language === "no" ? "Ferdighetsoversikt" : "Skills Overview"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-4 pt-0">
-              <SkillsRadarChart skills={skills} categories={categories_list} />
-            </CardContent>
-          </Card>
         </div>
       </div>
     </SectionContainer>
