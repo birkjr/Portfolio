@@ -166,6 +166,7 @@ export function Experience() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   const hasAnimated = useRef(false);
+  const fallbackTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -188,6 +189,14 @@ export function Experience() {
 
     const isMobile = window.innerWidth < 768;
 
+    // Fallback: Show section after 1 second if animation hasn't triggered
+    fallbackTimer.current = setTimeout(() => {
+      if (!hasAnimated.current && sectionRef.current) {
+        setIsVisible(true);
+        hasAnimated.current = true;
+      }
+    }, 1000);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -196,13 +205,18 @@ export function Experience() {
 
           // Trigger animation when section enters viewport
           // Lower threshold on mobile, higher on desktop to prevent multiple sections triggering
-          const minRatio = isMobile ? 0.3 : 0.7;
+          const minRatio = isMobile ? 0.3 : 0.5; // Lowered desktop threshold from 0.7 to 0.5
 
           if (
             isIntersecting &&
             intersectionRatio >= minRatio &&
             !hasAnimated.current
           ) {
+            // Clear fallback timer
+            if (fallbackTimer.current) {
+              clearTimeout(fallbackTimer.current);
+            }
+
             const currentScrollY = window.scrollY;
             if (currentScrollY > lastScrollY.current) {
               setScrollDirection("down");
@@ -220,7 +234,7 @@ export function Experience() {
       },
       {
         threshold: [0, 0.3, 0.5, 0.7, 1.0], // Multiple thresholds to catch different screen sizes
-        rootMargin: isMobile ? "0px 0px -50px 0px" : "-150px 0px -200px 0px", // Smaller margin on mobile, larger bottom for footer on desktop
+        rootMargin: isMobile ? "0px 0px -50px 0px" : "-100px 0px -150px 0px", // Reduced desktop margin, larger bottom for footer
       }
     );
 
@@ -231,6 +245,9 @@ export function Experience() {
     return () => {
       if (sectionRef.current) {
         observer.unobserve(sectionRef.current);
+      }
+      if (fallbackTimer.current) {
+        clearTimeout(fallbackTimer.current);
       }
     };
   }, []);

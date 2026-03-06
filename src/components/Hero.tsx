@@ -140,7 +140,7 @@ export function Hero() {
 
   return (
     <SectionContainer variant="hero" id="home">
-      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-12 items-center mt-20 sm:mt-16 md:mt-12 lg:mt-8">
         {/* Left Column - Content */}
         <div className="space-y-6 order-1 lg:order-1 text-center lg:text-left w-full">
           {/* Badge */}
