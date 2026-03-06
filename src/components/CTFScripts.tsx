@@ -190,8 +190,9 @@ export function CTFScripts() {
               return (
                 <Card
                   key={index}
-                  className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 flex flex-col card-gradient-bg"
+                  className="group relative overflow-hidden hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/10 flex flex-col card-gradient-bg"
                 >
+                  <div className="card-shine" />
                   <CardHeader className="flex-1 p-4 pb-2">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">

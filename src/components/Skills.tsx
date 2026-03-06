@@ -1,104 +1,144 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import type { ElementType } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
+import {
+  Code2,
+  Globe2,
+  Cpu,
+  Github,
+  TerminalSquare,
+  Cloud,
+  Sparkles,
+} from "lucide-react";
 
-interface Skill {
+interface TechItem {
   name: string;
-  level: number;
-  category: string;
+  group: string;
+  iconType: "lucide" | "image";
+  icon?: ElementType;
+  imageSrc?: string;
 }
 
-const skills_no: Skill[] = [
-  { name: "React.js", level: 85, category: "Frontend" },
-  { name: "React Native", level: 80, category: "Frontend" },
-  { name: "TypeScript", level: 90, category: "Frontend" },
-  { name: "Webutvikling", level: 90, category: "Frontend" },
-  { name: "Python", level: 90, category: "Frontend" },
-  { name: "Java", level: 75, category: "Backend" },
-  { name: "JavaScript", level: 75, category: "Frontend" },
-  { name: "HTML", level: 70, category: "Frontend" },
-  { name: "CSS", level: 80, category: "Frontend" },
-  { name: "Tailwind", level: 85, category: "Frontend" },
-  { name: "MySQL", level: 80, category: "Backend" },
-  { name: "Supabase", level: 95, category: "Backend" },
-  { name: "Firebase", level: 50, category: "Backend" },
-  { name: "Ghidra", level: 80, category: "Reverse Engineering" },
-  { name: "Binary Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Reverse Engineering", level: 80, category: "Reverse Engineering" },
-  { name: "Assembly", level: 70, category: "Reverse Engineering" },
-  { name: "C", level: 75, category: "Reverse Engineering" },
-  { name: "Debugging", level: 80, category: "Reverse Engineering" },
-  { name: "Static Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Github", level: 95, category: "Tools" },
-  { name: "Gitlab", level: 75, category: "Tools" },
-  { name: "Vercel", level: 95, category: "Tools" },
-  { name: "Expo", level: 80, category: "Tools" },
-  { name: "Expo Go", level: 80, category: "Tools" },
-  { name: "Swift", level: 70, category: "Frontend" },
-  { name: "SwiftUI", level: 70, category: "Frontend" },
+const techItemsBase: TechItem[] = [
+  // Core frontend
+  {
+    name: "React",
+    group: "Frontend",
+    iconType: "image",
+    imageSrc: "/Icons/react.jpeg",
+  },
+  {
+    name: "Next.js",
+    group: "Frontend",
+    iconType: "image",
+    imageSrc: "/Icons/nextjs.jpeg",
+  },
+  // Language & styling
+  {
+    name: "TypeScript",
+    group: "Language",
+    iconType: "image",
+    imageSrc: "/Icons/typescriptv2.png",
+  },
+  {
+    name: "Tailwind CSS",
+    group: "Styling",
+    iconType: "image",
+    imageSrc: "/Icons/tailwindv2.png",
+  },
+  // Backend / data / infra
+  {
+    name: "Python",
+    group: "Backend / AI",
+    iconType: "image",
+    imageSrc: "/Icons/python.jpeg",
+  },
+  {
+    name: "Node.js",
+    group: "Backend",
+    iconType: "image",
+    imageSrc: "/Icons/nodejs.png",
+  },
+  {
+    name: "Supabase",
+    group: "Database",
+    iconType: "image",
+    imageSrc: "/Icons/supabasev2.png",
+  },
+  {
+    name: "Vercel",
+    group: "Infra",
+    iconType: "image",
+    imageSrc: "/Icons/vercel.png",
+  },
+  // Tools & collaboration
+  { name: "GitHub", group: "Collaboration", iconType: "lucide", icon: Github },
+  {
+    name: "Cursor",
+    group: "Tooling",
+    iconType: "lucide",
+    icon: TerminalSquare,
+  },
 ];
-
-const skills_en: Skill[] = [
-  { name: "React.js", level: 85, category: "Frontend" },
-  { name: "React Native", level: 80, category: "Frontend" },
-  { name: "TypeScript", level: 90, category: "Frontend" },
-  { name: "Web Development", level: 90, category: "Frontend" },
-  { name: "Python", level: 90, category: "Frontend" },
-  { name: "Java", level: 75, category: "Backend" },
-  { name: "JavaScript", level: 75, category: "Frontend" },
-  { name: "HTML", level: 70, category: "Frontend" },
-  { name: "CSS", level: 80, category: "Frontend" },
-  { name: "Tailwind", level: 85, category: "Frontend" },
-  { name: "MySQL", level: 80, category: "Backend" },
-  { name: "Supabase", level: 95, category: "Backend" },
-  { name: "Firebase", level: 50, category: "Backend" },
-  { name: "Ghidra", level: 80, category: "Reverse Engineering" },
-  { name: "Binary Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Reverse Engineering", level: 80, category: "Reverse Engineering" },
-  { name: "Assembly", level: 70, category: "Reverse Engineering" },
-  { name: "C", level: 75, category: "Reverse Engineering" },
-  { name: "Debugging", level: 80, category: "Reverse Engineering" },
-  { name: "Static Analysis", level: 75, category: "Reverse Engineering" },
-  { name: "Github", level: 95, category: "Tools" },
-  { name: "Gitlab", level: 75, category: "Tools" },
-  { name: "Vercel", level: 95, category: "Tools" },
-  { name: "Expo", level: 80, category: "Tools" },
-  { name: "Expo Go", level: 80, category: "Tools" },
-  { name: "Swift", level: 70, category: "Frontend" },
-  { name: "SwiftUI", level: 70, category: "Frontend" },
-];
-
-const categories = {
-  no: ["Frontend", "Backend", "Reverse Engineering", "Tools"],
-  en: ["Frontend", "Backend", "Reverse Engineering", "Tools"],
-};
 
 const content = {
   no: {
-    label: "Ferdigheter",
-    title: "Ferdigheter",
-    subtitle: "Teknologier og verktøy jeg jobber med for å skape løsninger.",
+    label: "Teknologi",
+    title: "Teknologier jeg bygger med",
+    subtitle:
+      "Et utvalg av teknologier, rammeverk og verktøy jeg bruker til å bygge produkter, verktøy og infrastruktur.",
   },
   en: {
-    label: "Skills",
-    title: "Skills",
-    subtitle: "Technologies and tools I work with to create solutions.",
+    label: "Tech Stack",
+    title: "Technologies I build with",
+    subtitle:
+      "A selection of the technologies, frameworks and tools I use to build products, tools and infrastructure.",
   },
 };
 
 export function Skills() {
   const { language } = useLanguage();
-  const skills = language === "no" ? skills_no : skills_en;
-  const categories_list = categories[language];
   const t = content[language];
+  const techItems = techItemsBase;
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            // Reset animation when leaving viewport so it can replay
+            setIsVisible(false);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
     <SectionContainer id="skills">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto" ref={sectionRef}>
         {/* Section Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
@@ -113,45 +153,47 @@ export function Skills() {
           </p>
         </div>
 
-        {/* Skills Grid (4 boxes) */}
-        <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
-          {categories_list.map((category) => {
-            const categorySkills = skills.filter(
-              (skill) => skill.category === category
-            );
-            if (categorySkills.length === 0) return null;
-
+        {/* Technology Icon Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6">
+          {techItems.map((item, index) => {
+            const Icon = item.icon;
             return (
               <Card
-                key={category}
-                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
+                key={item.name}
+                className={`group relative overflow-hidden border-2 border-[#e3d4c3]/80 dark:border-slate-800/70 rounded-2xl hover-glow transition-all duration-300 hover:-translate-y-1 card-gradient-bg ${
+                  isVisible ? "tech-card-slide-up" : "opacity-0"
+                }`}
+                style={{
+                  animationDelay: `${index * 0.05}s`,
+                }}
               >
-                <CardHeader className="p-4 pb-3">
-                  <CardTitle className="text-base sm:text-lg font-bold text-center bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                    {category}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <div className="space-y-3">
-                    {categorySkills.map((skill, index) => (
-                      <div key={index} className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-medium text-foreground">
-                            {skill.name}
-                          </span>
-                          <Badge
-                            variant="outline"
-                            className="text-xs font-semibold border-blue-500/30 text-blue-600 dark:text-blue-400"
-                          >
-                            {skill.level}%
-                          </Badge>
-                        </div>
-                        <Progress
-                          value={skill.level}
-                          className="h-2 bg-muted"
-                        />
-                      </div>
-                    ))}
+                {/* Glow / shine overlay */}
+                <div className="card-shine" />
+                <CardContent className="relative z-10 p-4 flex flex-col gap-3">
+                  {item.iconType === "image" && item.imageSrc ? (
+                    <div className="inline-flex items-center justify-center w-12 h-12">
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        width={48}
+                        height={48}
+                        className="object-contain rounded-lg"
+                      />
+                    </div>
+                  ) : (
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-950/80 dark:bg-slate-950/80 border border-slate-700/70 dark:border-slate-700/70 shadow-md shadow-blue-500/25">
+                      {Icon && (
+                        <Icon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                      )}
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      {item.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {item.group}
+                    </p>
                   </div>
                 </CardContent>
               </Card>

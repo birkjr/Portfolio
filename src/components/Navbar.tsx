@@ -34,18 +34,14 @@ export default function Navbar() {
       { name: "Prosjekter", href: "#projects" },
       { name: "Utdanning", href: "#education" },
       { name: "Erfaringer", href: "#experience" },
-      { name: "Reverse Engineering", href: "#reverse-engineering" },
       { name: "Ferdigheter", href: "#skills" },
-      { name: "Kontakt", href: "#contact" },
     ],
     en: [
       { name: "About Me", href: "#home" },
       { name: "Projects", href: "#projects" },
       { name: "Education", href: "#education" },
       { name: "Experience", href: "#experience" },
-      { name: "Reverse Engineering", href: "#reverse-engineering" },
       { name: "Skills", href: "#skills" },
-      { name: "Contact", href: "#contact" },
     ],
   };
 

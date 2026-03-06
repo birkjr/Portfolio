@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -33,12 +34,46 @@ const content = {
 export function Footer() {
   const { language } = useLanguage();
   const t = content[language];
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          } else {
+            setIsVisible(false);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
     <SectionContainer id="contact" variant="featured">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Container */}
-        <footer className="w-full rounded-3xl overflow-hidden border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg">
+        <footer
+          ref={sectionRef}
+          className={`group relative w-full rounded-3xl overflow-hidden border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg hover-glow transition-all duration-500 ${
+            isVisible ? "card-fade-in-up" : "opacity-0"
+          }`}
+        >
+          {/* Shine overlay */}
+          <div className="card-shine" />
           {/* Contact section inside footer */}
           <div className="px-6 sm:px-8 lg:px-12 pt-12 pb-8 sm:pt-16 sm:pb-12">
             {/* Header */}
