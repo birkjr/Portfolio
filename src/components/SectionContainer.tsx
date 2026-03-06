@@ -60,10 +60,10 @@ export function SectionContainer({
       ref={sectionRef}
       id={id}
       className={cn(
-        "relative py-12 sm:py-16 md:py-20",
+        "relative py-8 sm:py-12 md:py-16 lg:py-20",
         variant === "hero" &&
-          "min-h-[85vh] flex items-center pt-24 sm:pt-28 md:pt-32 scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32",
-        variant === "featured" && "py-16 sm:py-20",
+          "min-h-[70vh] sm:min-h-[80vh] md:min-h-[85vh] flex items-center pt-32 sm:pt-28 md:pt-28 scroll-mt-32 sm:scroll-mt-24 md:scroll-mt-28",
+        variant === "featured" && "py-12 sm:py-16 md:py-20",
         className
       )}
     >

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -104,10 +105,94 @@ export function Education() {
   const { language } = useLanguage();
   const educations = language === "no" ? educations_no : educations_en;
   const t = content[language];
+  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current) {
+        setScrollDirection("down");
+      } else if (currentScrollY < lastScrollY.current) {
+        setScrollDirection("up");
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // If already animated, don't set up observer again
+    if (hasAnimated.current) return;
+
+    const isMobile = window.innerWidth < 768;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isIntersecting = entry.isIntersecting;
+          const intersectionRatio = entry.intersectionRatio;
+
+          // Trigger animation when section enters viewport
+          // Lower threshold on mobile, higher on desktop to prevent multiple sections triggering
+          const minRatio = isMobile ? 0.3 : 0.7;
+
+          if (
+            isIntersecting &&
+            intersectionRatio >= minRatio &&
+            !hasAnimated.current
+          ) {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY.current) {
+              setScrollDirection("down");
+            } else if (currentScrollY < lastScrollY.current) {
+              setScrollDirection("up");
+            }
+            setIsVisible(true);
+            hasAnimated.current = true;
+            // Unobserve after animation triggers to prevent re-triggering
+            if (sectionRef.current) {
+              observer.unobserve(sectionRef.current);
+            }
+          }
+        });
+      },
+      {
+        threshold: [0, 0.3, 0.5, 0.7, 1.0], // Multiple thresholds to catch different screen sizes
+        rootMargin: isMobile ? "0px 0px -50px 0px" : "-150px 0px -150px 0px", // Smaller margin on mobile
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
     <SectionContainer id="education">
-      <div className="max-w-7xl mx-auto">
+      <div
+        className={`max-w-7xl mx-auto transition-all duration-300 ${
+          isVisible
+            ? scrollDirection === "down"
+              ? "section-slide-up"
+              : "section-slide-down"
+            : scrollDirection === "down"
+              ? "opacity-0 translate-y-[260px] scale-[0.94]"
+              : "opacity-0 -translate-y-[260px] scale-[0.94]"
+        }`}
+        ref={sectionRef}
+      >
         {/* Section Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
@@ -129,8 +214,9 @@ export function Education() {
             return (
               <Card
                 key={index}
-                className="group hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
+                className="group relative overflow-hidden hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
               >
+                <div className="card-shine" />
                 <CardHeader className="p-4">
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">

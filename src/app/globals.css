@@ -208,6 +208,29 @@ body::before {
   transform: translateY(-2px);
 }
 
+/* Reusable shine overlay for cards */
+.card-shine {
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  opacity: 0;
+  transform: translateX(-130%);
+  pointer-events: none;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.group:hover .card-shine {
+  opacity: 1;
+  transform: translateX(130%);
+}
+
 .text-gradient {
   background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
   -webkit-background-clip: text;
@@ -234,6 +257,17 @@ body::before {
 .hover-lift:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Floating profile card drop animation */
+.profile-card-drop {
+  opacity: 0;
+  transform: translateY(-32px) rotate(-6deg);
+  transform-origin: center;
+}
+
+.profile-card-drop-visible {
+  animation: profileDrop 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 @keyframes fadeIn {
@@ -368,8 +402,130 @@ body::before {
   }
 }
 
+@keyframes heroCardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(260px) scale(0.94);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hero-card-slide-up {
+  animation: heroCardSlideUp 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes profileDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) rotate(-6deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(8px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes techCardDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tech-card-slide-up {
+  animation: techCardDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes cardFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sectionSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(260px) scale(0.94);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sectionSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-260px) scale(0.94);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-fade-in-up {
+  animation: cardFadeInUp 0.6s ease-out forwards;
+}
+
+.card-fade-in-down {
+  animation: cardFadeInDown 0.6s ease-out forwards;
+}
+
+.section-slide-up {
+  animation: sectionSlideUp 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.section-slide-down {
+  animation: sectionSlideDown 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 .contact-with-footer {
