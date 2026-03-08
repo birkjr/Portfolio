@@ -25,7 +25,7 @@ export function Hero() {
       greeting: "Hei, jeg er",
       name: "Birk Jonathan Ramstad",
       description:
-        "Gründer og CTO for Thylo Insight. Full-stack utvikler fokusert på AI-systemer, cybersikkerhet og moderne web-infrastruktur.",
+        "Programvareutvikler som bygger datadrevne produkter. Medgründer og CTO for Thylo Insight — utvikler AI-drevet helseinsikt-plattform.",
       location: "Trondheim/Oslo, Norge",
       born: "Født 5. april 2003",
       cta: "Se prosjekter",
@@ -37,7 +37,7 @@ export function Hero() {
       greeting: "Hello, I'm",
       name: "Birk Jonathan Ramstad",
       description:
-        "Founder and CTO of Thylo Insight. Full-stack engineer focused on AI systems, cybersecurity and modern web infrastructure.",
+        "Software engineer building data-driven products. Co-founder and CTO of Thylo Insight — currently developing an AI-powered health insight platform.",
       location: "Trondheim/Oslo, Norway",
       born: "Born April 5th, 2003",
       cta: "View Projects",
@@ -61,16 +61,10 @@ export function Hero() {
   });
 
   const [isVisible, setIsVisible] = useState(false);
-  const heroImageRef = useRef<HTMLDivElement>(null);
+  // Separate ref for the desktop card only — mobile card never needs observer
+  const desktopCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // On mobile, show immediately to avoid visibility issues
-    const isMobile = window.innerWidth < 1024;
-    if (isMobile) {
-      setIsVisible(true);
-      return;
-    }
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -84,13 +78,13 @@ export function Hero() {
       { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
     );
 
-    if (heroImageRef.current) {
-      observer.observe(heroImageRef.current);
+    if (desktopCardRef.current) {
+      observer.observe(desktopCardRef.current);
     }
 
     return () => {
-      if (heroImageRef.current) {
-        observer.unobserve(heroImageRef.current);
+      if (desktopCardRef.current) {
+        observer.unobserve(desktopCardRef.current);
       }
     };
   }, []);
@@ -181,17 +175,13 @@ export function Hero() {
 
           {/* Portrait Card with 3D tilt (shown between description and CTAs on mobile) */}
           <div className="flex justify-center lg:hidden">
-            <div className="relative" ref={heroImageRef}>
+            <div className="relative">
               {/* Animated gradient orb behind avatar */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/18 via-cyan-500/20 to-blue-500/18 rounded-[2.25rem] blur-3xl animate-pulse" />
 
-              {/* 3D tilt wrapper with deep slide-in animation */}
+              {/* Mobile card always animates in on mount — no observer needed */}
               <div
-                className={`relative z-10 [perspective:1100px] ${
-                  isVisible
-                    ? "hero-card-slide-up"
-                    : "opacity-0 translate-y-[260px] scale-[0.94]"
-                }`}
+                className="relative z-10 [perspective:1100px] hero-card-slide-up"
                 onMouseMove={handleTiltMove}
                 onMouseLeave={handleTiltLeave}
               >
@@ -325,7 +315,7 @@ export function Hero() {
 
         {/* Right Column - Portrait Card with 3D tilt (desktop only) */}
         <div className="hidden lg:flex justify-end order-2">
-          <div className="relative" ref={heroImageRef}>
+          <div className="relative" ref={desktopCardRef}>
             {/* Animated gradient orb behind avatar */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/18 via-cyan-500/20 to-blue-500/18 rounded-[2.25rem] blur-3xl animate-pulse" />
 

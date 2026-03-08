@@ -4,7 +4,8 @@ import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Education } from "@/components/Education";
 import { Projects } from "@/components/Projects";
-import { Experience } from "@/components/Experience";
+import { SystemsBuilt } from "@/components/SystemsBuilt";
+// import { Experience } from "@/components/Experience";
 import { Skills } from "@/components/Skills";
 import { Footer } from "@/components/Footer";
 
@@ -15,8 +16,9 @@ export default function Home() {
       <main className="relative z-10">
         <Hero />
         <Projects />
+        <SystemsBuilt />
         <Education />
-        <Experience />
+        {/* <Experience /> */}
         <Skills />
         <Footer />
       </main>
