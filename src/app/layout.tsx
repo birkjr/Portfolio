@@ -11,7 +11,7 @@ const baseUrl = isProduction
   : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: isProduction ? new URL(baseUrl) : undefined,
+  metadataBase: new URL(baseUrl),
   title: {
     default: "Birk Jonathan Ramstad | Full-Stack Developer",
     template: "%s | Birk Jonathan Ramstad",
