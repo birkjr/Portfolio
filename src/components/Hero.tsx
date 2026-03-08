@@ -64,6 +64,13 @@ export function Hero() {
   const heroImageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // On mobile, show immediately to avoid visibility issues
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -74,7 +81,7 @@ export function Hero() {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
     );
 
     if (heroImageRef.current) {
