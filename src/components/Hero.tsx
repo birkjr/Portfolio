@@ -64,6 +64,40 @@ export function Hero() {
   // Separate ref for the desktop card only — mobile card never needs observer
   const desktopCardRef = useRef<HTMLDivElement>(null);
 
+  // Global mouse tracking — tilt + shine follow cursor anywhere on screen
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const percentX = e.clientX / window.innerWidth - 0.5;
+      const percentY = e.clientY / window.innerHeight - 0.5;
+
+      setTilt({
+        rotateX: percentY * -13,
+        rotateY: percentX * 13,
+        scale: 1.03,
+      });
+
+      // Shine tracks global viewport position so it sweeps across the card
+      setShine({
+        x: (e.clientX / window.innerWidth) * 100,
+        y: (e.clientY / window.innerHeight) * 100,
+        intensity: 0.75,
+      });
+    };
+
+    const handleMouseLeave = () => {
+      setTilt({ rotateX: 0, rotateY: 0, scale: 1 });
+      setShine((prev) => ({ ...prev, intensity: 0 }));
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -88,43 +122,6 @@ export function Hero() {
       }
     };
   }, []);
-
-  const handleTiltMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    const percentX = x / rect.width - 0.5;
-    const percentY = y / rect.height - 0.5;
-
-    const rotateX = percentY * -14; // invert so it tilts correctly
-    const rotateY = percentX * 14;
-
-    setTilt({
-      rotateX,
-      rotateY,
-      scale: 1.04,
-    });
-
-    setShine({
-      x: (x / rect.width) * 100,
-      y: (y / rect.height) * 100,
-      intensity: 1,
-    });
-  };
-
-  const handleTiltLeave = () => {
-    setTilt({
-      rotateX: 0,
-      rotateY: 0,
-      scale: 1,
-    });
-
-    setShine((prev) => ({
-      ...prev,
-      intensity: 0,
-    }));
-  };
 
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
@@ -180,11 +177,7 @@ export function Hero() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/18 via-cyan-500/20 to-blue-500/18 rounded-[2.25rem] blur-3xl animate-pulse" />
 
               {/* Mobile card always animates in on mount — no observer needed */}
-              <div
-                className="relative z-10 [perspective:1100px] hero-card-slide-up"
-                onMouseMove={handleTiltMove}
-                onMouseLeave={handleTiltLeave}
-              >
+              <div className="relative z-10 [perspective:1100px] hero-card-slide-up">
                 <div
                   className="relative w-56 sm:w-72 md:w-80 lg:w-80 rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"
                   style={{
@@ -326,8 +319,6 @@ export function Hero() {
                   ? "hero-card-slide-up"
                   : "opacity-0 translate-y-[260px] scale-[0.94]"
               }`}
-              onMouseMove={handleTiltMove}
-              onMouseLeave={handleTiltLeave}
             >
               <div
                 className="relative w-80 rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Menu, X, Globe, ChevronRight, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
-import { HumanAvatar } from "@/components/Avatar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,12 +111,6 @@ export default function Navbar() {
                       BJR
                     </span>
                   </div>
-                </div>
-
-                <div className="relative hidden md:flex items-center justify-center">
-                  {/* Subtle glow around avatar */}
-                  <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-md opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                  <HumanAvatar />
                 </div>
               </div>
 
