@@ -474,6 +474,23 @@ function ArchitectureDiagram() {
   );
 }
 
+// Per-card 3D tilt state
+interface CardTilt {
+  rotateX: number;
+  rotateY: number;
+  shineX: number;
+  shineY: number;
+  shineIntensity: number;
+}
+
+const DEFAULT_TILT: CardTilt = {
+  rotateX: 0,
+  rotateY: 0,
+  shineX: 50,
+  shineY: 50,
+  shineIntensity: 0,
+};
+
 export function Projects() {
   const { language } = useLanguage();
   const baseProjects = language === "no" ? projects_no : projects_en;
@@ -489,6 +506,40 @@ export function Projects() {
   const lastScrollY = useRef(0);
   const hasAnimated = useRef(false);
   const fallbackTimer = useRef<NodeJS.Timeout | null>(null);
+
+  // Per-card tilt state array (one entry per project)
+  const [cardTilts, setCardTilts] = useState<CardTilt[]>(() =>
+    projects.map(() => ({ ...DEFAULT_TILT }))
+  );
+
+  const handleCardMouseMove = (
+    e: React.MouseEvent<HTMLDivElement>,
+    index: number
+  ) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rotateX = ((y - cy) / cy) * -8;
+    const rotateY = ((x - cx) / cx) * 8;
+    const shineX = (x / rect.width) * 100;
+    const shineY = (y / rect.height) * 100;
+
+    setCardTilts((prev) => {
+      const next = [...prev];
+      next[index] = { rotateX, rotateY, shineX, shineY, shineIntensity: 0.65 };
+      return next;
+    });
+  };
+
+  const handleCardMouseLeave = (index: number) => {
+    setCardTilts((prev) => {
+      const next = [...prev];
+      next[index] = { ...DEFAULT_TILT };
+      return next;
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -621,184 +672,210 @@ export function Projects() {
               const IconComponent = project.icon;
               const isAI = project.isAISystem;
 
+              const tilt = cardTilts[index] ?? DEFAULT_TILT;
+
               return (
-                <Card
+                <div
                   key={index}
-                  className={`group relative overflow-hidden h-full flex flex-col hover-glow transition-all duration-500 border-2 hover:scale-[1.02] hover:shadow-2xl card-gradient-bg ${
-                    isAI
-                      ? "border-violet-500/40 dark:border-violet-600/50 hover:shadow-violet-500/20 hover:border-violet-400/60 cursor-pointer"
-                      : "border-[#e3d4c3]/80 dark:border-slate-800/60 dark:backdrop-blur-xl hover:shadow-blue-500/15"
-                  }`}
-                  onClick={isAI ? () => openModal(project) : undefined}
+                  className="card-project [perspective:1000px]"
+                  onMouseMove={(e) => handleCardMouseMove(e, index)}
+                  onMouseLeave={() => handleCardMouseLeave(index)}
                 >
-                  {/* Moving shine highlight */}
-                  <div className="card-shine" />
-
-                  {/* Visual Header (image or icon) */}
-                  <div
-                    className={`relative aspect-[21/9] overflow-hidden ${
+                  <Card
+                    className={`group relative overflow-hidden h-full flex flex-col hover-glow transition-all duration-500 border-2 hover:shadow-2xl card-gradient-bg ${
                       isAI
-                        ? "bg-gradient-to-br from-violet-950/30 via-purple-950/20 to-slate-950"
-                        : "bg-gradient-to-br from-blue-950/20 to-cyan-950/20"
+                        ? "border-violet-500/40 dark:border-violet-600/50 hover:shadow-violet-500/20 hover:border-violet-400/60 cursor-pointer"
+                        : "border-[#e3d4c3]/80 dark:border-slate-800/60 dark:backdrop-blur-xl hover:shadow-blue-500/15"
                     }`}
+                    style={{
+                      transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.shineIntensity > 0 ? 1.02 : 1})`,
+                      transformStyle: "preserve-3d",
+                      transition:
+                        tilt.shineIntensity > 0
+                          ? "transform 0.15s ease-out"
+                          : "transform 0.5s cubic-bezier(0.22,0.61,0.36,1)",
+                      willChange: "transform",
+                    }}
+                    onClick={isAI ? () => openModal(project) : undefined}
                   >
-                    {hasImage ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        priority={project.image.includes("ThyloInsight")}
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        {isAI && (
-                          <div
-                            className="absolute inset-0 opacity-20"
-                            style={{
-                              backgroundImage:
-                                "radial-gradient(circle at 30% 50%, rgba(139,92,246,0.4), transparent 60%), radial-gradient(circle at 70% 50%, rgba(99,102,241,0.3), transparent 60%)",
-                            }}
-                          />
-                        )}
-                        {IconComponent && (
-                          <div
-                            className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl ${
-                              isAI
-                                ? "bg-gradient-to-br from-violet-600 via-purple-500 to-indigo-500 shadow-violet-500/40"
-                                : "bg-gradient-to-br from-blue-600 via-cyan-500 to-purple-500 shadow-blue-500/40"
-                            }`}
-                          >
-                            <IconComponent className="w-8 h-8 text-white" />
-                          </div>
-                        )}
-                      </div>
-                    )}
+                    {/* Moving shine highlight (CSS hover-based) */}
+                    <div className="card-shine" />
 
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Dynamic shine that follows cursor (3D effect) */}
+                    <div
+                      className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-screen z-30 transition-opacity duration-150"
+                      style={{
+                        opacity: tilt.shineIntensity,
+                        background: `radial-gradient(circle at ${tilt.shineX}% ${tilt.shineY}%, rgba(59,130,246,0.35), transparent 55%), radial-gradient(circle at ${100 - tilt.shineX}% ${100 - tilt.shineY}%, rgba(56,189,248,0.25), transparent 60%)`,
+                      }}
+                    />
 
-                    {/* Badge */}
-                    <div className="absolute top-4 right-4 z-10">
-                      {isAI ? (
-                        <Badge className="bg-gradient-to-r from-violet-600 to-indigo-500 text-white border-0 shadow-lg">
-                          <Brain className="w-3 h-3 mr-1" />
-                          {t.aiSystemBadge}
-                        </Badge>
-                      ) : (
-                        project.featured && (
-                          <Badge className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-0 shadow-lg">
-                            <Code className="w-3 h-3 mr-1" />
-                            Featured
-                          </Badge>
-                        )
-                      )}
-                    </div>
-
-                    {/* Hover CTA */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                      {isAI ? (
-                        <Button
-                          size="lg"
-                          className="bg-violet-600/90 hover:bg-violet-600 text-white shadow-xl shadow-violet-500/30"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openModal(project);
-                          }}
-                        >
-                          {t.viewSystem}
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                      ) : link ? (
-                        <Button
-                          size="lg"
-                          className="bg-white/95 dark:bg-slate-900/90 text-slate-900 dark:text-white hover:bg-white dark:hover:bg-slate-900 shadow-xl"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(link, "_blank");
-                          }}
-                        >
-                          {t.viewProject}
-                          <ExternalLink className="ml-2 w-4 h-4" />
-                        </Button>
-                      ) : null}
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <CardHeader className="flex-1 p-3 pb-1">
-                    <CardTitle
-                      className={`text-base sm:text-lg font-bold mb-1.5 transition-colors duration-300 ${
+                    {/* Visual Header (image or icon) */}
+                    <div
+                      className={`relative aspect-[21/9] overflow-hidden ${
                         isAI
-                          ? "group-hover:text-violet-500 dark:group-hover:text-violet-400"
-                          : "group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                          ? "bg-gradient-to-br from-violet-950/30 via-purple-950/20 to-slate-950"
+                          : "bg-gradient-to-br from-blue-950/20 to-cyan-950/20"
                       }`}
                     >
-                      {project.title}
-                    </CardTitle>
-                    <CardDescription className="text-muted-foreground/80 text-xs sm:text-sm leading-relaxed">
-                      {project.description}
-                    </CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="pt-0 pb-3 px-3">
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {project.technologies
-                        .slice(0, 4)
-                        .map((tech, techIndex) => (
-                          <Badge
-                            key={techIndex}
-                            variant="outline"
-                            className={`text-xs font-medium transition-colors duration-300 ${
-                              isAI
-                                ? "border-violet-500/40 dark:border-violet-500/50 text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 dark:hover:bg-violet-500/20"
-                                : "border-blue-500/30 dark:border-blue-500/50 text-blue-700 dark:text-blue-300 hover:bg-blue-500/10 dark:hover:bg-blue-500/20"
-                            }`}
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                      {project.technologies.length > 4 && (
-                        <Badge
-                          variant="outline"
-                          className={`text-xs font-medium ${
-                            isAI
-                              ? "border-violet-500/40 dark:border-violet-500/50 text-violet-700 dark:text-violet-300"
-                              : "border-blue-500/30 dark:border-blue-500/50 text-blue-700 dark:text-blue-300"
-                          }`}
-                        >
-                          +{project.technologies.length - 4}
-                        </Badge>
+                      {hasImage ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          priority={project.image.includes("ThyloInsight")}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          {isAI && (
+                            <div
+                              className="absolute inset-0 opacity-20"
+                              style={{
+                                backgroundImage:
+                                  "radial-gradient(circle at 30% 50%, rgba(139,92,246,0.4), transparent 60%), radial-gradient(circle at 70% 50%, rgba(99,102,241,0.3), transparent 60%)",
+                              }}
+                            />
+                          )}
+                          {IconComponent && (
+                            <div
+                              className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl ${
+                                isAI
+                                  ? "bg-gradient-to-br from-violet-600 via-purple-500 to-indigo-500 shadow-violet-500/40"
+                                  : "bg-gradient-to-br from-blue-600 via-cyan-500 to-purple-500 shadow-blue-500/40"
+                              }`}
+                            >
+                              <IconComponent className="w-8 h-8 text-white" />
+                            </div>
+                          )}
+                        </div>
                       )}
+
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      {/* Badge */}
+                      <div className="absolute top-4 right-4 z-10">
+                        {isAI ? (
+                          <Badge className="bg-gradient-to-r from-violet-600 to-indigo-500 text-white border-0 shadow-lg">
+                            <Brain className="w-3 h-3 mr-1" />
+                            {t.aiSystemBadge}
+                          </Badge>
+                        ) : (
+                          project.featured && (
+                            <Badge className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-0 shadow-lg">
+                              <Code className="w-3 h-3 mr-1" />
+                              Featured
+                            </Badge>
+                          )
+                        )}
+                      </div>
+
+                      {/* Hover CTA */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                        {isAI ? (
+                          <Button
+                            size="lg"
+                            className="bg-violet-600/90 hover:bg-violet-600 text-white shadow-xl shadow-violet-500/30"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openModal(project);
+                            }}
+                          >
+                            {t.viewSystem}
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                          </Button>
+                        ) : link ? (
+                          <Button
+                            size="lg"
+                            className="bg-white/95 dark:bg-slate-900/90 text-slate-900 dark:text-white hover:bg-white dark:hover:bg-slate-900 shadow-xl"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(link, "_blank");
+                            }}
+                          >
+                            {t.viewProject}
+                            <ExternalLink className="ml-2 w-4 h-4" />
+                          </Button>
+                        ) : null}
+                      </div>
                     </div>
 
-                    {/* Action */}
-                    {isAI ? (
-                      <button
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors group/link"
-                        onClick={() => openModal(project)}
+                    {/* Card Content */}
+                    <CardHeader className="flex-1 p-3 pb-1">
+                      <CardTitle
+                        className={`text-base sm:text-lg font-bold mb-1.5 transition-colors duration-300 ${
+                          isAI
+                            ? "group-hover:text-violet-500 dark:group-hover:text-violet-400"
+                            : "group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                        }`}
                       >
-                        {t.viewSystem}
-                        <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                      </button>
-                    ) : (
-                      link && (
-                        <a
-                          href={link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group/link"
-                          onClick={(e) => e.stopPropagation()}
+                        {project.title}
+                      </CardTitle>
+                      <CardDescription className="text-muted-foreground/80 text-xs sm:text-sm leading-relaxed">
+                        {project.description}
+                      </CardDescription>
+                    </CardHeader>
+
+                    <CardContent className="pt-0 pb-3 px-3">
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {project.technologies
+                          .slice(0, 4)
+                          .map((tech, techIndex) => (
+                            <Badge
+                              key={techIndex}
+                              variant="outline"
+                              className={`text-xs font-medium transition-colors duration-300 ${
+                                isAI
+                                  ? "border-violet-500/40 dark:border-violet-500/50 text-violet-700 dark:text-violet-300 hover:bg-violet-500/10 dark:hover:bg-violet-500/20"
+                                  : "border-blue-500/30 dark:border-blue-500/50 text-blue-700 dark:text-blue-300 hover:bg-blue-500/10 dark:hover:bg-blue-500/20"
+                              }`}
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                        {project.technologies.length > 4 && (
+                          <Badge
+                            variant="outline"
+                            className={`text-xs font-medium ${
+                              isAI
+                                ? "border-violet-500/40 dark:border-violet-500/50 text-violet-700 dark:text-violet-300"
+                                : "border-blue-500/30 dark:border-blue-500/50 text-blue-700 dark:text-blue-300"
+                            }`}
+                          >
+                            +{project.technologies.length - 4}
+                          </Badge>
+                        )}
+                      </div>
+
+                      {/* Action */}
+                      {isAI ? (
+                        <button
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 transition-colors group/link"
+                          onClick={() => openModal(project)}
                         >
-                          {t.visitProject}
+                          {t.viewSystem}
                           <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                        </a>
-                      )
-                    )}
-                  </CardContent>
-                </Card>
+                        </button>
+                      ) : (
+                        link && (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors group/link"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {t.visitProject}
+                            <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                          </a>
+                        )
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
               );
             })}
           </div>
