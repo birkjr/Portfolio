@@ -10,9 +10,13 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [navVisible, setNavVisible] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Slight delay so the mount animation fires after first paint
+    const t = setTimeout(() => setNavVisible(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
   // Prevent body scroll when menu is open
@@ -81,6 +85,10 @@ export default function Navbar() {
         className="fixed top-0 w-full z-50 px-4 sm:px-6 pt-4"
         style={{
           position: "fixed",
+          transform: navVisible ? "translateY(0)" : "translateY(-110%)",
+          opacity: navVisible ? 1 : 0,
+          transition:
+            "transform 0.7s cubic-bezier(0.22,0.61,0.36,1), opacity 0.5s ease",
         }}
       >
         {/* Main navbar container - rounded, not full width */}
