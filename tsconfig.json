@@ -16,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": ["node", "react", "react-dom"],
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"

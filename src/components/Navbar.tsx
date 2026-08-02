@@ -4,6 +4,7 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 import { Menu, X, Globe, ChevronRight, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
+import { navbar } from "@/content/navbar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,26 +35,7 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const navItems = {
-    no: [
-      { name: "Hjem", href: "#home" },
-      { name: "Om meg", href: "#about" },
-      { name: "Prosjekter", href: "#projects" },
-      { name: "Artikler", href: "#articles" },
-      { name: "Tidslinje", href: "#timeline" },
-      { name: "Ferdigheter", href: "#skills" },
-      { name: "Kontakt", href: "#contact" },
-    ],
-    en: [
-      { name: "Home", href: "#home" },
-      { name: "About", href: "#about" },
-      { name: "Projects", href: "#projects" },
-      { name: "Articles", href: "#articles" },
-      { name: "Timeline", href: "#timeline" },
-      { name: "Skills", href: "#skills" },
-      { name: "Contact", href: "#contact" },
-    ],
-  };
+  const navItems = navbar;
 
   const toggleLanguage = () => {
     setLanguage(language === "no" ? "en" : "no");

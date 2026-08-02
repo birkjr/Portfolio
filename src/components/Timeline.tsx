@@ -2,29 +2,25 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
-import { timelineEntries } from "@/data/timeline";
+import {
+  timelineSection,
+  timelineEntries,
+  type TimelineEntryType,
+} from "@/content/timeline";
 import { Badge } from "@/components/ui/badge";
 
-const content = {
-  no: {
-    label: "Tidslinje",
-    title: "Tidslinje",
-    subtitle: "Utdanning og erfaring — kronologisk.",
-    education: "Utdanning",
-    work: "Erfaring",
-  },
-  en: {
-    label: "Timeline",
-    title: "Timeline",
-    subtitle: "Education and experience — chronological.",
-    education: "Education",
-    work: "Experience",
-  },
+const timelineTypeLabels: Record<
+  TimelineEntryType,
+  keyof (typeof timelineSection)["no"]
+> = {
+  education: "education",
+  work: "work",
+  summerIntern: "summerIntern",
 };
 
 export function Timeline() {
   const { language } = useLanguage();
-  const t = content[language];
+  const t = timelineSection[language];
 
   return (
     <SectionContainer id="timeline">
@@ -60,7 +56,7 @@ export function Timeline() {
                       {entry.period}
                     </span>
                     <Badge variant="outline" className="text-[10px]">
-                      {entry.type === "education" ? t.education : t.work}
+                      {t[timelineTypeLabels[entry.type]]}
                     </Badge>
                   </div>
                   <h3 className="text-base sm:text-lg font-bold mb-0.5">

@@ -2,202 +2,223 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import type { ElementType } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { useLanguage } from "@/context/LanguageContext";
-import { SectionContainer } from "./SectionContainer";
 import {
-  Code2,
-  Globe2,
-  Cpu,
-  Github,
-  TerminalSquare,
-  Cloud,
-  Sparkles,
-} from "lucide-react";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/context/LanguageContext";
+import { getTechItems, skillsSection, type TechIcon } from "@/content/skills";
+import { SectionContainer } from "./SectionContainer";
+import { Github, TerminalSquare, X, type LucideIcon } from "lucide-react";
 
-interface TechItem {
-  name: string;
-  group: string;
-  iconType: "lucide" | "image";
-  icon?: ElementType;
-  imageSrc?: string;
-}
-
-const techItemsBase: TechItem[] = [
-  // Core frontend
-  {
-    name: "React",
-    group: "Frontend",
-    iconType: "image",
-    imageSrc: "/Icons/react.jpeg",
-  },
-  {
-    name: "Next.js",
-    group: "Frontend",
-    iconType: "image",
-    imageSrc: "/Icons/nextjs.jpeg",
-  },
-  // Language & styling
-  {
-    name: "TypeScript",
-    group: "Language",
-    iconType: "image",
-    imageSrc: "/Icons/typescriptv2.png",
-  },
-  {
-    name: "Tailwind CSS",
-    group: "Styling",
-    iconType: "image",
-    imageSrc: "/Icons/tailwindv2.png",
-  },
-  // Backend / data / infra
-  {
-    name: "Python",
-    group: "Backend / AI",
-    iconType: "image",
-    imageSrc: "/Icons/python.jpeg",
-  },
-  {
-    name: "Node.js",
-    group: "Backend",
-    iconType: "image",
-    imageSrc: "/Icons/nodejs.png",
-  },
-  {
-    name: "Supabase",
-    group: "Database",
-    iconType: "image",
-    imageSrc: "/Icons/supabasev2.png",
-  },
-  {
-    name: "Vercel",
-    group: "Infra",
-    iconType: "image",
-    imageSrc: "/Icons/vercel.png",
-  },
-  // Tools & collaboration
-  { name: "GitHub", group: "Collaboration", iconType: "lucide", icon: Github },
-  {
-    name: "Cursor",
-    group: "Tooling",
-    iconType: "lucide",
-    icon: TerminalSquare,
-  },
-];
-
-const content = {
-  no: {
-    label: "Teknologi",
-    title: "Teknologier jeg bygger med",
-    subtitle:
-      "Et utvalg av teknologier, rammeverk og verktøy jeg bruker til å bygge produkter, verktøy og infrastruktur.",
-  },
-  en: {
-    label: "Tech Stack",
-    title: "Technologies I build with",
-    subtitle:
-      "A selection of the technologies, frameworks and tools I use to build products, tools and infrastructure.",
-  },
+const TECH_ICONS: Record<TechIcon, LucideIcon> = {
+  github: Github,
+  cursor: TerminalSquare,
 };
+
+function TechIconDisplay({
+  item,
+}: {
+  item: ReturnType<typeof getTechItems>[number];
+}) {
+  const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
+
+  if (item.iconType === "image" && item.imageSrc) {
+    return (
+      <div className="inline-flex h-12 w-12 items-center justify-center sm:h-14 sm:w-14">
+        <Image
+          src={item.imageSrc}
+          alt={item.name}
+          width={56}
+          height={56}
+          className="rounded-lg object-contain"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 sm:h-14 sm:w-14">
+      {Icon && <Icon className="h-6 w-6 text-muted-foreground sm:h-7 sm:w-7" />}
+    </div>
+  );
+}
 
 export function Skills() {
   const { language } = useLanguage();
-  const t = content[language];
-  const techItems = techItemsBase;
+  const t = skillsSection[language];
+  const techItems = getTechItems(language);
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const node = sectionRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          } else {
-            // Reset animation when leaving viewport so it can replay
-            setIsVisible(false);
-          }
+          setIsVisible(entry.isIntersecting);
         });
       },
-      {
-        threshold: 0.1, // Trigger when 10% of the section is visible
-      }
+      { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, []);
 
+  useEffect(() => {
+    if (selectedSkill === null) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedSkill(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedSkill]);
+
+  const selectedItem = selectedSkill !== null ? techItems[selectedSkill] : null;
+  const isModalOpen = selectedSkill !== null;
+
   return (
     <SectionContainer id="skills">
-      <div className="max-w-7xl mx-auto" ref={sectionRef}>
-        {/* Section Header */}
-        <div className="text-center mb-10">
-          <div className="section-badge">
-            <div className="section-badge-dot" />
-            <span className="section-badge-label">{t.label}</span>
+      <div className="relative mx-auto max-w-7xl" ref={sectionRef}>
+        <div
+          className={`transition-[filter] duration-300 ${
+            isModalOpen ? "pointer-events-none blur-sm" : ""
+          }`}
+        >
+          <div className="mb-10 text-center">
+            <div className="section-badge">
+              <div className="section-badge-dot" />
+              <span className="section-badge-label">{t.label}</span>
+            </div>
+            <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
+            <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
+              {t.subtitle}
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t.subtitle}
-          </p>
+
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-6">
+            {techItems.map((item, index) => {
+              const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
+
+              return (
+                <Card
+                  key={item.name}
+                  role="button"
+                  tabIndex={isModalOpen ? -1 : 0}
+                  onClick={() => setSelectedSkill(index)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedSkill(index);
+                    }
+                  }}
+                  className={`group card-gradient-bg relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[#e3d4c3]/80 transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70 ${
+                    isVisible ? "tech-card-slide-up" : "opacity-0"
+                  }`}
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <div className="card-shine" />
+                  <CardContent className="relative z-10 flex flex-col gap-3 p-4">
+                    {item.iconType === "image" && item.imageSrc ? (
+                      <div className="inline-flex h-12 w-12 items-center justify-center">
+                        <Image
+                          src={item.imageSrc}
+                          alt={item.name}
+                          width={48}
+                          height={48}
+                          className="rounded-lg object-contain"
+                        />
+                      </div>
+                    ) : (
+                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 dark:border-slate-700/70 dark:bg-slate-950/80">
+                        {Icon && (
+                          <Icon className="h-6 w-6 text-muted-foreground" />
+                        )}
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">
+                        {item.name}
+                      </p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {item.group}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Technology Icon Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6">
-          {techItems.map((item, index) => {
-            const Icon = item.icon;
-            return (
+        {selectedItem && (
+          <>
+            <button
+              type="button"
+              className="fixed inset-0 z-40 cursor-default bg-transparent"
+              onClick={() => setSelectedSkill(null)}
+              aria-label="Close"
+            />
+            <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-4 py-6 sm:px-6">
               <Card
-                key={item.name}
-                className={`group relative overflow-hidden border-2 border-[#e3d4c3]/80 dark:border-slate-800/70 rounded-2xl hover-glow transition-all duration-300 hover:-translate-y-1 card-gradient-bg ${
-                  isVisible ? "tech-card-slide-up" : "opacity-0"
-                }`}
-                style={{
-                  animationDelay: `${index * 0.05}s`,
-                }}
+                className="card-gradient-bg hover-glow pointer-events-auto relative w-full max-w-lg animate-fade-in border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
+                onClick={(e) => e.stopPropagation()}
               >
-                {/* Glow / shine overlay */}
-                <div className="card-shine" />
-                <CardContent className="relative z-10 p-4 flex flex-col gap-3">
-                  {item.iconType === "image" && item.imageSrc ? (
-                    <div className="inline-flex items-center justify-center w-12 h-12">
-                      <Image
-                        src={item.imageSrc}
-                        alt={item.name}
-                        width={48}
-                        height={48}
-                        className="object-contain rounded-lg"
-                      />
+                <button
+                  type="button"
+                  onClick={() => setSelectedSkill(null)}
+                  className="absolute right-4 top-4 z-10 rounded-full bg-slate-900/70 p-2 text-white/80 transition-colors hover:bg-slate-800 hover:text-white dark:bg-slate-800/70 dark:hover:bg-slate-700"
+                  aria-label="Close"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+                <CardHeader className="space-y-4 pr-12">
+                  <div className="flex items-center gap-4">
+                    <TechIconDisplay item={selectedItem} />
+                    <div className="min-w-0">
+                      <CardTitle className="text-xl text-foreground">
+                        {selectedItem.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm font-medium">
+                        {selectedItem.group}
+                      </CardDescription>
                     </div>
-                  ) : (
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-950/80 dark:bg-slate-950/80 border border-slate-700/70 dark:border-slate-700/70 shadow-md shadow-black/10">
-                      {Icon && (
-                        <Icon className="w-6 h-6 text-muted-foreground" />
-                      )}
-                    </div>
-                  )}
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
-                      {item.group}
-                    </p>
                   </div>
+                  <Badge variant="outline" className="w-fit text-xs">
+                    {t.whyHeading}
+                  </Badge>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {selectedItem.why}
+                  </p>
                 </CardContent>
               </Card>
-            );
-          })}
-        </div>
+            </div>
+          </>
+        )}
       </div>
     </SectionContainer>
   );

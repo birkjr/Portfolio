@@ -12,28 +12,11 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, LinkedinIcon, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
-
-const content = {
-  no: {
-    title: "Kontakt meg",
-    subtitle: "Er min profil spennende eller har du noe spørsmål? Kontakt meg!",
-    cardTitle: "Send meg en melding",
-    cardDescription: "Jeg svarer alltid kjapt.",
-    cta: "Send melding",
-  },
-  en: {
-    title: "Contact me",
-    subtitle:
-      "Is my profile interesting or do you have any questions? Contact me!",
-    cardTitle: "Send me a message",
-    cardDescription: "I always reply fast.",
-    cta: "Send message",
-  },
-};
+import { footer as footerContent } from "@/content/footer";
 
 export function Footer() {
   const { language } = useLanguage();
-  const t = content[language];
+  const t = footerContent[language];
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -133,8 +116,10 @@ export function Footer() {
             <div className="py-8 px-6 sm:px-8 lg:px-12">
               <div className="flex flex-col md:flex-row justify-center items-center gap-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-foreground/85 rounded-lg flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-sm">BJR</span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-700/50 bg-slate-800/80 shadow-lg backdrop-blur-sm sm:h-9 sm:w-9">
+                    <span className="text-xs font-bold text-white sm:text-sm">
+                      BJR
+                    </span>
                   </div>
                   <span className="text-sm sm:text-base text-muted-foreground font-medium">
                     © 2026 Birk Jonathan Ramstad.

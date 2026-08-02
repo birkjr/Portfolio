@@ -21,143 +21,26 @@ import {
   X,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  experienceSection,
+  getExperienceEntries,
+  type ExperienceIcon,
+} from "@/content/experience";
 import { SectionContainer } from "./SectionContainer";
 
-interface Experience {
-  title: string;
-  description: string;
-  year: string;
-  icon: LucideIcon;
-  detailedDescription?: string;
-}
-
-const experiences_no: Experience[] = [
-  {
-    title: "Medgründer og CTO",
-    description:
-      "Thylo Insight - Helsetech startup som leverer innsikt og analyse av kundenes Thyroid data ved hjelp av AI",
-    year: "2025 - Nå",
-    icon: Activity,
-    detailedDescription:
-      "Som medgründer og CTO for Thylo Insight har jeg jobbet med utvikling av appen og nettsiden. Gjennom dette prosjektet har jeg tatt hovedansvar for frontend-utvikling med React Native og React, samt backend-utvikling med Supabase. Jeg har også samarbeidet tett med teamet for å sikre at løsningen oppfyller organisasjonens behov og standarder. Denne rollen har gitt meg verdifull erfaring innen full-stack utvikling, prosjektledelse og samarbeid med tverrfaglige team.",
-  },
-  {
-    title: "IT-utvikler",
-    description: "Teknologiporten, NTNU - Full-stack utvikler",
-    year: "2023 - Nå",
-    icon: Code,
-    detailedDescription:
-      "Som IT-utvikler ved Teknologiporten har jeg jobbet med utvikling av organisasjonens offisielle nettside. Gjennom dette prosjektet har jeg tatt hovedansvar for frontend-utvikling med React og Next.js, samt backend-utvikling med Supabase. Jeg har også samarbeidet tett med teamet for å sikre at løsningen oppfyller organisasjonens behov og standarder. Denne rollen har gitt meg verdifull erfaring innen full-stack utvikling, prosjektledelse og samarbeid med tverrfaglige team.",
-  },
-  {
-    title: "AI og maskinlærings Analytiker",
-    description:
-      "Concentrix - Analyse og utvikling av AI-løsninger med fokus på machine learning og kunstig intelligens",
-    year: "2025",
-    icon: Brain,
-    detailedDescription:
-      "I rollen som AI og maskinlærings analytiker hos Concentrix arbeidet jeg med analyse og utvikling av AI-løsninger.",
-  },
-  {
-    title: "Teamleder Markedsføring",
-    description:
-      "EMIL-Link - Leder team med fokus på forhandling og samarbeid, og utviklet ferdig nettside",
-    year: "2024",
-    icon: Users,
-    detailedDescription:
-      "Som Teamleder for Markedsføring ved EMIL-Link ledet jeg et team med fokus på forhandling, samarbeid og strategisk markedsføring. I tillegg til ledervervet tok jeg ansvar for å utvikle organisasjonens offisielle nettside fra bunnen av, ved bruk av moderne webteknologier. Dette prosjektet kombinerte mine tekniske ferdigheter med lederegenskaper og ga meg dyptgående innsikt i hvordan teknologi kan brukes til å styrke et selskaps markedsføringsinnsats.",
-  },
-  {
-    title: "Marketing Team Member",
-    description: "EMIL-Link - Markedsføring og webdesign",
-    year: "2023-2024",
-    icon: TrendingUp,
-    detailedDescription:
-      "Som medlem av markedsføringsteamet ved EMIL-Link jobbet jeg med ulike markedsføringsoppgaver og webdesign. Jeg deltok i utviklingen av markedsføringsmateriell, strategiutforming og implementering av digitale markedsføringsprogrammer. Denne rollen gav meg grunnleggende erfaring med markedsføring og var et viktig steg i min utvikling mot en mer ledende rolle i organisasjonen.",
-  },
-  {
-    title: "Servitør",
-    description: "Risør Fiskemottak Restaurant - Kundeservice og salg",
-    year: "2024",
-    icon: Star,
-    detailedDescription:
-      "Som servitør ved Risør fiskemottak fikk jeg verdifull erfaring med kundeservice og salg. Denne rollen lærte meg å jobbe under tidspress, håndtere ulike kundeskjebner og sikre høy servicekvalitet. Selv om dette ikke var en teknisk rolle, utviklet jeg ferdigheter i kommunikasjon, problemløsing og tilpasningsevne som er overførbare til alle aspekter av min karriere.",
-  },
-];
-
-const experiences_en: Experience[] = [
-  {
-    title: "Co-founder and CTO",
-    description:
-      "Thylo Insight - Health-tech startup that provides insights and analysis of customers Thyroid data using AI",
-    year: "2025 - Now",
-    icon: Activity,
-    detailedDescription:
-      "As co-founder and CTO of Thylo Insight, I have worked on developing the app and website. Through this project, I have taken primary responsibility for frontend development with React Native and React, as well as backend development with Supabase. I have also collaborated closely with the team to ensure that the solution meets the organization's needs and standards. This role has given me valuable experience in full-stack development, project management, and collaboration with interdisciplinary teams.",
-  },
-  {
-    title: "IT Developer",
-    description: "Teknologiporten, NTNU - Full-stack developer",
-    year: "2023 - Now",
-    icon: Code,
-    detailedDescription:
-      "As an IT Developer at Teknologiporten, I have worked on developing the organization's official website. Through this project, I have taken primary responsibility for frontend development with React and Next.js, as well as backend development with Supabase. I have also collaborated closely with the team to ensure that the solution meets the organization's needs and standards. This role has given me valuable experience in full-stack development, project management, and collaboration with interdisciplinary teams.",
-  },
-  {
-    title: "AI and Machine Learning Analyst",
-    description:
-      "Concentrix - Analysis and development of AI solutions with focus on machine learning and artificial intelligence",
-    year: "2025",
-    icon: Brain,
-    detailedDescription:
-      "In the role of AI and Machine Learning Analyst at Concentrix, I worked with analysis and development of AI solutions.",
-  },
-  {
-    title: "Marketing Team Leader",
-    description:
-      "EMIL-Link - Leads team with focus on negotiation and collaboration, and developed finished website",
-    year: "2024",
-    icon: Users,
-    detailedDescription:
-      "As Marketing Team Leader at EMIL-Link, I led a team with focus on negotiation, collaboration, and strategic marketing. In addition to the leadership responsibility, I took on the role of developing the organization's official website from scratch, using modern web technologies. This project combined my technical skills with leadership qualities and gave me deep insight into how technology can be used to strengthen a company's marketing efforts.",
-  },
-  {
-    title: "Marketing Team Member",
-    description: "EMIL-Link - Marketing and web design",
-    year: "2023-2024",
-    icon: TrendingUp,
-    detailedDescription:
-      "As a member of the marketing team at EMIL-Link, I worked on various marketing tasks and web design. I participated in the development of marketing materials, strategy formulation, and implementation of digital marketing programs. This role gave me fundamental experience with marketing and was an important step in my development towards a more leading role in the organization.",
-  },
-  {
-    title: "Waiter",
-    description: "Risør Fiskemottak Restaurant - Customer service and sales",
-    year: "2024",
-    icon: Star,
-    detailedDescription:
-      "As a waiter at Risør Fiskemottak Restaurant, I gained valuable experience in customer service and sales. This role taught me to work under time pressure, handle different customer situations, and ensure high service quality. Although this was not a technical role, I developed skills in communication, problem-solving, and adaptability that are transferable to all aspects of my career.",
-  },
-];
-
-const content = {
-  no: {
-    label: "Erfaringer",
-    title: "Erfaringer",
-    subtitle:
-      "Noen milepæler og prestasjoner jeg er stolt av gjennom karrieren.",
-  },
-  en: {
-    label: "Experience",
-    title: "Experience",
-    subtitle:
-      "Some milestones and achievements I am proud of throughout my career.",
-  },
+const EXPERIENCE_ICONS: Record<ExperienceIcon, LucideIcon> = {
+  activity: Activity,
+  code: Code,
+  brain: Brain,
+  users: Users,
+  trendingUp: TrendingUp,
+  star: Star,
 };
 
 export function Experience() {
   const { language } = useLanguage();
-  const experiences = language === "no" ? experiences_no : experiences_en;
-  const t = content[language];
+  const experiences = getExperienceEntries(language);
+  const t = experienceSection[language];
   const [selectedExperience, setSelectedExperience] = useState<number | null>(
     null
   );
@@ -302,7 +185,7 @@ export function Experience() {
                   <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-foreground/85 sm:h-16 sm:w-16">
                     {(() => {
                       const IconComponent =
-                        experiences[selectedExperience].icon;
+                        EXPERIENCE_ICONS[experiences[selectedExperience].icon];
                       return (
                         <IconComponent className="h-7 w-7 text-white sm:h-8 sm:w-8" />
                       );
@@ -337,7 +220,7 @@ export function Experience() {
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 max-w-7xl mx-auto">
           {experiences.map((experience, index) => {
-            const IconComponent = experience.icon;
+            const IconComponent = EXPERIENCE_ICONS[experience.icon];
             return (
               <Card
                 key={index}

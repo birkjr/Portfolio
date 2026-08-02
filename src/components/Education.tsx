@@ -8,107 +8,28 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, School, LucideIcon } from "lucide-react";
+import { GraduationCap, School, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  educationSection,
+  getEducationEntries,
+  type EducationIcon,
+} from "@/content/education";
 import { SectionContainer } from "./SectionContainer";
 
-interface Education {
-  institution: string;
-  program: string;
-  period: string;
-  description?: string;
-  icon: LucideIcon;
-}
-
-const educations_no: Education[] = [
-  {
-    institution: "Norges teknisk-naturvitenskapelige universitet (NTNU)",
-    program: "Datateknologi (5-årig master)",
-    period: "2025 - 2028",
-    description:
-      "3. år av 5-årig integrert masterprogram i datateknologi. Byttet fra Ingeniørvitenskap og IKT i 3. klasse. Fokus på kunstig intelligens, IoT, bærekraftige løsninger og utvikling av komplekse IT-systemer.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "Norges teknisk-naturvitenskapelige universitet (NTNU)",
-    program: "Ingeniørvitenskap og IKT - Maskin og IKT (maskinlæring)",
-    period: "2023 - 2025",
-    description:
-      "Etter 2 år med Ingeniørvitenskap og IKT og retningen Maskin og IKT med fokus på maskinlæring, valgte jeg å følge magefølelsen til å bytte til Datateknologi.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "Universitetet i Oslo (UiO)",
-    program: "Årsenhet, Informatikk",
-    period: "2022 - 2023",
-    description: "Fag i informatikk og informatikk-relaterte disipliner.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "Norges Toppidrettsskole",
-    program: "Stabæk Fotball",
-    period: "2019 - 2022",
-    description: "Kombinerte toppidrett i fotball og videregående skole.",
-    icon: School,
-  },
-];
-
-const educations_en: Education[] = [
-  {
-    institution: "Norwegian University of Science and Technology (NTNU)",
-    program: "Computer Science (5-year master's)",
-    period: "2025 - 2028",
-    description:
-      "3rd year of a 5-year integrated master's program in computer science. Switched from Engineering Science and ICT in 3rd year. Focus on artificial intelligence, IoT, sustainable solutions, and development of complex IT systems.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "Norwegian University of Science and Technology (NTNU)",
-    program: "Engineering Science and ICT - Machine and ICT (machine learning)",
-    period: "2023 - 2025",
-    description:
-      "After 2 years with Engineering Science and ICT and the specialization Machine and ICT with focus on machine learning, I chose to follow my gut feeling and switch to Computer Science.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "University of Oslo (UiO)",
-    program: "One-year program, Informatics",
-    period: "2022 - 2023",
-    description:
-      "Preliminary subjects in informatics and informatics-related disciplines.",
-    icon: GraduationCap,
-  },
-  {
-    institution: "Norwegian College of Elite Sport",
-    program: "Stabæk Football Academy",
-    period: "2019 - 2022",
-    description: "Combined high school education with elite sport.",
-    icon: School,
-  },
-];
-
-const content = {
-  no: {
-    label: "Utdanning",
-    title: "Utdanning",
-    subtitle: "Min utdanningsreise",
-  },
-  en: {
-    label: "Education",
-    title: "Education",
-    subtitle: "My educational journey",
-  },
+const EDUCATION_ICONS: Record<EducationIcon, LucideIcon> = {
+  graduationCap: GraduationCap,
+  school: School,
 };
 
 export function Education() {
   const { language } = useLanguage();
-  const educations = language === "no" ? educations_no : educations_en;
-  const t = content[language];
+  const educations = getEducationEntries(language);
+  const t = educationSection[language];
 
   return (
     <SectionContainer id="education">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-10">
           <div className="section-badge">
             <div className="section-badge-dot" />
@@ -120,10 +41,9 @@ export function Education() {
           </p>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {educations.map((education, index) => {
-            const IconComponent = education.icon;
+            const IconComponent = EDUCATION_ICONS[education.icon];
             return (
               <Card
                 key={index}

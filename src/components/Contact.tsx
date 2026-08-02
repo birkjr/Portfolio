@@ -10,26 +10,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Mail, LinkedinIcon } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-
-const content = {
-  no: {
-    title: "Kontakt meg",
-    subtitle: "Er min profil spennende eller har du noe spørsmål? Kontakt meg!",
-    cardTitle: "Send meg en melding",
-    cardDescription: "Jeg svarer alltid kjapt.",
-  },
-  en: {
-    title: "Contact me",
-    subtitle:
-      "Is my profile interesting or do you have any questions? Contact me!",
-    cardTitle: "Send me a message",
-    cardDescription: "I always reply fast.",
-  },
-};
+import { contact } from "@/content/contact";
 
 export function Contact() {
   const { language } = useLanguage();
-  const t = content[language];
+  const t = contact[language];
 
   return (
     <section className="pt-32 pb-20 flex-grow flex flex-col justify-center">

@@ -1,4 +1,6 @@
-export type TimelineEntryType = "education" | "work";
+import type { Localized } from "./types";
+
+export type TimelineEntryType = "education" | "work" | "summerIntern";
 
 export interface TimelineEntry {
   sortKey: number;
@@ -9,9 +11,37 @@ export interface TimelineEntry {
   type: TimelineEntryType;
 }
 
+/** Section headings for the Timeline block */
+export const timelineSection: Localized<{
+  label: string;
+  title: string;
+  subtitle: string;
+  education: string;
+  summerIntern: string;
+  work: string;
+}> = {
+  no: {
+    label: "Tidslinje",
+    title: "Tidslinje",
+    subtitle: "Utdanning og erfaring — kronologisk.",
+    education: "Utdanning",
+    work: "Erfaring",
+    summerIntern: "Sommerintern",
+  },
+  en: {
+    label: "Timeline",
+    title: "Timeline",
+    subtitle: "Education and experience — chronological.",
+    education: "Education",
+    work: "Experience",
+    summerIntern: "Summer internship",
+  },
+};
+
+/** Timeline entries — edit title/subtitle/description for each language */
 export const timelineEntries: TimelineEntry[] = [
   {
-    sortKey: 2025,
+    sortKey: 2027,
     period: "2025 – Nå",
     title: { no: "Medgründer og CTO", en: "Co-founder and CTO" },
     subtitle: { no: "Thylo Insight", en: "Thylo Insight" },
@@ -20,6 +50,23 @@ export const timelineEntries: TimelineEntry[] = [
       en: "Full-stack development of app and platform with React Native, Next.js and Supabase.",
     },
     type: "work",
+  },
+  {
+    sortKey: 2026,
+    period: "2026",
+    title: {
+      no: "Software Engineer",
+      en: "Software Engineer",
+    },
+    subtitle: {
+      no: "Disruptive Technologies",
+      en: "Disruptive Technologies",
+    },
+    description: {
+      no: "Dataanalyse i BigQuery, utvikling av MCP-server og prediktive funksjoner på sensordata.",
+      en: "Data analysis in BigQuery, MCP server development and predictive features on sensor data.",
+    },
+    type: "summerIntern",
   },
   {
     sortKey: 2025,
@@ -43,7 +90,7 @@ export const timelineEntries: TimelineEntry[] = [
       en: "AI and Machine Learning Analyst",
     },
     subtitle: { no: "Concentrix", en: "Concentrix" },
-    type: "work",
+    type: "summerIntern",
   },
   {
     sortKey: 2024,
@@ -58,7 +105,7 @@ export const timelineEntries: TimelineEntry[] = [
   },
   {
     sortKey: 2023,
-    period: "2023 – Nå",
+    period: "2023 – 2025",
     title: { no: "IT-utvikler", en: "IT Developer" },
     subtitle: { no: "Teknologiporten, NTNU", en: "Teknologiporten, NTNU" },
     description: {

@@ -14,36 +14,11 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import TextType from "@/components/TextType";
 import { SectionContainer } from "./SectionContainer";
+import { hero } from "@/content/hero";
 
 export function Hero() {
   const { language } = useLanguage();
-
-  const content = {
-    no: {
-      info: "Gründer og CTO for Thylo Insight",
-      role: "Full-Stack Developer",
-      greeting: "Hei, jeg er",
-      name: "Birk Jonathan Ramstad",
-      description: "Programvareutvikler. Medgründer og CTO for Thylo Insight.",
-      location: "Trondheim/Oslo, Norge",
-      born: "Født 5. april 2003",
-      cta: "Se prosjekter",
-      ctaSecondary: "Kontakt meg",
-    },
-    en: {
-      info: "Founder and CTO of Thylo Insight",
-      role: "Full-Stack Developer",
-      greeting: "Hello, I'm",
-      name: "Birk Jonathan Ramstad",
-      description: "Software engineer. Co-founder and CTO of Thylo Insight.",
-      location: "Trondheim/Oslo, Norway",
-      born: "Born April 5th, 2003",
-      cta: "View Projects",
-      ctaSecondary: "Get in Touch",
-    },
-  };
-
-  const t = content[language];
+  const t = hero[language];
 
   // State for 3D tilt on hero portrait
   const [tilt, setTilt] = useState({
@@ -145,11 +120,6 @@ export function Hero() {
                 />
               </span>
             </h1>
-
-            {/* Description */}
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              {t.description}
-            </p>
           </div>
 
           {/* Portrait Card with 3D tilt (shown between description and CTAs on mobile) */}
@@ -191,18 +161,18 @@ export function Hero() {
                         <p className="text-sm font-semibold text-white">
                           {t.name}
                         </p>
-                        <p className="text-[11px] text-slate-300">
-                          {t.role} · Thylo Insight
-                        </p>
+                        <p className="text-[11px] text-slate-300">{t.role}</p>
                       </div>
                       <div className="hidden sm:flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
                         BJR
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      <span className="tag-pill">NTNU</span>
-                      <span className="tag-pill">AI &amp; Security</span>
-                      <span className="tag-pill">Founder</span>
+                      {t.tags.map((tag) => (
+                        <span key={tag} className="tag-pill">
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -211,7 +181,7 @@ export function Hero() {
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-10">
             <Button
               onClick={() => scrollToSection("#projects")}
               className="group h-11 px-6 text-sm font-semibold"
@@ -227,49 +197,6 @@ export function Hero() {
               {t.ctaSecondary}
             </Button>
           </div>
-
-          {/* Social Links */}
-          <div className="flex items-center justify-center lg:justify-start gap-4 pt-2">
-            <a
-              href="https://github.com/birkjr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium">GitHub</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/birkjramstad/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium">LinkedIn</span>
-            </a>
-            <a
-              href="mailto:birkrams@gmail.com"
-              className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium">Email</span>
-            </a>
-          </div>
-
-          {/* Location & Date */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/50 backdrop-blur-sm border border-border/50">
-              <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">
-                {t.location}
-              </span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/50 backdrop-blur-sm border border-border/50">
-              <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">{t.born}</span>
-            </div>
-          </div>
         </div>
 
         {/* Right Column - Portrait Card with 3D tilt (desktop only) */}
@@ -280,14 +207,14 @@ export function Hero() {
 
             {/* 3D tilt wrapper with deep slide-in animation */}
             <div
-              className={`relative z-10 [perspective:1100px] ${
+              className={`relative z-10 flex flex-col items-center [perspective:1100px] ${
                 isVisible
                   ? "hero-card-slide-up"
                   : "opacity-0 translate-y-[260px] scale-[0.94]"
               }`}
             >
               <div
-                className="relative w-80 rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"
+                className="relative w-[21.5rem] rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"
                 style={{
                   transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
                   transformStyle: "preserve-3d",
@@ -314,23 +241,54 @@ export function Hero() {
                 <div className="bg-slate-950/95 px-4 py-4 rounded-b-[2rem] border-t border-slate-800/50 relative z-10">
                   <div className="flex items-center justify-between gap-3 mb-3">
                     <div>
-                      <p className="text-sm font-semibold text-white">
-                        {t.name}
-                      </p>
-                      <p className="text-[11px] text-slate-300">
-                        {t.role} · Thylo Insight
-                      </p>
+                      <p className="text-[11px] text-slate-300">{t.role}</p>
                     </div>
                     <div className="flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
                       BJR
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="tag-pill">NTNU</span>
-                    <span className="tag-pill">AI &amp; Security</span>
-                    <span className="tag-pill">Founder</span>
+                  <div className="flex flex-nowrap items-center gap-1.5">
+                    <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
+                      <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+                        {t.location}
+                      </span>
+                    </div>
+                    <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
+                      <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+                        {t.born}
+                      </span>
+                    </div>
                   </div>
                 </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex w-[21.5rem] items-center justify-center gap-4 pt-12">
+                <a
+                  href="https://github.com/birkjr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs font-medium">GitHub</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/birkjramstad/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs font-medium">LinkedIn</span>
+                </a>
+                <a
+                  href="mailto:birkrams@gmail.com"
+                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs font-medium">Email</span>
+                </a>
               </div>
             </div>
           </div>
