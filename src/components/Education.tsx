@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -105,118 +104,15 @@ export function Education() {
   const { language } = useLanguage();
   const educations = language === "no" ? educations_no : educations_en;
   const t = content[language];
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const lastScrollY = useRef(0);
-  const hasAnimated = useRef(false);
-  const fallbackTimer = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current) {
-        setScrollDirection("down");
-      } else if (currentScrollY < lastScrollY.current) {
-        setScrollDirection("up");
-      }
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // If already animated, don't set up observer again
-    if (hasAnimated.current) return;
-
-    const isMobile = window.innerWidth < 768;
-
-    // Fallback: Show section after 1 second if animation hasn't triggered
-    fallbackTimer.current = setTimeout(() => {
-      if (!hasAnimated.current && sectionRef.current) {
-        setIsVisible(true);
-        hasAnimated.current = true;
-      }
-    }, 1000);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const isIntersecting = entry.isIntersecting;
-          const intersectionRatio = entry.intersectionRatio;
-
-          // Trigger animation when section enters viewport
-          // Lower threshold on mobile, higher on desktop to prevent multiple sections triggering
-          const minRatio = isMobile ? 0.3 : 0.5; // Lowered desktop threshold from 0.7 to 0.5
-
-          if (
-            isIntersecting &&
-            intersectionRatio >= minRatio &&
-            !hasAnimated.current
-          ) {
-            // Clear fallback timer
-            if (fallbackTimer.current) {
-              clearTimeout(fallbackTimer.current);
-            }
-
-            const currentScrollY = window.scrollY;
-            if (currentScrollY > lastScrollY.current) {
-              setScrollDirection("down");
-            } else if (currentScrollY < lastScrollY.current) {
-              setScrollDirection("up");
-            }
-            setIsVisible(true);
-            hasAnimated.current = true;
-            // Unobserve after animation triggers to prevent re-triggering
-            if (sectionRef.current) {
-              observer.unobserve(sectionRef.current);
-            }
-          }
-        });
-      },
-      {
-        threshold: [0, 0.3, 0.5, 0.7, 1.0], // Multiple thresholds to catch different screen sizes
-        rootMargin: isMobile ? "0px 0px -50px 0px" : "-100px 0px -100px 0px", // Reduced desktop margin
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-      if (fallbackTimer.current) {
-        clearTimeout(fallbackTimer.current);
-      }
-    };
-  }, []);
 
   return (
     <SectionContainer id="education">
-      <div
-        className={`max-w-7xl mx-auto transition-all duration-300 ${
-          isVisible
-            ? scrollDirection === "down"
-              ? "section-slide-up"
-              : "section-slide-down"
-            : scrollDirection === "down"
-              ? "opacity-0 translate-y-[260px] scale-[0.94]"
-              : "opacity-0 -translate-y-[260px] scale-[0.94]"
-        }`}
-        ref={sectionRef}
-      >
+      <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-              {t.label}
-            </span>
+          <div className="section-badge">
+            <div className="section-badge-dot" />
+            <span className="section-badge-label">{t.label}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -231,19 +127,19 @@ export function Education() {
             return (
               <Card
                 key={index}
-                className="group relative overflow-hidden hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
+                className="group relative overflow-hidden hover-glow transition-all duration-300 border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-black/10 card-gradient-bg"
               >
                 <div className="card-shine" />
                 <CardHeader className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-foreground/85 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                       <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-foreground transition-colors">
                         {education.institution}
                       </CardTitle>
-                      <CardDescription className="text-blue-600 dark:text-blue-400 font-semibold text-xs sm:text-sm mb-2">
+                      <CardDescription className="text-muted-foreground font-semibold text-xs sm:text-sm mb-2">
                         {education.program}
                       </CardDescription>
                       <Badge variant="outline" className="text-xs">

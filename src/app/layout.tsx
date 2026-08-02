@@ -4,6 +4,7 @@ import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
+import { jetbrainsMono } from "@/lib/fonts";
 
 const isProduction = process.env.NODE_ENV === "production";
 const baseUrl = isProduction
@@ -127,9 +128,9 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="no" suppressHydrationWarning>
+    <html lang="no" suppressHydrationWarning className={jetbrainsMono.variable}>
       <body
-        className="min-h-screen bg-background text-foreground"
+        className={`${jetbrainsMono.className} min-h-screen bg-background text-foreground font-sans antialiased`}
         suppressHydrationWarning
       >
         <Script

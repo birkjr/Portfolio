@@ -97,7 +97,7 @@ export function CursorEffect() {
       {/* Primary dot — snaps to cursor */}
       <div
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full bg-blue-500 mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full bg-foreground mix-blend-difference"
         style={{
           willChange: "transform",
           transition: "opacity 0.2s",
@@ -108,17 +108,15 @@ export function CursorEffect() {
       {/* Ring — springs after cursor */}
       <div
         ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border border-blue-400/60"
+        className="pointer-events-none fixed top-0 left-0 z-[9998] rounded-full border border-foreground/40"
         style={{
           width: hovered ? 56 : 36,
           height: hovered ? 56 : 36,
           willChange: "transform, width, height",
           transition:
             "width 0.25s cubic-bezier(0.34,1.56,0.64,1), height 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, background 0.25s ease",
-          background: hovered ? "rgba(59,130,246,0.10)" : "transparent",
-          boxShadow: hovered
-            ? "0 0 18px 4px rgba(59,130,246,0.25), 0 0 6px 1px rgba(6,182,212,0.15)"
-            : "none",
+          background: hovered ? "rgba(100,116,139,0.08)" : "transparent",
+          boxShadow: hovered ? "0 0 18px 4px rgba(100,116,139,0.15)" : "none",
         }}
         aria-hidden
       />

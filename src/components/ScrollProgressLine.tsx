@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef } from "react";
 
 const SECTION_IDS = [
-  "education",
-  "experience",
+  "about",
   "projects",
-  "reverse-engineering",
+  "articles",
+  "timeline",
   "skills",
+  "contact",
 ];
 const HEADING_BOX_HEIGHT = 140;
 
@@ -118,7 +119,7 @@ export function ScrollProgressLine() {
       {/* Dot under hero – only visible when past hero */}
       {showDot && (
         <div
-          className="fixed left-1/2 z-0 pointer-events-none w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-blue-400 bg-slate-900/90 shadow-lg shadow-blue-500/30"
+          className="fixed left-1/2 z-0 pointer-events-none w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-foreground/30 bg-background shadow-lg shadow-black/20"
           style={{ top: `${dotTop}px` }}
           aria-hidden
         />
@@ -144,9 +145,9 @@ export function ScrollProgressLine() {
               x2="0%"
               y2="100%"
             >
-              <stop offset="0%" stopColor="rgb(59, 130, 246)" />
-              <stop offset="50%" stopColor="rgb(139, 92, 246)" />
-              <stop offset="100%" stopColor="rgb(6, 182, 212)" />
+              <stop offset="0%" stopColor="rgb(100, 116, 139)" />
+              <stop offset="50%" stopColor="rgb(148, 163, 184)" />
+              <stop offset="100%" stopColor="rgb(100, 116, 139)" />
             </linearGradient>
           </defs>
           <path

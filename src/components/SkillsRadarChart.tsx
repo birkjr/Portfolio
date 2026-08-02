@@ -52,24 +52,24 @@ export function SkillsRadarChart({
           margin={{ top: 10, right: 20, bottom: 10, left: 20 }}
         >
           <PolarGrid
-            stroke="rgba(59, 130, 246, 0.2)"
+            stroke="rgba(148, 163, 184, 0.2)"
             strokeWidth={1}
             gridType="polygon"
           />
           <PolarAngleAxis
             dataKey="category"
             tick={{
-              fill: "rgb(147, 197, 253)",
+              fill: "rgb(203, 213, 225)",
               fontSize: 12,
               fontWeight: 500,
             }}
-            tickLine={{ stroke: "rgba(59, 130, 246, 0.3)" }}
+            tickLine={{ stroke: "rgba(148, 163, 184, 0.3)" }}
           />
           <PolarRadiusAxis
             angle={90}
             domain={[0, 100]}
             tick={{
-              fill: "rgba(147, 197, 253, 0.6)",
+              fill: "rgba(203, 213, 225, 0.6)",
               fontSize: 10,
             }}
             tickCount={6}
@@ -87,12 +87,12 @@ export function SkillsRadarChart({
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop
                 offset="0%"
-                stopColor="rgb(139, 92, 246)"
+                stopColor="rgb(148, 163, 184)"
                 stopOpacity={0.8}
               />
               <stop
                 offset="100%"
-                stopColor="rgb(59, 130, 246)"
+                stopColor="rgb(100, 116, 139)"
                 stopOpacity={0.8}
               />
             </linearGradient>

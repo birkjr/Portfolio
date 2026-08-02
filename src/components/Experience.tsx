@@ -268,11 +268,9 @@ export function Experience() {
       >
         {/* Section Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-              {t.label}
-            </span>
+          <div className="section-badge">
+            <div className="section-badge-dot" />
+            <span className="section-badge-label">{t.label}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -301,7 +299,7 @@ export function Experience() {
               </button>
               <CardHeader className="space-y-4 pb-4 sm:pb-6">
                 <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 sm:h-16 sm:w-16">
+                  <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full bg-foreground/85 sm:h-16 sm:w-16">
                     {(() => {
                       const IconComponent =
                         experiences[selectedExperience].icon;
@@ -314,7 +312,7 @@ export function Experience() {
                     <CardTitle className="text-xl sm:text-2xl text-foreground">
                       {experiences[selectedExperience].title}
                     </CardTitle>
-                    <CardDescription className="mb-2 text-sm font-medium text-blue-600 dark:text-blue-400 sm:text-lg">
+                    <CardDescription className="mb-2 text-sm font-medium text-muted-foreground sm:text-lg">
                       {experiences[selectedExperience].description}
                     </CardDescription>
                     <Badge variant="outline" className="text-xs sm:text-sm">
@@ -343,7 +341,7 @@ export function Experience() {
             return (
               <Card
                 key={index}
-                className="group relative overflow-hidden text-center hover-glow transition-all duration-300 cursor-pointer h-full flex flex-col border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-blue-500/10 card-gradient-bg"
+                className="group relative overflow-hidden text-center hover-glow transition-all duration-300 cursor-pointer h-full flex flex-col border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 dark:backdrop-blur-xl hover:scale-[1.02] hover:shadow-xl hover:shadow-black/10 card-gradient-bg"
                 style={{
                   opacity:
                     selectedExperience !== null && selectedExperience !== index
@@ -356,10 +354,10 @@ export function Experience() {
               >
                 <div className="card-shine" />
                 <CardHeader className="flex-1 p-4 pb-2">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-foreground/85 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                     <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
-                  <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <CardTitle className="text-base sm:text-lg font-bold mb-1.5 group-hover:text-foreground transition-colors">
                     {experience.title}
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm text-muted-foreground/80 leading-relaxed">

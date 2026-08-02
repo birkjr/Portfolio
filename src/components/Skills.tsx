@@ -141,11 +141,9 @@ export function Skills() {
       <div className="max-w-7xl mx-auto" ref={sectionRef}>
         {/* Section Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-              {t.label}
-            </span>
+          <div className="section-badge">
+            <div className="section-badge-dot" />
+            <span className="section-badge-label">{t.label}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3">{t.title}</h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -181,9 +179,9 @@ export function Skills() {
                       />
                     </div>
                   ) : (
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-950/80 dark:bg-slate-950/80 border border-slate-700/70 dark:border-slate-700/70 shadow-md shadow-blue-500/25">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-slate-950/80 dark:bg-slate-950/80 border border-slate-700/70 dark:border-slate-700/70 shadow-md shadow-black/10">
                       {Icon && (
-                        <Icon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                        <Icon className="w-6 h-6 text-muted-foreground" />
                       )}
                     </div>
                   )}

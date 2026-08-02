@@ -24,8 +24,7 @@ export function Hero() {
       role: "Full-Stack Developer",
       greeting: "Hei, jeg er",
       name: "Birk Jonathan Ramstad",
-      description:
-        "Programvareutvikler som bygger datadrevne produkter. Medgründer og CTO for Thylo Insight — utvikler AI-drevet helseinsikt-plattform.",
+      description: "Programvareutvikler. Medgründer og CTO for Thylo Insight.",
       location: "Trondheim/Oslo, Norge",
       born: "Født 5. april 2003",
       cta: "Se prosjekter",
@@ -36,8 +35,7 @@ export function Hero() {
       role: "Full-Stack Developer",
       greeting: "Hello, I'm",
       name: "Birk Jonathan Ramstad",
-      description:
-        "Software engineer building data-driven products. Co-founder and CTO of Thylo Insight — currently developing an AI-powered health insight platform.",
+      description: "Software engineer. Co-founder and CTO of Thylo Insight.",
       location: "Trondheim/Oslo, Norway",
       born: "Born April 5th, 2003",
       cta: "View Projects",
@@ -47,24 +45,18 @@ export function Hero() {
 
   const t = content[language];
 
-  // State for 3D tilt + shine on hero portrait
+  // State for 3D tilt on hero portrait
   const [tilt, setTilt] = useState({
     rotateX: 0,
     rotateY: 0,
     scale: 1,
   });
 
-  const [shine, setShine] = useState({
-    x: 50,
-    y: 50,
-    intensity: 0,
-  });
-
   const [isVisible, setIsVisible] = useState(false);
   // Separate ref for the desktop card only — mobile card never needs observer
   const desktopCardRef = useRef<HTMLDivElement>(null);
 
-  // Global mouse tracking — tilt + shine follow cursor anywhere on screen
+  // Global mouse tracking — tilt follows cursor anywhere on screen
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const percentX = e.clientX / window.innerWidth - 0.5;
@@ -75,18 +67,10 @@ export function Hero() {
         rotateY: percentX * 13,
         scale: 1.03,
       });
-
-      // Shine tracks global viewport position so it sweeps across the card
-      setShine({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100,
-        intensity: 0.75,
-      });
     };
 
     const handleMouseLeave = () => {
       setTilt({ rotateX: 0, rotateY: 0, scale: 1 });
-      setShine((prev) => ({ ...prev, intensity: 0 }));
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -142,18 +126,16 @@ export function Hero() {
         {/* Left Column - Content */}
         <div className="space-y-6 order-1 lg:order-1 text-center lg:text-left w-full">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm">
-            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-            <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-              {t.info}
-            </span>
+          <div className="section-badge">
+            <div className="section-badge-dot" />
+            <span className="section-badge-label">{t.info}</span>
           </div>
 
           {/* Main Headline */}
           <div className="space-y-4">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
               <span className="block text-foreground">{t.greeting}</span>
-              <span className="block bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+              <span className="block text-foreground">
                 <TextType
                   text={[t.name]}
                   typingSpeed={75}
@@ -174,7 +156,7 @@ export function Hero() {
           <div className="flex justify-center lg:hidden">
             <div className="relative">
               {/* Animated gradient orb behind avatar */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/18 via-cyan-500/20 to-blue-500/18 rounded-[2.25rem] blur-3xl animate-pulse" />
+              <div className="pointer-events-none absolute inset-0 bg-slate-500/10 rounded-[2.25rem] blur-3xl" />
 
               {/* Mobile card always animates in on mount — no observer needed */}
               <div className="relative z-10 [perspective:1100px] hero-card-slide-up">
@@ -193,9 +175,9 @@ export function Hero() {
                         <AvatarImage
                           src="/Selvportrett-kopi.png"
                           alt="Birk Ramstad"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover brightness-[0.85]"
                         />
-                        <AvatarFallback className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                        <AvatarFallback className="text-4xl font-bold text-foreground">
                           BJR
                         </AvatarFallback>
                       </Avatar>
@@ -213,32 +195,16 @@ export function Hero() {
                           {t.role} · Thylo Insight
                         </p>
                       </div>
-                      <div className="hidden sm:flex w-8 h-8 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 items-center justify-center text-[10px] font-semibold text-white shadow-md">
+                      <div className="hidden sm:flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
                         BJR
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      <span className="inline-flex items-center rounded-full bg-blue-500/15 border border-blue-400/40 px-2 py-0.5 text-[10px] font-medium text-blue-200">
-                        NTNU
-                      </span>
-                      <span className="inline-flex items-center rounded-full bg-emerald-500/15 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-medium text-emerald-200">
-                        AI &amp; Security
-                      </span>
-                      <span className="inline-flex items-center rounded-full bg-sky-500/15 border border-sky-400/40 px-2 py-0.5 text-[10px] font-medium text-sky-200">
-                        Founder
-                      </span>
+                      <span className="tag-pill">NTNU</span>
+                      <span className="tag-pill">AI &amp; Security</span>
+                      <span className="tag-pill">Founder</span>
                     </div>
                   </div>
-
-                  {/* Shine overlay that follows cursor across the whole card */}
-                  <div
-                    className="pointer-events-none absolute inset-0 rounded-[2rem] mix-blend-screen transition-opacity duration-150 z-30"
-                    style={{
-                      opacity: shine.intensity,
-                      background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(59,130,246,0.45), transparent 60%), radial-gradient(circle at ${100 - shine.x}% ${100 - shine.y}%, rgba(56,189,248,0.35), transparent 65%)`,
-                      transform: "translateZ(40px)",
-                    }}
-                  />
                 </div>
               </div>
             </div>
@@ -248,7 +214,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-2">
             <Button
               onClick={() => scrollToSection("#projects")}
-              className="group h-11 px-6 text-sm font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300"
+              className="group h-11 px-6 text-sm font-semibold"
             >
               {t.cta}
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -294,13 +260,13 @@ export function Hero() {
           {/* Location & Date */}
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-1">
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/50 backdrop-blur-sm border border-border/50">
-              <MapPin className="w-3.5 h-3.5 text-blue-500" />
+              <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-xs text-muted-foreground">
                 {t.location}
               </span>
             </div>
             <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/50 backdrop-blur-sm border border-border/50">
-              <Calendar className="w-3.5 h-3.5 text-green-500" />
+              <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-xs text-muted-foreground">{t.born}</span>
             </div>
           </div>
@@ -310,7 +276,7 @@ export function Hero() {
         <div className="hidden lg:flex justify-end order-2">
           <div className="relative" ref={desktopCardRef}>
             {/* Animated gradient orb behind avatar */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-blue-500/18 via-cyan-500/20 to-blue-500/18 rounded-[2.25rem] blur-3xl animate-pulse" />
+            <div className="pointer-events-none absolute inset-0 bg-slate-500/10 rounded-[2.25rem] blur-3xl" />
 
             {/* 3D tilt wrapper with deep slide-in animation */}
             <div
@@ -335,9 +301,9 @@ export function Hero() {
                       <AvatarImage
                         src="/Selvportrett-kopi.png"
                         alt="Birk Ramstad"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover brightness-[0.85]"
                       />
-                      <AvatarFallback className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                      <AvatarFallback className="text-4xl font-bold text-foreground">
                         BJR
                       </AvatarFallback>
                     </Avatar>
@@ -355,32 +321,16 @@ export function Hero() {
                         {t.role} · Thylo Insight
                       </p>
                     </div>
-                    <div className="flex w-8 h-8 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 items-center justify-center text-[10px] font-semibold text-white shadow-md">
+                    <div className="flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
                       BJR
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
-                    <span className="inline-flex items-center rounded-full bg-blue-500/15 border border-blue-400/40 px-2 py-0.5 text-[10px] font-medium text-blue-200">
-                      NTNU
-                    </span>
-                    <span className="inline-flex items-center rounded-full bg-emerald-500/15 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-medium text-emerald-200">
-                      AI &amp; Security
-                    </span>
-                    <span className="inline-flex items-center rounded-full bg-sky-500/15 border border-sky-400/40 px-2 py-0.5 text-[10px] font-medium text-sky-200">
-                      Founder
-                    </span>
+                    <span className="tag-pill">NTNU</span>
+                    <span className="tag-pill">AI &amp; Security</span>
+                    <span className="tag-pill">Founder</span>
                   </div>
                 </div>
-
-                {/* Shine overlay that follows cursor across the whole card */}
-                <div
-                  className="pointer-events-none absolute inset-0 rounded-[2rem] mix-blend-screen transition-opacity duration-150 z-30"
-                  style={{
-                    opacity: shine.intensity,
-                    background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(59,130,246,0.45), transparent 60%), radial-gradient(circle at ${100 - shine.x}% ${100 - shine.y}%, rgba(56,189,248,0.35), transparent 65%)`,
-                    transform: "translateZ(40px)",
-                  }}
-                />
               </div>
             </div>
           </div>

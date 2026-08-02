@@ -2,10 +2,10 @@
 
 import Navbar from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Education } from "@/components/Education";
+import { About } from "@/components/About";
 import { Projects } from "@/components/Projects";
-import { SystemsBuilt } from "@/components/SystemsBuilt";
-// import { Experience } from "@/components/Experience";
+import { Articles } from "@/components/Articles";
+import { Timeline } from "@/components/Timeline";
 import { Skills } from "@/components/Skills";
 import { Footer } from "@/components/Footer";
 import { CursorEffect } from "@/components/CursorEffect";
@@ -14,19 +14,16 @@ import { FloatingOrbs } from "@/components/FloatingOrbs";
 export default function Home() {
   return (
     <>
-      {/* Custom cursor (desktop only — no-ops on touch devices) */}
       <CursorEffect />
-
-      {/* Ambient background orbs */}
       <FloatingOrbs />
 
       <Navbar />
       <main className="relative z-10">
         <Hero />
+        <About />
         <Projects />
-        <SystemsBuilt />
-        <Education />
-        {/* <Experience /> */}
+        <Articles />
+        <Timeline />
         <Skills />
         <Footer />
       </main>

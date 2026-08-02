@@ -33,20 +33,22 @@ export default function Navbar() {
 
   const navItems = {
     no: [
-      { name: "Om Meg", href: "#home" },
+      { name: "Hjem", href: "#home" },
+      { name: "Om meg", href: "#about" },
       { name: "Prosjekter", href: "#projects" },
-      { name: "Systemer", href: "#systems" },
-      { name: "Utdanning", href: "#education" },
-      // { name: "Erfaringer", href: "#experience" },
+      { name: "Artikler", href: "#articles" },
+      { name: "Tidslinje", href: "#timeline" },
       { name: "Ferdigheter", href: "#skills" },
+      { name: "Kontakt", href: "#contact" },
     ],
     en: [
-      { name: "About Me", href: "#home" },
+      { name: "Home", href: "#home" },
+      { name: "About", href: "#about" },
       { name: "Projects", href: "#projects" },
-      { name: "Systems", href: "#systems" },
-      { name: "Education", href: "#education" },
-      // { name: "Experience", href: "#experience" },
+      { name: "Articles", href: "#articles" },
+      { name: "Timeline", href: "#timeline" },
       { name: "Skills", href: "#skills" },
+      { name: "Contact", href: "#contact" },
     ],
   };
 
@@ -94,9 +96,9 @@ export default function Navbar() {
         {/* Main navbar container - rounded, not full width */}
         <div className="relative w-full max-w-7xl mx-auto rounded-2xl overflow-hidden backdrop-blur-xl bg-gradient-to-b from-[#fdf7f0] via-[#f8efe3] to-[#f3e6d6] border-2 border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40">
           {/* Gradient border bottom */}
-          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
           {/* Subtle glow effect - stronger at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-transparent to-slate-200/40 pointer-events-none dark:to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-200/40 pointer-events-none dark:to-black/30" />
 
           {/* Subtle pattern overlay */}
           <div
@@ -113,9 +115,9 @@ export default function Navbar() {
               <div className="flex items-center space-x-3 sm:space-x-4 flex-shrink-0">
                 {/* Logo with gradient border */}
                 <div className="relative group">
-                  <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-300" />
-                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-slate-700/50 group-hover:border-blue-500/50 bg-slate-800/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 shadow-lg group-hover:shadow-blue-500/20">
-                    <span className="text-white font-bold text-xs sm:text-sm bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">
+                  <div className="absolute inset-0 rounded-md hidden" />
+                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-slate-700/50 group-hover:border-foreground/30 bg-slate-800/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 shadow-lg group-hover:shadow-black/10">
+                    <span className="text-white font-bold text-xs sm:text-sm text-white">
                       BJR
                     </span>
                   </div>
@@ -132,15 +134,15 @@ export default function Navbar() {
                       className="group relative px-4 py-2 rounded-lg text-slate-900/80 text-sm font-medium hover:text-slate-950 transition-all duration-300 tracking-wide cursor-pointer whitespace-nowrap overflow-hidden dark:text-white/90 dark:hover:text-white"
                     >
                       {/* Hover background glow */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-cyan-500/0 to-blue-500/0 group-hover:from-blue-500/20 group-hover:via-cyan-500/20 group-hover:to-blue-500/20 transition-all duration-500 blur-xl rounded-lg" />
+                      <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300 rounded-lg" />
 
                       {/* Text with gradient on hover */}
-                      <span className="relative z-10 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-300 group-hover:to-cyan-300 transition-all duration-300">
+                      <span className="relative z-10 group-hover:text-foreground transition-all duration-300">
                         {item.name}
                       </span>
 
                       {/* Bottom indicator line */}
-                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-gradient-to-r from-blue-500 to-cyan-500 group-hover:w-[60%] transition-all duration-500 rounded-full" />
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-foreground/40 group-hover:w-[60%] transition-all duration-500 rounded-full" />
                     </button>
                   ))}
                 </div>
@@ -151,13 +153,13 @@ export default function Navbar() {
                 {/* Language Toggle */}
                 <button
                   onClick={toggleLanguage}
-                  className="group relative flex items-center gap-2 px-4 py-2 rounded-lg bg-white/60 border border-slate-200/60 hover:border-blue-500/50 text-slate-900/80 hover:text-slate-950 transition-all duration-300 cursor-pointer flex-shrink-0 overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
+                  className="group relative flex items-center gap-2 px-4 py-2 rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-900/80 hover:text-slate-950 transition-all duration-300 cursor-pointer flex-shrink-0 overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
                 >
                   {/* Hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/20 group-hover:to-cyan-500/20 transition-all duration-500 blur-xl" />
+                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
 
-                  <Globe className="w-4 h-4 relative z-10 text-slate-500 group-hover:text-blue-500 transition-colors duration-300 dark:text-slate-400 dark:group-hover:text-blue-400" />
-                  <span className="relative z-10 uppercase text-sm font-medium group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-300 group-hover:to-cyan-300 transition-all duration-300">
+                  <Globe className="w-4 h-4 relative z-10 text-slate-500 group-hover:text-foreground transition-colors duration-300 dark:text-slate-400 dark:group-hover:text-foreground" />
+                  <span className="relative z-10 uppercase text-sm font-medium group-hover:text-foreground transition-all duration-300">
                     {language}
                   </span>
                 </button>
@@ -165,10 +167,10 @@ export default function Navbar() {
                 {/* Theme Toggle */}
                 <button
                   onClick={toggleTheme}
-                  className="group relative ml-3 w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-blue-500/50 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
+                  className="group relative ml-3 w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
                   aria-label="Toggle theme"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/20 group-hover:to-cyan-500/20 transition-all duration-500 blur-xl" />
+                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
                   <div className="relative z-10">
                     {mounted && (theme ?? "dark") === "dark" ? (
                       <Sun className="w-4 h-4" />
@@ -183,21 +185,21 @@ export default function Navbar() {
               <div className="md:hidden flex items-center gap-3">
                 <button
                   onClick={toggleLanguage}
-                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg bg-white/60 border border-slate-200/60 hover:border-blue-500/50 text-slate-900/80 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
+                  className="group relative flex items-center gap-2 px-3 py-2 rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-900/80 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/20 group-hover:to-cyan-500/20 transition-all duration-500 blur-xl" />
-                  <Globe className="w-4 h-4 relative z-10 text-slate-500 group-hover:text-blue-500 transition-colors duration-300 dark:text-slate-400 dark:group-hover:text-blue-400" />
-                  <span className="relative z-10 uppercase text-xs font-medium group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-300 group-hover:to-cyan-300 transition-all duration-300">
+                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
+                  <Globe className="w-4 h-4 relative z-10 text-slate-500 group-hover:text-foreground transition-colors duration-300 dark:text-slate-400 dark:group-hover:text-foreground" />
+                  <span className="relative z-10 uppercase text-xs font-medium group-hover:text-foreground transition-all duration-300">
                     {language}
                   </span>
                 </button>
 
                 <button
                   onClick={toggleTheme}
-                  className="group relative w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-blue-500/50 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
+                  className="group relative w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
                   aria-label="Toggle theme"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/30 group-hover:to-cyan-500/30 transition-all duration-500 blur-xl" />
+                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
                   <div className="relative z-10">
                     {mounted && (theme ?? "dark") === "dark" ? (
                       <Sun className="w-5 h-5" />
@@ -209,11 +211,11 @@ export default function Navbar() {
 
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="group relative w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-blue-500/50 text-slate-900 hover:text-blue-600 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white dark:hover:text-blue-400"
+                  className="group relative w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-900 hover:text-foreground transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white dark:hover:text-foreground"
                   aria-label="Toggle menu"
                 >
                   {/* Hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/30 group-hover:to-cyan-500/30 transition-all duration-500 blur-xl" />
+                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
 
                   <div className="relative z-10 w-6 h-6">
                     <Menu
@@ -275,7 +277,7 @@ export default function Navbar() {
           {/* Close button */}
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-6 right-6 w-14 h-14 rounded-full bg-white/70 border-2 border-slate-200/70 flex items-center justify-center text-slate-900 hover:bg-white hover:border-blue-500 hover:scale-110 hover:rotate-90 transition-all duration-300 shadow-xl shadow-slate-900/10 hover:shadow-blue-500/20 dark:bg-slate-800/90 dark:border-slate-700/50 dark:text-white dark:hover:bg-slate-700"
+            className="absolute top-6 right-6 w-14 h-14 rounded-full bg-white/70 border-2 border-slate-200/70 flex items-center justify-center text-slate-900 hover:bg-white hover:border-foreground/30 hover:scale-110 hover:rotate-90 transition-all duration-300 shadow-xl shadow-slate-900/10 hover:shadow-black/10 dark:bg-slate-800/90 dark:border-slate-700/50 dark:text-white dark:hover:bg-slate-700"
             aria-label="Close menu"
           >
             <X size={26} />
@@ -287,25 +289,25 @@ export default function Navbar() {
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="group relative w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white/70 border-2 border-slate-200/70 hover:border-blue-500 hover:bg-white transition-all duration-300 overflow-hidden shadow-lg shadow-slate-900/10 hover:shadow-blue-500/15 dark:bg-slate-800/90 dark:border-slate-700/50 dark:hover:bg-slate-800 dark:hover:shadow-blue-500/20"
+                className="group relative w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white/70 border-2 border-slate-200/70 hover:border-foreground/30 hover:bg-white transition-all duration-300 overflow-hidden shadow-lg shadow-slate-900/10 hover:shadow-black/10 dark:bg-slate-800/90 dark:border-slate-700/50 dark:hover:bg-slate-800 dark:hover:shadow-black/10"
                 style={{
                   animationDelay: `${index * 60}ms`,
                   animation: isOpen ? "slideInLeft 0.6s ease-out both" : "none",
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-cyan-500/0 to-blue-600/0 group-hover:from-blue-600/20 group-hover:via-cyan-500/20 group-hover:to-blue-600/20 transition-all duration-500 blur-xl" />
+                <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
 
                 <div className="relative z-10 flex items-center gap-4 w-full">
-                  <span className="text-slate-900 text-xl font-semibold tracking-wide group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-cyan-500 transition-all duration-300 dark:text-white dark:group-hover:from-blue-400 dark:group-hover:to-cyan-400">
+                  <span className="text-slate-900 text-xl font-semibold tracking-wide group-hover:text-foreground transition-all duration-300 dark:text-white">
                     {item.name}
                   </span>
                   <ChevronRight
                     size={24}
-                    className="text-slate-500 group-hover:text-blue-500 group-hover:translate-x-3 transition-all duration-300 ml-auto dark:text-slate-400 dark:group-hover:text-blue-400"
+                    className="text-slate-500 group-hover:text-foreground group-hover:translate-x-3 transition-all duration-300 ml-auto dark:text-slate-400 dark:group-hover:text-foreground"
                   />
                 </div>
 
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 group-hover:w-full transition-all duration-500" />
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-foreground/30 group-hover:w-full transition-all duration-500" />
               </button>
             ))}
           </nav>

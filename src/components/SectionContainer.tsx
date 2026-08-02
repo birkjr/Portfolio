@@ -68,7 +68,7 @@ export function SectionContainer({
       )}
     >
       {/* Subtle background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/5 to-transparent dark:via-blue-950/10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent pointer-events-none" />
 
       {/* Content wrapper */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">

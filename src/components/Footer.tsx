@@ -78,6 +78,7 @@ export function Footer() {
           <div className="px-6 sm:px-8 lg:px-12 pt-12 pb-8 sm:pt-16 sm:pb-12">
             {/* Header */}
             <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t.title}</h2>
               <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
                 {t.subtitle}
               </p>
@@ -132,7 +133,7 @@ export function Footer() {
             <div className="py-8 px-6 sm:px-8 lg:px-12">
               <div className="flex flex-col md:flex-row justify-center items-center gap-6">
                 <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center shadow-lg">
+                  <div className="w-8 h-8 bg-foreground/85 rounded-lg flex items-center justify-center shadow-lg">
                     <span className="text-white font-bold text-sm">BJR</span>
                   </div>
                   <span className="text-sm sm:text-base text-muted-foreground font-medium">
