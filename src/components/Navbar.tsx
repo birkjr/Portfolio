@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { Menu, X, Globe, ChevronRight, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
@@ -9,11 +9,14 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [navVisible, setNavVisible] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     // Slight delay so the mount animation fires after first paint
     const t = setTimeout(() => setNavVisible(true), 80);
     return () => clearTimeout(t);

@@ -26,16 +26,14 @@ export function CursorEffect() {
   // Spring-lagged ring position
   const ring = useRef({ x: -200, y: -200 });
   const raf = useRef<number>(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(pointer: coarse)").matches;
+  });
 
   useEffect(() => {
     // Only run on non-touch devices
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(pointer: coarse)");
-    if (mq.matches) {
-      setIsMobile(true);
-      return;
-    }
+    if (isMobile) return;
 
     // Hide native cursor
     document.body.classList.add("cursor-none");
@@ -88,7 +86,7 @@ export function CursorEffect() {
       document.removeEventListener("mouseout", onLeave);
       cancelAnimationFrame(raf.current);
     };
-  }, [hovered]);
+  }, [hovered, isMobile]);
 
   if (isMobile) return null;
 

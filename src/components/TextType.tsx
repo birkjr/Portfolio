@@ -50,8 +50,10 @@ export default function TextType({
           setDisplayedText((prev) => prev.slice(0, -1));
         }, typingSpeed / 2);
       } else {
-        setIsDeleting(false);
-        setCurrentTextIndex((prev) => (prev + 1) % text.length);
+        timeout = setTimeout(() => {
+          setIsDeleting(false);
+          setCurrentTextIndex((prev) => (prev + 1) % text.length);
+        }, 0);
       }
     } else {
       if (displayedText.length < currentText.length) {
@@ -59,11 +61,13 @@ export default function TextType({
           setDisplayedText((prev) => currentText.slice(0, prev.length + 1));
         }, typingSpeed);
       } else {
-        if (loop) {
-          setIsPaused(true);
-        } else {
-          setIsComplete(true);
-        }
+        timeout = setTimeout(() => {
+          if (loop) {
+            setIsPaused(true);
+          } else {
+            setIsComplete(true);
+          }
+        }, 0);
       }
     }
 
