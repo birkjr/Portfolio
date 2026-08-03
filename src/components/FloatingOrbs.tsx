@@ -46,11 +46,10 @@ export function FloatingOrbs() {
         className="orb orb-3"
         style={{
           position: "absolute",
-          top: "35%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: 500,
-          height: 500,
+          top: "8%",
+          right: "5%",
+          width: 480,
+          height: 480,
           animation: "orbDrift3 34s ease-in-out infinite",
           ...orbStyle,
         }}

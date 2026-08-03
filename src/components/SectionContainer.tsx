@@ -2,7 +2,7 @@
 
 import { ReactNode, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { isMobileViewport } from "@/lib/utils";
+import { isMobileViewport, prefersReducedMotion } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,6 +15,8 @@ interface SectionContainerProps {
   className?: string;
   id?: string;
   variant?: "default" | "hero" | "featured";
+  /** Skip built-in scroll reveal (e.g. driven by ScrollIntoMachine). */
+  motion?: "depth" | "none";
 }
 
 export function SectionContainer({
@@ -22,33 +24,49 @@ export function SectionContainer({
   className,
   id,
   variant = "default",
+  motion = "depth",
 }: SectionContainerProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (variant === "hero") return; // Skip animation for hero
+    if (variant === "hero" || motion === "none") return;
 
-    const el = sectionRef.current;
-    if (!el) return;
+    const section = sectionRef.current;
+    const content = contentRef.current;
+    if (!section || !content) return;
+
+    if (prefersReducedMotion()) {
+      gsap.set(content, { clearProps: "all", opacity: 1 });
+      return;
+    }
 
     const mobile = isMobileViewport();
 
     const ctx = gsap.context(() => {
+      gsap.set(content, {
+        transformPerspective: mobile ? 800 : 1200,
+        transformOrigin: "50% 50%",
+      });
+
+      // Depth entrance from center — no downward slide bias
       gsap.fromTo(
-        el,
+        content,
         {
           opacity: 0,
-          y: mobile ? 20 : 60,
+          scale: mobile ? 0.94 : 0.86,
+          filter: mobile ? "none" : "blur(5px)",
         },
         {
           opacity: 1,
-          y: 0,
-          duration: mobile ? 0.45 : 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: mobile ? 0.55 : 1,
           ease: mobile ? "power2.out" : "power3.out",
           scrollTrigger: {
-            trigger: el,
-            start: mobile ? "top 94%" : "top 80%",
-            end: mobile ? "top 78%" : "top 50%",
+            trigger: section,
+            start: mobile ? "top 92%" : "top 82%",
+            end: mobile ? "top 70%" : "top 45%",
             toggleActions: "play none none none",
           },
         }
@@ -56,7 +74,7 @@ export function SectionContainer({
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [variant]);
+  }, [variant, motion]);
 
   return (
     <section
@@ -69,13 +87,26 @@ export function SectionContainer({
         variant === "featured" && "py-12 sm:py-16 md:py-20",
         className
       )}
+      style={
+        variant !== "hero" && motion !== "none"
+          ? { perspective: "1200px", perspectiveOrigin: "50% 50%" }
+          : undefined
+      }
     >
-      {/* Subtle background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent pointer-events-none" />
+      {variant !== "hero" && (
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent" />
+      )}
 
-      {/* Content wrapper — same horizontal rhythm as navbar/footer */}
       <div className="relative z-10 w-full px-4 sm:px-6">
-        <div className="relative mx-auto w-full max-w-7xl">{children}</div>
+        <div
+          ref={contentRef}
+          className="relative mx-auto w-full max-w-7xl will-change-transform"
+          style={
+            motion === "none" ? undefined : { transformStyle: "preserve-3d" }
+          }
+        >
+          {children}
+        </div>
       </div>
     </section>
   );

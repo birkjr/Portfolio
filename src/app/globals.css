@@ -403,11 +403,17 @@ body::before {
 @keyframes techCardDrop {
   0% {
     opacity: 0;
-    transform: translateY(-56px) scale(0.98);
+    transform: translateY(-56px) scale(0.96);
   }
-  65% {
+  58% {
     opacity: 1;
-    transform: translateY(6px) scale(1);
+    transform: translateY(16px) scale(1.03);
+  }
+  76% {
+    transform: translateY(-6px) scale(0.99);
+  }
+  90% {
+    transform: translateY(4px) scale(1.008);
   }
   100% {
     opacity: 1;

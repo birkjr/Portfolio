@@ -18,7 +18,7 @@ import {
 import { journal } from "@/content/journal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, prefersReducedMotion } from "@/lib/utils";
 
 const timelineTypeLabels: Record<
   TimelineEntryType,
@@ -63,8 +63,9 @@ function TimelineCard({
 
   return (
     <div
+      data-timeline-card
       className={cn(
-        "rounded-xl border bg-card/40 transition-colors",
+        "rounded-xl border bg-card/40 transition-colors will-change-[opacity,transform,filter]",
         isActive
           ? "border-foreground/25"
           : "border-border hover:border-foreground/20"
@@ -243,18 +244,75 @@ export function Timeline() {
     const nodes = itemRefs.current.filter(Boolean) as HTMLLIElement[];
     if (nodes.length === 0) return;
 
-    const viewportCenter = window.innerHeight / 2;
+    const reducedMotion = prefersReducedMotion();
+    const viewportHeight = window.innerHeight;
+    const viewportCenter = viewportHeight / 2;
+    const falloff = viewportHeight * 0.52;
     let closestIndex = 0;
     let closestDistance = Number.POSITIVE_INFINITY;
 
     nodes.forEach((node, index) => {
       const rect = node.getBoundingClientRect();
       const itemCenter = rect.top + rect.height / 2;
-      const distance = Math.abs(itemCenter - viewportCenter);
+      const distanceFromCenter = Math.abs(itemCenter - viewportCenter);
 
-      if (distance < closestDistance) {
-        closestDistance = distance;
+      if (distanceFromCenter < closestDistance) {
+        closestDistance = distanceFromCenter;
         closestIndex = index;
+      }
+
+      const card = node.querySelector<HTMLElement>("[data-timeline-card]");
+      const dot = node.querySelector<HTMLElement>("[data-timeline-dot]");
+
+      if (reducedMotion) {
+        if (card) {
+          card.style.opacity = "";
+          card.style.transform = "";
+          card.style.filter = "";
+        }
+        if (dot) {
+          dot.style.opacity = "";
+          dot.style.transform = "";
+        }
+        return;
+      }
+
+      // 0 at edges / off-screen, 1 at viewport center
+      let presence = 1 - Math.min(distanceFromCenter / falloff, 1);
+      presence = presence * presence * (3 - 2 * presence);
+
+      if (rect.bottom < 0) {
+        const offScreen = Math.min(
+          Math.abs(rect.bottom) / (viewportHeight * 0.4),
+          1
+        );
+        presence *= 1 - offScreen * 0.8;
+      } else if (rect.top > viewportHeight) {
+        const offScreen = Math.min(
+          (rect.top - viewportHeight) / (viewportHeight * 0.4),
+          1
+        );
+        presence *= 1 - offScreen * 0.8;
+      }
+
+      const opacity = 0.16 + presence * 0.84;
+      const scale = 0.9 + presence * 0.1;
+      const blur = (1 - presence) * 2.5;
+
+      // Dots stay more readable than cards during fade in/out
+      const dotOpacity = 0.58 + presence * 0.42;
+      const dotScale = 0.86 + presence * 0.14;
+
+      if (card) {
+        card.style.opacity = opacity.toFixed(3);
+        card.style.transform = `scale(${scale.toFixed(3)})`;
+        card.style.transformOrigin = "center left";
+        card.style.filter = blur > 0.12 ? `blur(${blur.toFixed(2)}px)` : "";
+      }
+
+      if (dot) {
+        dot.style.opacity = dotOpacity.toFixed(3);
+        dot.style.transform = `scale(${dotScale.toFixed(3)})`;
       }
     });
 
@@ -322,13 +380,18 @@ export function Timeline() {
                   className="relative pl-7 sm:pl-9 md:pl-11"
                 >
                   <div
-                    className={`absolute left-0 top-1.5 h-[15px] w-[15px] -translate-x-1/2 rounded-full border-2 transition-all duration-300 sm:h-[19px] sm:w-[19px] ${
-                      isActive
-                        ? "border-slate-900 bg-slate-900 shadow-[0_0_12px_rgba(15,23,42,0.45)] dark:border-white dark:bg-white dark:shadow-[0_0_12px_rgba(255,255,255,0.85)]"
-                        : "border-border bg-background"
-                    }`}
+                    className="absolute left-0 top-1.5 -translate-x-1/2"
                     aria-hidden
-                  />
+                  >
+                    <div
+                      data-timeline-dot
+                      className={`h-[15px] w-[15px] rounded-full border-2 transition-[border-color,background-color,box-shadow] duration-300 will-change-[opacity,transform] sm:h-[19px] sm:w-[19px] ${
+                        isActive
+                          ? "border-slate-900 bg-slate-900 shadow-[0_0_12px_rgba(15,23,42,0.45)] dark:border-white dark:bg-white dark:shadow-[0_0_12px_rgba(255,255,255,0.85)]"
+                          : "border-foreground/45 bg-foreground/20 dark:border-white/40 dark:bg-white/25"
+                      }`}
+                    />
+                  </div>
 
                   <TimelineCard
                     entry={entry}

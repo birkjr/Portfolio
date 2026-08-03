@@ -87,7 +87,7 @@ export function Footer() {
               <Button
                 variant="ghost"
                 size="lg"
-                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                className="group text-muted-foreground hover:!bg-transparent hover:text-foreground hover:scale-110"
                 asChild
               >
                 <a
@@ -95,13 +95,13 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Github className="w-7 h-7" />
+                  <Github className="h-7 w-7 transition-transform duration-200 group-hover:scale-110" />
                 </a>
               </Button>
               <Button
                 variant="ghost"
                 size="lg"
-                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                className="group text-muted-foreground hover:!bg-transparent hover:text-foreground hover:scale-110"
                 asChild
               >
                 <a
@@ -109,17 +109,17 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Linkedin className="w-7 h-7" />
+                  <Linkedin className="h-7 w-7 transition-transform duration-200 group-hover:scale-110" />
                 </a>
               </Button>
               <Button
                 variant="ghost"
                 size="lg"
-                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                className="group text-muted-foreground hover:!bg-transparent hover:text-foreground hover:scale-110"
                 asChild
               >
                 <a href="mailto:birkrams@gmail.com">
-                  <Mail className="w-7 h-7" />
+                  <Mail className="h-7 w-7 transition-transform duration-200 group-hover:scale-110" />
                 </a>
               </Button>
             </div>

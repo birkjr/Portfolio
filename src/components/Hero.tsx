@@ -149,7 +149,10 @@ export function Hero() {
     <SectionContainer variant="hero" id="home">
       <div className="mt-20 flex flex-col items-center gap-6 sm:mt-16 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12">
         {/* Left Column - Content */}
-        <div className="order-1 flex w-full flex-col items-center gap-14 text-center sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left">
+        <div
+          data-hero-side="left"
+          className="order-1 flex w-full flex-col items-center gap-14 text-center will-change-transform sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left"
+        >
           <div className="flex w-full flex-col items-center gap-14 sm:gap-16 lg:items-start lg:gap-14">
             {/* Badge */}
             <div className="section-badge">
@@ -243,7 +246,10 @@ export function Hero() {
         </div>
 
         {/* Right Column - Portrait Card with 3D tilt (desktop only) */}
-        <div className="order-2 hidden lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:justify-items-end lg:gap-14">
+        <div
+          data-hero-side="right"
+          className="order-2 hidden will-change-transform lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:justify-items-end lg:gap-14"
+        >
           <div className="relative self-end" ref={desktopCardRef}>
             {/* Animated gradient orb behind avatar */}
             <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />

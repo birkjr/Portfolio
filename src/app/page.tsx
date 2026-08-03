@@ -10,6 +10,7 @@ import { Footer } from "@/components/Footer";
 import { CursorEffect } from "@/components/CursorEffect";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
 import { LivingGridDots } from "@/components/LivingGridDots";
+import { ScrollIntoMachine } from "@/components/ScrollIntoMachine";
 
 export default function Home() {
   return (
@@ -19,9 +20,8 @@ export default function Home() {
       <FloatingOrbs />
 
       <Navbar />
-      <main className="relative z-10">
-        <Hero />
-        <About />
+      <main className="relative z-10 overflow-x-clip">
+        <ScrollIntoMachine hero={<Hero />} about={<About motion="none" />} />
         <Timeline />
         <Journal />
         <Skills />
