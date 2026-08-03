@@ -110,8 +110,8 @@ export function Footer() {
             <div className="py-8 px-6 sm:px-8 lg:px-12">
               <div className="flex flex-col md:flex-row justify-center items-center gap-6">
                 <div className="flex items-center space-x-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-700/50 bg-slate-800/80 shadow-lg backdrop-blur-sm sm:h-9 sm:w-9">
-                    <span className="text-xs font-bold text-white sm:text-sm">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg">
+                    <span className="text-xs font-bold text-slate-900 sm:text-sm dark:text-white">
                       BJR
                     </span>
                   </div>

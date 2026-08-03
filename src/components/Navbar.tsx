@@ -101,8 +101,8 @@ export default function Navbar() {
                 {/* Logo with gradient border */}
                 <div className="relative group">
                   <div className="absolute inset-0 rounded-md hidden" />
-                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-slate-700/50 group-hover:border-foreground/30 bg-slate-800/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 shadow-lg group-hover:shadow-black/10">
-                    <span className="text-white font-bold text-xs sm:text-sm text-white">
+                  <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-md border-2 border-slate-200/70 bg-white/90 backdrop-blur-sm flex items-center justify-center transition-all duration-300 shadow-md group-hover:border-foreground/30 group-hover:shadow-slate-900/10 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg dark:group-hover:shadow-black/10">
+                    <span className="text-slate-900 font-bold text-xs sm:text-sm dark:text-white">
                       BJR
                     </span>
                   </div>

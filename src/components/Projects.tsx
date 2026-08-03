@@ -49,27 +49,33 @@ export function Projects() {
     projects.map(() => ({ ...DEFAULT_TILT }))
   );
   const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    const node = sectionRef.current;
+    const node = gridRef.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
+          if (entry.isIntersecting && !hasAnimated.current) {
+            setIsVisible(true);
+            hasAnimated.current = true;
+            observer.unobserve(entry.target);
+          }
         });
       },
-      { threshold: 0.1 }
+      {
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0,
+      }
     );
 
-    if (node) {
-      observer.observe(node);
-    }
+    observer.observe(node);
 
     return () => {
-      if (node) {
-        observer.unobserve(node);
-      }
+      observer.unobserve(node);
     };
   }, []);
 
@@ -104,7 +110,7 @@ export function Projects() {
 
   return (
     <SectionContainer id="projects">
-      <div className="mx-auto max-w-7xl" ref={sectionRef}>
+      <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <div className="section-badge">
             <div className="section-badge-dot" />
@@ -116,7 +122,10 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6"
+        >
           {projects.map((project, index) => {
             const link = project.demo || project.github;
             const hasImage = Boolean(project.image);

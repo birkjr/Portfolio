@@ -54,27 +54,33 @@ export function Skills() {
   const techItems = getTechItems(language);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    const node = sectionRef.current;
+    const node = gridRef.current;
+    if (!node) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsVisible(entry.isIntersecting);
+          if (entry.isIntersecting && !hasAnimated.current) {
+            setIsVisible(true);
+            hasAnimated.current = true;
+            observer.unobserve(entry.target);
+          }
         });
       },
-      { threshold: 0.1 }
+      {
+        rootMargin: "-40% 0px -40% 0px",
+        threshold: 0,
+      }
     );
 
-    if (node) {
-      observer.observe(node);
-    }
+    observer.observe(node);
 
     return () => {
-      if (node) {
-        observer.unobserve(node);
-      }
+      observer.unobserve(node);
     };
   }, []);
 
@@ -101,7 +107,7 @@ export function Skills() {
 
   return (
     <SectionContainer id="skills">
-      <div className="relative mx-auto max-w-7xl" ref={sectionRef}>
+      <div className="relative mx-auto max-w-7xl">
         <div
           className={`transition-[filter] duration-300 ${
             isModalOpen ? "pointer-events-none blur-sm" : ""
@@ -118,7 +124,10 @@ export function Skills() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-6">
+          <div
+            ref={gridRef}
+            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-6"
+          >
             {techItems.map((item, index) => {
               const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
 

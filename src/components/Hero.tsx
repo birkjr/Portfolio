@@ -9,6 +9,21 @@ import TextType from "@/components/TextType";
 import { SectionContainer } from "./SectionContainer";
 import { hero } from "@/content/hero";
 
+const portraitCardShell =
+  "relative rounded-[2rem] overflow-hidden transition-transform duration-150 ease-out will-change-transform bg-gradient-to-b from-white via-[#fdf7f0] to-[#f3e6d6] border border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/70 dark:shadow-[0_20px_60px_rgba(15,23,42,0.75)]";
+
+const portraitImageSection =
+  "relative overflow-hidden rounded-t-[2rem] bg-slate-100 dark:bg-slate-900";
+
+const portraitImageClass =
+  "h-full w-full object-cover brightness-100 dark:brightness-[0.85]";
+
+const portraitFooter =
+  "relative z-10 rounded-b-[2rem] border-t border-[#e3d4c3]/60 bg-[#fdf7f0]/95 px-4 py-4 dark:border-slate-800/50 dark:bg-slate-950/95";
+
+const portraitLogoBadge =
+  "flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md dark:border-transparent dark:bg-foreground/90 dark:text-background";
+
 export function Hero() {
   const { language } = useLanguage();
   const t = hero[language];
@@ -120,26 +135,28 @@ export function Hero() {
           <div className="flex justify-center lg:hidden">
             <div className="relative">
               {/* Animated gradient orb behind avatar */}
-              <div className="pointer-events-none absolute inset-0 bg-slate-500/10 rounded-[2.25rem] blur-3xl" />
+              <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />
 
               {/* Mobile card always animates in on mount — no observer needed */}
               <div className="relative z-10 [perspective:1100px] hero-card-slide-up">
                 <div
-                  className="relative w-56 sm:w-72 md:w-80 lg:w-80 rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"
+                  className={`relative w-56 sm:w-72 md:w-80 lg:w-80 ${portraitCardShell}`}
                   style={{
                     transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
                     transformStyle: "preserve-3d",
                   }}
                 >
                   {/* Portrait image section */}
-                  <div className="relative h-64 sm:h-88 md:h-96 bg-slate-900 overflow-hidden rounded-t-[2rem]">
+                  <div
+                    className={`relative h-64 sm:h-88 md:h-96 ${portraitImageSection}`}
+                  >
                     {/* Portrait image (not round) */}
                     <div className="absolute inset-0">
                       <Avatar className="w-full h-full rounded-none">
                         <AvatarImage
                           src="/Selvportrett-kopi.png"
                           alt="Birk Ramstad"
-                          className="w-full h-full object-cover brightness-[0.85]"
+                          className={portraitImageClass}
                         />
                         <AvatarFallback className="text-4xl font-bold text-foreground">
                           BJR
@@ -149,15 +166,19 @@ export function Hero() {
                   </div>
 
                   {/* Text section below image - dark background, part of card */}
-                  <div className="bg-slate-950/95 px-4 py-4 rounded-b-[2rem] border-t border-slate-800/50 relative z-10">
-                    <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className={portraitFooter}>
+                    <div className="mb-3 flex items-center justify-between gap-3">
                       <div>
-                        <p className="text-sm font-semibold text-white">
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
                           {t.name}
                         </p>
-                        <p className="text-[11px] text-slate-300">{t.role}</p>
+                        <p className="text-[11px] text-slate-600 dark:text-slate-300">
+                          {t.role}
+                        </p>
                       </div>
-                      <div className="hidden sm:flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
+                      <div
+                        className={`hidden h-8 w-8 sm:flex ${portraitLogoBadge}`}
+                      >
                         BJR
                       </div>
                     </div>
@@ -178,7 +199,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-10">
             <Button
               onClick={() => scrollToSection("#projects")}
-              className="group h-11 px-6 text-sm font-semibold"
+              className="group h-11 border-2 border-slate-200/80 bg-white/90 px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-transparent dark:bg-primary dark:text-primary-foreground dark:shadow-none dark:hover:bg-primary/90"
             >
               {t.cta}
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -186,7 +207,7 @@ export function Hero() {
             <Button
               variant="outline"
               onClick={() => scrollToSection("#contact")}
-              className="h-11 px-6 text-sm font-semibold border-2 hover:bg-accent transition-all duration-300"
+              className="h-11 border-2 border-slate-200/80 bg-white/60 px-6 text-sm font-semibold text-slate-900 hover:bg-white/90 dark:border-input dark:bg-background dark:text-foreground dark:hover:bg-accent"
             >
               {t.ctaSecondary}
             </Button>
@@ -197,7 +218,7 @@ export function Hero() {
         <div className="hidden lg:flex justify-end order-2">
           <div className="relative" ref={desktopCardRef}>
             {/* Animated gradient orb behind avatar */}
-            <div className="pointer-events-none absolute inset-0 bg-slate-500/10 rounded-[2.25rem] blur-3xl" />
+            <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />
 
             {/* 3D tilt wrapper with deep slide-in animation */}
             <div
@@ -208,21 +229,21 @@ export function Hero() {
               }`}
             >
               <div
-                className="relative w-[21.5rem] rounded-[2rem] bg-gradient-to-b from-slate-900/90 via-slate-950/95 to-black/98 border border-slate-800/70 shadow-[0_20px_60px_rgba(15,23,42,0.75)] overflow-hidden transition-transform duration-150 ease-out will-change-transform"
+                className={`relative w-[21.5rem] ${portraitCardShell}`}
                 style={{
                   transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
                   transformStyle: "preserve-3d",
                 }}
               >
                 {/* Portrait image section */}
-                <div className="relative h-96 bg-slate-900 overflow-hidden rounded-t-[2rem]">
+                <div className={`relative h-96 ${portraitImageSection}`}>
                   {/* Portrait image (not round) */}
                   <div className="absolute inset-0">
                     <Avatar className="w-full h-full rounded-none">
                       <AvatarImage
                         src="/Selvportrett-kopi.png"
                         alt="Birk Ramstad"
-                        className="w-full h-full object-cover brightness-[0.85]"
+                        className={portraitImageClass}
                       />
                       <AvatarFallback className="text-4xl font-bold text-foreground">
                         BJR
@@ -232,14 +253,14 @@ export function Hero() {
                 </div>
 
                 {/* Text section below image - dark background, part of card */}
-                <div className="bg-slate-950/95 px-4 py-4 rounded-b-[2rem] border-t border-slate-800/50 relative z-10">
-                  <div className="flex items-center justify-between gap-3 mb-3">
+                <div className={portraitFooter}>
+                  <div className="mb-3 flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-[11px] text-slate-300">{t.role}</p>
+                      <p className="text-[11px] text-slate-600 dark:text-slate-300">
+                        {t.role}
+                      </p>
                     </div>
-                    <div className="flex w-8 h-8 rounded-2xl bg-foreground/90 items-center justify-center text-[10px] font-semibold text-background shadow-md">
-                      BJR
-                    </div>
+                    <div className={`h-8 w-8 ${portraitLogoBadge}`}>BJR</div>
                   </div>
                   <div className="flex flex-nowrap items-center gap-1.5">
                     <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
