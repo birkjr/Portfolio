@@ -1,0 +1,68 @@
+{
+  "name": "__PROJECT_NAME__",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+    "template:sync": "pnpm --filter create-birk-portfolio sync-template",
+    "create-portfolio": "pnpm --filter create-birk-portfolio start",
+    "create-portfolio:link": "pnpm --filter create-birk-portfolio link:global",
+    "create-portfolio:build": "pnpm --filter create-birk-portfolio build"
+  },
+  "dependencies": {
+    "@dicebear/core": "^9.2.4",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-menubar": "^1.1.6",
+    "@radix-ui/react-navigation-menu": "^1.2.5",
+    "@radix-ui/react-progress": "^1.1.7",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@vercel/analytics": "^1.5.0",
+    "avataaars": "^2.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.0.4",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.475.0",
+    "mathjs": "^15.1.0",
+    "next": "16.0.7",
+    "next-intl": "^4.4.0",
+    "next-themes": "^0.4.4",
+    "postcss": "^8.5.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^3.5.0",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.7",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.6.2",
+    "sharp": "^0.34.5",
+    "svg-to-ico": "^1.0.17",
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,css,scss}": [
+      "prettier --write"
+    ]
+  }
+}

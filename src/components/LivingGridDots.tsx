@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { colorThemes } from "@/config/color-themes";
 
 const GRID_SIZE = 20;
 const MAX_TWINKLES = 8;
@@ -27,8 +28,16 @@ interface DotOffset {
   y: number;
 }
 
+function isDarkTheme() {
+  const classList = document.documentElement.classList;
+  return (
+    classList.contains("dark") ||
+    colorThemes.some((theme) => theme.isDark && classList.contains(theme.id))
+  );
+}
+
 function getTwinkleColor(alpha: number, cursor: boolean) {
-  const isDark = document.documentElement.classList.contains("dark");
+  const isDark = isDarkTheme();
 
   if (cursor) {
     return isDark

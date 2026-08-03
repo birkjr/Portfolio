@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { jetbrainsMono } from "@/lib/fonts";
+import { colorThemeIds, DEFAULT_COLOR_THEME } from "@/config/color-themes";
 
 const isProduction = process.env.NODE_ENV === "production";
 const baseUrl = isProduction
@@ -128,7 +129,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="no" suppressHydrationWarning className={jetbrainsMono.variable}>
+    <html
+      lang="no"
+      suppressHydrationWarning
+      className={`${jetbrainsMono.variable} ${DEFAULT_COLOR_THEME}`}
+    >
       <body
         className={`${jetbrainsMono.className} min-h-screen bg-background text-foreground font-sans antialiased`}
         suppressHydrationWarning
@@ -140,8 +145,9 @@ export default function RootLayout({
         />
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
+          defaultTheme={DEFAULT_COLOR_THEME}
+          themes={colorThemeIds}
+          enableSystem={false}
           disableTransitionOnChange
         >
           <LanguageProvider>{children}</LanguageProvider>

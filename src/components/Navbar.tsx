@@ -1,20 +1,14 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
-import { Menu, X, Globe, ChevronRight, Sun, Moon } from "lucide-react";
-import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
+import { Menu, X, Globe, ChevronRight } from "lucide-react";
+import { ThemePicker } from "@/components/ThemePicker";
 import { useLanguage } from "@/context/LanguageContext";
 import { navbar } from "@/content/navbar";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
-  const { theme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
   const [navVisible, setNavVisible] = useState(false);
 
   useEffect(() => {
@@ -39,11 +33,6 @@ export default function Navbar() {
 
   const toggleLanguage = () => {
     setLanguage(language === "no" ? "en" : "no");
-  };
-
-  const toggleTheme = () => {
-    const currentTheme = theme ?? "dark";
-    setTheme(currentTheme === "dark" ? "light" : "dark");
   };
 
   const currentNavItems = navItems[language];
@@ -79,7 +68,7 @@ export default function Navbar() {
         }}
       >
         {/* Main navbar container - rounded, not full width */}
-        <div className="relative w-full max-w-7xl mx-auto rounded-3xl overflow-hidden border-2 border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40 card-gradient-bg">
+        <div className="relative w-full max-w-7xl mx-auto rounded-3xl overflow-hidden border-2 border-[var(--hero-border)]/80 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40 card-gradient-bg">
           {/* Subtle glow effect - dark mode only */}
           <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-b from-transparent via-transparent to-black/30 dark:block" />
 
@@ -147,21 +136,7 @@ export default function Navbar() {
                   </span>
                 </button>
 
-                {/* Theme Toggle */}
-                <button
-                  onClick={toggleTheme}
-                  className="group relative ml-3 w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
-                  aria-label="Toggle theme"
-                >
-                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
-                  <div className="relative z-10">
-                    {mounted && (theme ?? "dark") === "dark" ? (
-                      <Sun className="w-4 h-4" />
-                    ) : (
-                      <Moon className="w-4 h-4" />
-                    )}
-                  </div>
-                </button>
+                <ThemePicker className="ml-3" />
               </div>
 
               {/* Mobile: Language button + Menu button */}
@@ -177,20 +152,7 @@ export default function Navbar() {
                   </span>
                 </button>
 
-                <button
-                  onClick={toggleTheme}
-                  className="group relative w-11 h-11 flex items-center justify-center rounded-lg bg-white/60 border border-slate-200/60 hover:border-foreground/30 text-slate-700 hover:text-slate-950 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm dark:bg-slate-800/50 dark:border-slate-700/50 dark:text-white/90 dark:hover:text-white"
-                  aria-label="Toggle theme"
-                >
-                  <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />
-                  <div className="relative z-10">
-                    {mounted && (theme ?? "dark") === "dark" ? (
-                      <Sun className="w-5 h-5" />
-                    ) : (
-                      <Moon className="w-5 h-5" />
-                    )}
-                  </div>
-                </button>
+                <ThemePicker />
 
                 <button
                   onClick={() => setIsOpen(!isOpen)}

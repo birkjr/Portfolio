@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import {
   Card,
@@ -102,94 +103,19 @@ export function Skills() {
   const selectedItem = selectedSkill !== null ? techItems[selectedSkill] : null;
   const isModalOpen = selectedSkill !== null;
 
-  return (
-    <SectionContainer id="skills">
-      <div className="relative mx-auto max-w-7xl">
-        <div
-          className={`transition-[filter] duration-300 ${
-            isModalOpen ? "pointer-events-none blur-sm" : ""
-          }`}
-        >
-          <div className="mb-10 text-center">
-            <div className="section-badge">
-              <div className="section-badge-dot" />
-              <span className="section-badge-label">{t.label}</span>
-            </div>
-            <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
-            <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-              {t.subtitle}
-            </p>
-          </div>
-
-          <div
-            ref={gridRef}
-            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-6"
-          >
-            {techItems.map((item, index) => {
-              const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
-
-              return (
-                <Card
-                  key={item.name}
-                  role="button"
-                  tabIndex={isModalOpen ? -1 : 0}
-                  onClick={() => setSelectedSkill(index)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setSelectedSkill(index);
-                    }
-                  }}
-                  className={`group card-gradient-bg relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[#e3d4c3]/80 transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70 ${
-                    isVisible ? "tech-card-slide-up" : "opacity-0"
-                  }`}
-                  style={{ animationDelay: `${index * 0.07}s` }}
-                >
-                  <div className="card-shine" />
-                  <CardContent className="relative z-10 flex flex-col gap-3 p-4">
-                    {item.iconType === "image" && item.imageSrc ? (
-                      <div className="inline-flex h-12 w-12 items-center justify-center">
-                        <Image
-                          src={item.imageSrc}
-                          alt={item.name}
-                          width={48}
-                          height={48}
-                          className="rounded-lg object-contain"
-                        />
-                      </div>
-                    ) : (
-                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 dark:border-slate-700/70 dark:bg-slate-950/80">
-                        {Icon && (
-                          <Icon className="h-6 w-6 text-muted-foreground" />
-                        )}
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">
-                        {item.name}
-                      </p>
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {item.group}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-
-        {selectedItem && (
+  const modal =
+    selectedItem && typeof document !== "undefined"
+      ? createPortal(
           <>
             <button
               type="button"
-              className="fixed inset-0 z-40 cursor-default bg-transparent"
+              className="fixed inset-0 z-[100] cursor-default bg-black/20 dark:bg-black/40"
               onClick={() => setSelectedSkill(null)}
               aria-label="Close"
             />
-            <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center px-4 py-6 sm:px-6">
+            <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
               <Card
-                className="card-gradient-bg hover-glow pointer-events-auto relative w-full max-w-lg animate-fade-in border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
+                className="card-gradient-bg hover-glow pointer-events-auto relative max-h-[min(85vh,32rem)] w-full max-w-lg animate-fade-in overflow-y-auto border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
@@ -223,9 +149,88 @@ export function Skills() {
                 </CardContent>
               </Card>
             </div>
-          </>
-        )}
+          </>,
+          document.body
+        )
+      : null;
+
+  return (
+    <SectionContainer id="skills">
+      <div
+        className={`transition-[filter] duration-300 ${
+          isModalOpen ? "pointer-events-none blur-sm" : ""
+        }`}
+      >
+        <div className="mb-10 text-center">
+          <div className="section-badge">
+            <div className="section-badge-dot" />
+            <span className="section-badge-label">{t.label}</span>
+          </div>
+          <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
+          <p className="mx-auto max-w-2xl whitespace-pre-line text-base text-muted-foreground sm:text-lg">
+            {t.subtitle}
+          </p>
+        </div>
+
+        <div
+          ref={gridRef}
+          className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6"
+        >
+          {techItems.map((item, index) => {
+            const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
+
+            return (
+              <Card
+                key={item.name}
+                role="button"
+                tabIndex={isModalOpen ? -1 : 0}
+                onClick={() => setSelectedSkill(index)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setSelectedSkill(index);
+                  }
+                }}
+                className={`group card-gradient-bg relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[var(--hero-border)]/80 transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70 ${
+                  isVisible ? "tech-card-slide-up" : "opacity-0"
+                }`}
+                style={{ animationDelay: `${index * 0.07}s` }}
+              >
+                <div className="card-shine" />
+                <CardContent className="relative z-10 flex flex-col gap-3 p-4">
+                  {item.iconType === "image" && item.imageSrc ? (
+                    <div className="inline-flex h-12 w-12 items-center justify-center">
+                      <Image
+                        src={item.imageSrc}
+                        alt={item.name}
+                        width={48}
+                        height={48}
+                        className="rounded-lg object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 dark:border-slate-700/70 dark:bg-slate-950/80">
+                      {Icon && (
+                        <Icon className="h-6 w-6 text-muted-foreground" />
+                      )}
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      {item.name}
+                    </p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">
+                      {item.group}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       </div>
+
+      {modal}
     </SectionContainer>
   );
 }

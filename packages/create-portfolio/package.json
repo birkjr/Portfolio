@@ -1,0 +1,43 @@
+{
+  "name": "create-birk-portfolio",
+  "version": "0.1.0",
+  "description": "Scaffold a Next.js portfolio with theme, tooling, and Cursor rules",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "create-birk-portfolio": "./bin/create-birk-portfolio.js",
+    "create-portfolio": "./bin/create-birk-portfolio.js"
+  },
+  "files": [
+    "dist",
+    "template",
+    "bin"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --clean",
+    "dev": "tsx src/index.ts",
+    "start": "pnpm run build && node bin/create-birk-portfolio.js",
+    "link:global": "pnpm run build && pnpm link --global",
+    "sync-template": "node scripts/sync-template.mjs",
+    "smoke-test": "pnpm run build && node scripts/smoke-test.mjs",
+    "full-test": "pnpm run build && node scripts/full-test.mjs",
+    "prepublishOnly": "pnpm run build && pnpm run sync-template"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.10.1",
+    "fs-extra": "^11.3.0",
+    "picocolors": "^1.1.1",
+    "validate-npm-package-name": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20",
+    "@types/validate-npm-package-name": "^4.0.2",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

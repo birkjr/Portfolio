@@ -14,7 +14,7 @@ export const hero: Localized<{
 }> = {
   no: {
     info: "Gründer og CTO for Thylo Insight",
-    role: "Full-Stack Developer",
+    role: "Full-Stack Utvikler",
     greeting: "Hei, jeg er",
     name: "Birk Jonathan Ramstad",
     description: "Programvareutvikler. Medgründer og CTO for Thylo Insight.",

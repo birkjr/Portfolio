@@ -10,10 +10,10 @@ import { SectionContainer } from "./SectionContainer";
 import { hero } from "@/content/hero";
 
 const heroAccentSurface =
-  "border-[#e3d4c3]/80 dark:border-slate-800/50 card-gradient-bg";
+  "border-[var(--hero-border)]/80 dark:border-slate-800/50 card-gradient-bg";
 
 const portraitCardShell =
-  "relative rounded-[2rem] overflow-hidden transition-transform duration-150 ease-out will-change-transform bg-gradient-to-b from-white via-[#fdf7f0] to-[#f3e6d6] border border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/70 dark:shadow-[0_20px_60px_rgba(15,23,42,0.75)]";
+  "relative rounded-[2rem] overflow-hidden transition-transform duration-150 ease-out will-change-transform bg-gradient-to-b from-white via-[#fdf7f0] to-[#f3e6d6] border border-[var(--hero-border)]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/70 dark:shadow-[0_20px_60px_rgba(15,23,42,0.75)]";
 
 const portraitImageSection =
   "relative overflow-hidden rounded-t-[2rem] bg-slate-200 dark:bg-slate-900";
@@ -23,7 +23,7 @@ const portraitFooter = `relative z-10 rounded-b-[2rem] border-t-2 ${heroAccentSu
 const portraitLogoBadge =
   "flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md dark:border-transparent dark:bg-foreground/90 dark:text-background";
 
-const socialLinksShell = `group relative flex items-center justify-center gap-4 overflow-hidden rounded-md border-2 ${heroAccentSurface} px-6 py-3 shadow-sm hover:border-[#e3d4c3] hover-glow`;
+const socialButtonShell = `group relative flex h-11 flex-1 items-center justify-center gap-1.5 overflow-hidden rounded-md border-2 ${heroAccentSurface} shadow-sm hover:border-[var(--hero-border)] hover-glow`;
 
 function PortraitImage() {
   const [hasError, setHasError] = useState(false);
@@ -39,12 +39,12 @@ function PortraitImage() {
   return (
     <>
       <Image
-        src="/Selvportrett-kopi.png"
+        src="/paint_portrait_1.png"
         alt="Birk Ramstad"
         fill
         priority
         unoptimized
-        sizes="(max-width: 1024px) 320px, 344px"
+        sizes="(max-width: 1024px) 416px, 448px"
         className="h-full w-full object-cover object-[center_14%] dark:brightness-[0.94]"
         onError={() => setHasError(true)}
       />
@@ -147,20 +147,20 @@ export function Hero() {
 
   return (
     <SectionContainer variant="hero" id="home">
-      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-12 items-center mt-20 sm:mt-16 md:mt-12 lg:mt-8">
+      <div className="mt-20 flex flex-col items-center gap-6 sm:mt-16 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12">
         {/* Left Column - Content */}
-        <div className="space-y-6 order-1 lg:order-1 text-center lg:text-left w-full">
-          {/* Badge */}
-          <div className="section-badge">
-            <div className="section-badge-dot" />
-            <span className="section-badge-label">{t.info}</span>
-          </div>
+        <div className="order-1 flex w-full flex-col items-center gap-14 text-center sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left">
+          <div className="flex w-full flex-col items-center gap-14 sm:gap-16 lg:items-start lg:gap-14">
+            {/* Badge */}
+            <div className="section-badge">
+              <div className="section-badge-dot" />
+              <span className="section-badge-label">{t.info}</span>
+            </div>
 
-          {/* Main Headline */}
-          <div className="space-y-4">
+            {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight text-foreground dark:text-slate-300">
               <span className="block">{t.greeting}</span>
-              <span className="block">
+              <span className="block min-h-[2.6em]">
                 <TextType
                   text={[t.name]}
                   typingSpeed={75}
@@ -170,54 +170,51 @@ export function Hero() {
                 />
               </span>
             </h1>
-          </div>
 
-          {/* Portrait Card with 3D tilt (shown between description and CTAs on mobile) */}
-          <div className="flex justify-center lg:hidden">
-            <div className="relative">
-              {/* Animated gradient orb behind avatar */}
-              <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />
+            {/* Portrait Card with 3D tilt (shown between description and CTAs on mobile) */}
+            <div className="flex justify-center lg:hidden">
+              <div className="relative">
+                {/* Animated gradient orb behind avatar */}
+                <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />
 
-              {/* Mobile card always animates in on mount — no observer needed */}
-              <div className="relative z-10 [perspective:1100px] hero-card-slide-up">
-                <div
-                  className={`relative w-56 sm:w-72 md:w-80 lg:w-80 ${portraitCardShell}`}
-                  style={{
-                    transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  {/* Portrait image section */}
+                {/* Mobile card always animates in on mount — no observer needed */}
+                <div className="relative z-10 [perspective:1100px] hero-card-slide-up">
                   <div
-                    className={`relative h-64 sm:h-88 md:h-96 ${portraitImageSection}`}
+                    className={`relative w-72 sm:w-[26rem] md:w-[26rem] ${portraitCardShell}`}
+                    style={{
+                      transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
+                      transformStyle: "preserve-3d",
+                    }}
                   >
-                    {/* Portrait image (not round) */}
-                    <PortraitImageFrame />
-                  </div>
-
-                  {/* Text section below image - dark background, part of card */}
-                  <div className={portraitFooter}>
-                    <div className="mb-3 flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                          {t.name}
-                        </p>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                          {t.role}
-                        </p>
-                      </div>
-                      <div
-                        className={`hidden h-8 w-8 sm:flex ${portraitLogoBadge}`}
-                      >
-                        BJR
-                      </div>
+                    {/* Portrait image section */}
+                    <div
+                      className={`relative h-64 sm:h-88 md:h-96 ${portraitImageSection}`}
+                    >
+                      {/* Portrait image (not round) */}
+                      <PortraitImageFrame />
                     </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {t.tags.map((tag) => (
-                        <span key={tag} className="tag-pill">
-                          {tag}
-                        </span>
-                      ))}
+
+                    {/* Text section below image - dark background, part of card */}
+                    <div className={portraitFooter}>
+                      <div className="mb-3 flex items-center justify-between gap-3">
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                            {t.name}
+                          </p>
+                        </div>
+                        <div
+                          className={`hidden h-8 w-8 sm:flex ${portraitLogoBadge}`}
+                        >
+                          BJR
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {t.tags.map((tag) => (
+                          <span key={tag} className="tag-pill">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -225,8 +222,8 @@ export function Hero() {
             </div>
           </div>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-10">
+          {/* CTAs — fixed bottom row on desktop, independent of name height */}
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center lg:h-11 lg:shrink-0 lg:items-start">
             <Button
               onClick={() => scrollToSection("#journal")}
               className="group h-11 border-2 border-slate-200/80 bg-white px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-slate-600/35 dark:bg-slate-900/45 dark:text-slate-300 dark:shadow-none dark:backdrop-blur-sm dark:hover:border-slate-500/45 dark:hover:bg-slate-800/55"
@@ -237,7 +234,7 @@ export function Hero() {
             <Button
               variant="outline"
               onClick={() => scrollToSection("#contact")}
-              className={`group relative h-11 overflow-hidden border-2 ${heroAccentSurface} px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[#e3d4c3] hover-glow dark:text-foreground dark:hover:bg-accent`}
+              className={`group relative h-11 overflow-hidden border-2 ${heroAccentSurface} px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[var(--hero-border)] hover-glow dark:text-muted-foreground dark:hover:text-foreground dark:hover:bg-accent`}
             >
               <div className="card-shine" aria-hidden />
               <span className="relative z-10">{t.ctaSecondary}</span>
@@ -246,8 +243,8 @@ export function Hero() {
         </div>
 
         {/* Right Column - Portrait Card with 3D tilt (desktop only) */}
-        <div className="hidden lg:flex justify-end order-2">
-          <div className="relative" ref={desktopCardRef}>
+        <div className="order-2 hidden lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:justify-items-end lg:gap-14">
+          <div className="relative self-end" ref={desktopCardRef}>
             {/* Animated gradient orb behind avatar */}
             <div className="pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10" />
 
@@ -260,7 +257,7 @@ export function Hero() {
               }`}
             >
               <div
-                className={`relative w-[21.5rem] ${portraitCardShell}`}
+                className={`relative w-[28rem] ${portraitCardShell}`}
                 style={{
                   transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${tilt.scale})`,
                   transformStyle: "preserve-3d",
@@ -274,18 +271,10 @@ export function Hero() {
 
                 {/* Text section below image - dark background, part of card */}
                 <div className={portraitFooter}>
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-[11px] text-slate-600 dark:text-slate-300">
-                        {t.role}
-                      </p>
-                    </div>
-                    <div className={`h-8 w-8 ${portraitLogoBadge}`}>BJR</div>
-                  </div>
-                  <div className="flex flex-nowrap items-center gap-1.5">
+                  <div className="mb-3 flex items-center justify-between gap-2">
                     <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
                       <span className="whitespace-nowrap text-[11px] text-muted-foreground">
-                        {t.location}
+                        {t.role}
                       </span>
                     </div>
                     <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
@@ -293,44 +282,49 @@ export function Hero() {
                         {t.born}
                       </span>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex w-[21.5rem] items-center justify-center pt-12">
-                <div className={socialLinksShell}>
-                  <div className="card-shine" aria-hidden />
-                  <div className="relative z-10 flex items-center justify-center gap-4">
-                    <a
-                      href="https://github.com/birkjr"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs font-medium">GitHub</span>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/birkjramstad/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs font-medium">LinkedIn</span>
-                    </a>
-                    <a
-                      href="mailto:birkrams@gmail.com"
-                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                    >
-                      <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                      <span className="text-xs font-medium">Email</span>
-                    </a>
+                    <div className="shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm">
+                      <span className="whitespace-nowrap text-[11px] text-muted-foreground">
+                        {t.location}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Social Links — aligned with CTAs on the left */}
+          <div className="flex w-[28rem] shrink-0 items-center justify-between gap-4 self-end">
+            <a
+              href="https://github.com/birkjr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${socialButtonShell} text-muted-foreground transition-colors hover:text-foreground`}
+            >
+              <div className="card-shine" aria-hidden />
+              <Github className="relative z-10 w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="relative z-10 text-xs font-medium">GitHub</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/birkjramstad/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${socialButtonShell} text-muted-foreground transition-colors hover:text-foreground`}
+            >
+              <div className="card-shine" aria-hidden />
+              <Linkedin className="relative z-10 w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="relative z-10 text-xs font-medium">
+                LinkedIn
+              </span>
+            </a>
+            <a
+              href="mailto:birkrams@gmail.com"
+              className={`${socialButtonShell} text-muted-foreground transition-colors hover:text-foreground`}
+            >
+              <div className="card-shine" aria-hidden />
+              <Mail className="relative z-10 w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="relative z-10 text-xs font-medium">Email</span>
+            </a>
           </div>
         </div>
       </div>

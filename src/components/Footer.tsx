@@ -41,89 +41,87 @@ export function Footer() {
 
   return (
     <SectionContainer id="contact" variant="featured">
-      <div className="max-w-7xl mx-auto">
-        {/* Main Footer Container */}
-        <footer
-          ref={sectionRef}
-          className={`group relative w-full rounded-3xl overflow-hidden border-2 border-[#e3d4c3]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg hover-glow transition-all duration-500 ${
-            isVisible ? "card-fade-in-up" : "opacity-0"
-          }`}
-        >
-          {/* Shine overlay */}
-          <div className="card-shine" />
-          {/* Contact section inside footer */}
-          <div className="px-6 sm:px-8 lg:px-12 pt-12 pb-8 sm:pt-16 sm:pb-12">
-            {/* Header */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t.title}</h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                {t.subtitle}
-              </p>
+      {/* Main Footer Container */}
+      <footer
+        ref={sectionRef}
+        className={`group relative w-full rounded-3xl overflow-hidden border-2 border-[var(--hero-border)]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg hover-glow transition-all duration-500 ${
+          isVisible ? "card-fade-in-up" : "opacity-0"
+        }`}
+      >
+        {/* Shine overlay */}
+        <div className="card-shine" />
+        {/* Contact section inside footer */}
+        <div className="px-6 sm:px-8 lg:px-12 pt-12 pb-8 sm:pt-16 sm:pb-12">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t.title}</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              {t.subtitle}
+            </p>
 
-              {/* Social Icons */}
-              <div className="flex items-center justify-center gap-6">
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
-                  asChild
+            {/* Social Icons */}
+            <div className="flex items-center justify-center gap-6">
+              <Button
+                variant="ghost"
+                size="lg"
+                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                asChild
+              >
+                <a
+                  href="https://github.com/birkjr"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <a
-                    href="https://github.com/birkjr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="w-7 h-7" />
-                  </a>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
-                  asChild
+                  <Github className="w-7 h-7" />
+                </a>
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                asChild
+              >
+                <a
+                  href="https://www.linkedin.com/in/birkjramstad/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <a
-                    href="https://www.linkedin.com/in/birkjramstad/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Linkedin className="w-7 h-7" />
-                  </a>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
-                  asChild
-                >
-                  <a href="mailto:birkrams@gmail.com">
-                    <Mail className="w-7 h-7" />
-                  </a>
-                </Button>
-              </div>
+                  <Linkedin className="w-7 h-7" />
+                </a>
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                className="text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg"
+                asChild
+              >
+                <a href="mailto:birkrams@gmail.com">
+                  <Mail className="w-7 h-7" />
+                </a>
+              </Button>
             </div>
+          </div>
 
-            {/* Divider */}
-            <div className="border-t border-slate-200/60 dark:border-slate-800/60 mx-6 sm:mx-8 lg:mx-12" />
+          {/* Divider */}
+          <div className="border-t border-slate-200/60 dark:border-slate-800/60 mx-6 sm:mx-8 lg:mx-12" />
 
-            {/* Footer bar: logo, copyright */}
-            <div className="py-8 px-6 sm:px-8 lg:px-12">
-              <div className="flex flex-col md:flex-row justify-center items-center gap-6">
-                <div className="flex items-center space-x-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg">
-                    <span className="text-xs font-bold text-slate-900 sm:text-sm dark:text-white">
-                      BJR
-                    </span>
-                  </div>
-                  <span className="text-sm sm:text-base text-muted-foreground font-medium">
-                    © 2026 Birk Jonathan Ramstad.
+          {/* Footer bar: logo, copyright */}
+          <div className="py-8 px-6 sm:px-8 lg:px-12">
+            <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg">
+                  <span className="text-xs font-bold text-slate-900 sm:text-sm dark:text-white">
+                    BJR
                   </span>
                 </div>
+                <span className="text-sm sm:text-base text-muted-foreground font-medium">
+                  © 2026 Birk Jonathan Ramstad.
+                </span>
               </div>
             </div>
           </div>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </SectionContainer>
   );
 }

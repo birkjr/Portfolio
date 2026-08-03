@@ -3,6 +3,9 @@
  * ───────────────────────────────────
  * Endre font, bakgrunn, komponentfarger og mer her.
  * Font lastes via next/font i src/lib/fonts.ts (JetBrains Mono).
+ *
+ * Fargetemaer (html-klasse via next-themes):
+ *   light · original · warm · ocean · forest
  */
 
 @theme inline {
@@ -44,19 +47,31 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.original *, .warm *, .ocean *, .forest *));
 
 :root {
-  /* Typografi */
   --font-family:
     var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+  --radius: 0.75rem;
+  --hero-border: #e3d4c3;
 
-  /* Merkevare — én nøytral accent */
+  --card-gradient-light: linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5);
+  --card-gradient-dark: linear-gradient(
+    to bottom,
+    rgb(15 23 42 / 0.9),
+    rgb(2 6 23 / 0.95),
+    rgb(0 0 0 / 0.98)
+  );
+  --gradient-brand: hsl(var(--brand));
+  --gradient-text: hsl(var(--foreground));
+}
+
+html.light {
   --brand: 215 16% 47%;
   --brand-secondary: 215 16% 47%;
   --brand-muted: 215 16% 47%;
+  --hero-border: #e3d4c3;
 
-  /* Lys modus */
   --background: 210 20% 98%;
   --foreground: 222 47% 11%;
   --card: 0 0% 100%;
@@ -81,9 +96,7 @@
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
-  --radius: 0.75rem;
 
-  /* Sidebakgrunn */
   --page-gradient: linear-gradient(
     to bottom right,
     rgb(248 250 252),
@@ -93,30 +106,20 @@
   --page-grid-dot: rgba(15, 23, 42, 0.12);
   --grid-pattern-dot: rgba(15, 23, 42, 0.22);
 
-  /* Glass / kort */
   --glass-bg: rgba(255, 255, 255, 0.62);
   --glass-border: rgba(15, 23, 42, 0.1);
-  --card-gradient-light: linear-gradient(to bottom, #fefefe, #fafafa, #f5f5f5);
-  --card-gradient-dark: linear-gradient(
-    to bottom,
-    rgb(15 23 42 / 0.9),
-    rgb(2 6 23 / 0.95),
-    rgb(0 0 0 / 0.98)
-  );
   --card-gradient: var(--card-gradient-light);
 
-  /* Effekter */
   --glow-color: rgba(100, 116, 139, 0.25);
   --glow-color-secondary: rgba(100, 116, 139, 0.08);
-  --gradient-brand: hsl(var(--brand));
-  --gradient-text: hsl(var(--foreground));
   --focus-ring: rgba(100, 116, 139, 0.5);
 }
 
-.dark {
+html.original {
   --brand: 215 20% 65%;
   --brand-secondary: 215 20% 65%;
   --brand-muted: 215 20% 65%;
+  --hero-border: #e3d4c3;
 
   --background: 222 84% 5%;
   --foreground: 210 40% 98%;
@@ -159,4 +162,166 @@
   --glow-color: rgba(148, 163, 184, 0.2);
   --glow-color-secondary: rgba(148, 163, 184, 0.06);
   --focus-ring: rgba(148, 163, 184, 0.45);
+}
+
+html.warm {
+  --brand: 28 40% 62%;
+  --brand-secondary: 28 40% 62%;
+  --brand-muted: 28 40% 62%;
+  --hero-border: #e8d5bc;
+
+  --background: 25 18% 7%;
+  --foreground: 35 30% 96%;
+  --card: 25 16% 10%;
+  --card-foreground: 35 30% 96%;
+  --popover: 25 18% 7%;
+  --popover-foreground: 35 30% 96%;
+  --primary: 28 40% 62%;
+  --primary-foreground: 25 18% 7%;
+  --secondary: 25 14% 16%;
+  --secondary-foreground: 35 30% 96%;
+  --muted: 25 14% 16%;
+  --muted-foreground: 28 35% 68%;
+  --accent: 25 14% 16%;
+  --accent-foreground: 35 30% 96%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 35 30% 96%;
+  --border: 25 12% 18%;
+  --input: 25 12% 18%;
+  --ring: 28 40% 62%;
+  --chart-1: 28 70% 52%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(28 22 18),
+    rgb(22 18 15),
+    rgb(12 10 8)
+  );
+  --page-grid-dot: rgba(232, 213, 188, 0.18);
+  --grid-pattern-dot: rgba(232, 213, 188, 0.42);
+
+  --glass-bg: rgba(255, 248, 240, 0.04);
+  --glass-border: rgba(232, 213, 188, 0.12);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(34 26 20 / 0.92),
+    rgb(18 14 11 / 0.96),
+    rgb(8 6 5 / 0.98)
+  );
+
+  --glow-color: rgba(180, 130, 90, 0.28);
+  --glow-color-secondary: rgba(180, 130, 90, 0.1);
+  --focus-ring: rgba(196, 149, 106, 0.45);
+}
+
+html.ocean {
+  --brand: 200 70% 62%;
+  --brand-secondary: 200 70% 62%;
+  --brand-muted: 200 70% 62%;
+  --hero-border: #b6d9ea;
+
+  --background: 205 58% 7%;
+  --foreground: 200 40% 96%;
+  --card: 205 50% 10%;
+  --card-foreground: 200 40% 96%;
+  --popover: 205 58% 7%;
+  --popover-foreground: 200 40% 96%;
+  --primary: 200 70% 62%;
+  --primary-foreground: 205 58% 7%;
+  --secondary: 205 40% 16%;
+  --secondary-foreground: 200 40% 96%;
+  --muted: 205 40% 16%;
+  --muted-foreground: 200 55% 72%;
+  --accent: 205 40% 16%;
+  --accent-foreground: 200 40% 96%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 200 40% 96%;
+  --border: 205 35% 18%;
+  --input: 205 35% 18%;
+  --ring: 200 70% 62%;
+  --chart-1: 200 80% 52%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(8 29 46),
+    rgb(6 24 38),
+    rgb(3 12 20)
+  );
+  --page-grid-dot: rgba(182, 217, 234, 0.18);
+  --grid-pattern-dot: rgba(182, 217, 234, 0.42);
+
+  --glass-bg: rgba(224, 242, 254, 0.04);
+  --glass-border: rgba(182, 217, 234, 0.12);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(10 35 54 / 0.92),
+    rgb(6 24 38 / 0.96),
+    rgb(2 10 18 / 0.98)
+  );
+
+  --glow-color: rgba(56, 189, 248, 0.24);
+  --glow-color-secondary: rgba(56, 189, 248, 0.08);
+  --focus-ring: rgba(56, 189, 248, 0.42);
+}
+
+html.forest {
+  --brand: 150 35% 58%;
+  --brand-secondary: 150 35% 58%;
+  --brand-muted: 150 35% 58%;
+  --hero-border: #c6dccf;
+
+  --background: 150 22% 7%;
+  --foreground: 140 25% 96%;
+  --card: 150 18% 10%;
+  --card-foreground: 140 25% 96%;
+  --popover: 150 22% 7%;
+  --popover-foreground: 140 25% 96%;
+  --primary: 150 35% 58%;
+  --primary-foreground: 150 22% 7%;
+  --secondary: 150 16% 16%;
+  --secondary-foreground: 140 25% 96%;
+  --muted: 150 16% 16%;
+  --muted-foreground: 150 30% 68%;
+  --accent: 150 16% 16%;
+  --accent-foreground: 140 25% 96%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 140 25% 96%;
+  --border: 150 14% 18%;
+  --input: 150 14% 18%;
+  --ring: 150 35% 58%;
+  --chart-1: 150 45% 45%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(10 24 18),
+    rgb(8 20 15),
+    rgb(4 12 8)
+  );
+  --page-grid-dot: rgba(198, 220, 207, 0.18);
+  --grid-pattern-dot: rgba(198, 220, 207, 0.42);
+
+  --glass-bg: rgba(232, 245, 236, 0.04);
+  --glass-border: rgba(198, 220, 207, 0.12);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(14 32 24 / 0.92),
+    rgb(8 20 15 / 0.96),
+    rgb(3 10 7 / 0.98)
+  );
+
+  --glow-color: rgba(74, 155, 110, 0.24);
+  --glow-color-secondary: rgba(74, 155, 110, 0.08);
+  --focus-ring: rgba(74, 155, 110, 0.42);
 }
