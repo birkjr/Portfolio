@@ -3,7 +3,6 @@ export { hero } from "./hero";
 export { about } from "./about";
 export { navbar } from "./navbar";
 export { footer } from "./footer";
-export { contact } from "./contact";
 export {
   skillsSection,
   techItems,
@@ -18,17 +17,3 @@ export {
   type TimelineEntryType,
 } from "./timeline";
 export { articlesSection, articles, type ArticleItem } from "./articles";
-export {
-  educationSection,
-  educationEntries,
-  getEducationEntries,
-  type EducationEntry,
-  type EducationIcon,
-} from "./education";
-export {
-  experienceSection,
-  experienceEntries,
-  getExperienceEntries,
-  type ExperienceEntry,
-  type ExperienceIcon,
-} from "./experience";

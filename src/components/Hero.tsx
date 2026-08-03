@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -23,6 +23,29 @@ const portraitFooter =
 
 const portraitLogoBadge =
   "flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md dark:border-transparent dark:bg-foreground/90 dark:text-background";
+
+function PortraitImage() {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <div className="flex h-full w-full items-center justify-center text-4xl font-bold text-foreground">
+        BJR
+      </div>
+    );
+  }
+
+  return (
+    <Image
+      src="/Selvportrett-kopi.png"
+      alt="Birk Ramstad"
+      fill
+      priority
+      className={portraitImageClass}
+      onError={() => setHasError(true)}
+    />
+  );
+}
 
 export function Hero() {
   const { language } = useLanguage();
@@ -152,16 +175,7 @@ export function Hero() {
                   >
                     {/* Portrait image (not round) */}
                     <div className="absolute inset-0">
-                      <Avatar className="w-full h-full rounded-none">
-                        <AvatarImage
-                          src="/Selvportrett-kopi.png"
-                          alt="Birk Ramstad"
-                          className={portraitImageClass}
-                        />
-                        <AvatarFallback className="text-4xl font-bold text-foreground">
-                          BJR
-                        </AvatarFallback>
-                      </Avatar>
+                      <PortraitImage />
                     </div>
                   </div>
 
@@ -239,16 +253,7 @@ export function Hero() {
                 <div className={`relative h-96 ${portraitImageSection}`}>
                   {/* Portrait image (not round) */}
                   <div className="absolute inset-0">
-                    <Avatar className="w-full h-full rounded-none">
-                      <AvatarImage
-                        src="/Selvportrett-kopi.png"
-                        alt="Birk Ramstad"
-                        className={portraitImageClass}
-                      />
-                      <AvatarFallback className="text-4xl font-bold text-foreground">
-                        BJR
-                      </AvatarFallback>
-                    </Avatar>
+                    <PortraitImage />
                   </div>
                 </div>
 
