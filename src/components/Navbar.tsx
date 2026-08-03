@@ -79,11 +79,11 @@ export default function Navbar() {
         }}
       >
         {/* Main navbar container - rounded, not full width */}
-        <div className="relative w-full max-w-7xl mx-auto rounded-2xl overflow-hidden backdrop-blur-xl bg-gradient-to-b from-[#fdf7f0] via-[#f8efe3] to-[#f3e6d6] border-2 border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40">
+        <div className="relative w-full max-w-7xl mx-auto rounded-2xl overflow-hidden backdrop-blur-xl bg-[#fdf7f0]/95 border-2 border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:bg-gradient-to-b dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40">
           {/* Gradient border bottom */}
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
-          {/* Subtle glow effect - stronger at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-200/40 pointer-events-none dark:to-black/30" />
+          {/* Subtle glow effect - dark mode only */}
+          <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-b from-transparent via-transparent to-black/30 dark:block" />
 
           {/* Subtle pattern overlay */}
           <div
