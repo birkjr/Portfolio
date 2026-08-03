@@ -55,7 +55,7 @@ export function Skills() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+  const wasInView = useRef(false);
 
   useEffect(() => {
     const node = gridRef.current;
@@ -64,10 +64,17 @@ export function Skills() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated.current) {
-            setIsVisible(true);
-            hasAnimated.current = true;
-            observer.unobserve(entry.target);
+          if (entry.isIntersecting) {
+            if (!wasInView.current) {
+              setIsVisible(false);
+              requestAnimationFrame(() => {
+                setIsVisible(true);
+              });
+            }
+            wasInView.current = true;
+          } else {
+            setIsVisible(false);
+            wasInView.current = false;
           }
         });
       },
@@ -146,7 +153,7 @@ export function Skills() {
                   className={`group card-gradient-bg relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[#e3d4c3]/80 transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70 ${
                     isVisible ? "tech-card-slide-up" : "opacity-0"
                   }`}
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  style={{ animationDelay: `${index * 0.07}s` }}
                 >
                   <div className="card-shine" />
                   <CardContent className="relative z-10 flex flex-col gap-3 p-4">

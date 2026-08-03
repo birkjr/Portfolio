@@ -50,7 +50,7 @@ export function Projects() {
   );
   const [isVisible, setIsVisible] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
+  const wasInView = useRef(false);
 
   useEffect(() => {
     const node = gridRef.current;
@@ -59,10 +59,17 @@ export function Projects() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated.current) {
-            setIsVisible(true);
-            hasAnimated.current = true;
-            observer.unobserve(entry.target);
+          if (entry.isIntersecting) {
+            if (!wasInView.current) {
+              setIsVisible(false);
+              requestAnimationFrame(() => {
+                setIsVisible(true);
+              });
+            }
+            wasInView.current = true;
+          } else {
+            setIsVisible(false);
+            wasInView.current = false;
           }
         });
       },
@@ -140,7 +147,7 @@ export function Projects() {
                 className={`card-project [perspective:1000px] ${
                   isVisible ? "tech-card-slide-up" : "opacity-0"
                 }`}
-                style={{ animationDelay: `${index * 0.05}s` }}
+                style={{ animationDelay: `${index * 0.07}s` }}
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={() => handleCardMouseLeave(index)}
               >
