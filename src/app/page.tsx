@@ -10,11 +10,13 @@ import { Skills } from "@/components/Skills";
 import { Footer } from "@/components/Footer";
 import { CursorEffect } from "@/components/CursorEffect";
 import { FloatingOrbs } from "@/components/FloatingOrbs";
+import { LivingGridDots } from "@/components/LivingGridDots";
 
 export default function Home() {
   return (
     <>
       <CursorEffect />
+      <LivingGridDots />
       <FloatingOrbs />
 
       <Navbar />
