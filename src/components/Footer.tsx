@@ -1,15 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
 import { footer as footerContent } from "@/content/footer";
+import {
+  DEFAULT_COLOR_THEME,
+  isColorThemeId,
+  isThyloChrome,
+  usesDarkChrome,
+} from "@/config/color-themes";
+import { cn } from "@/lib/utils";
 
 export function Footer() {
   const { language } = useLanguage();
+  const { theme } = useTheme();
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const t = footerContent[language];
+  const themeId =
+    mounted && theme && isColorThemeId(theme) ? theme : DEFAULT_COLOR_THEME;
+  const darkChrome = usesDarkChrome(themeId);
+  const thyloChrome = isThyloChrome(themeId);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -44,9 +62,14 @@ export function Footer() {
       {/* Main Footer Container */}
       <footer
         ref={sectionRef}
-        className={`group relative w-full rounded-3xl overflow-hidden border-2 border-[var(--hero-border)]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg hover-glow transition-all duration-500 ${
+        className={cn(
+          "group relative w-full overflow-hidden transition-all duration-500",
+          thyloChrome
+            ? "thylo-chrome rounded-2xl border overflow-hidden text-slate-700 hover-glow"
+            : "rounded-3xl border-2 border-[var(--hero-border)]/80 dark:border-slate-800/50 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:shadow-2xl dark:shadow-black/40 card-gradient-bg hover-glow",
+          darkChrome && "dark",
           isVisible ? "card-fade-in-up" : "opacity-0"
-        }`}
+        )}
       >
         {/* Shine overlay */}
         <div className="card-shine" />
@@ -109,8 +132,8 @@ export function Footer() {
           <div className="py-8 px-6 sm:px-8 lg:px-12">
             <div className="flex flex-col md:flex-row justify-center items-center gap-6">
               <div className="flex items-center space-x-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg">
-                  <span className="text-xs font-bold text-slate-900 sm:text-sm dark:text-white">
+                <div className="flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm nav-chrome-logo sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg">
+                  <span className="nav-chrome-logo-text text-xs font-bold text-slate-900 sm:text-sm dark:text-white">
                     BJR
                   </span>
                 </div>

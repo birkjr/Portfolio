@@ -1,4 +1,12 @@
-export type ColorThemeId = "light" | "original" | "warm" | "ocean" | "forest";
+export type ColorThemeId =
+  | "original"
+  | "thylo"
+  | "paper"
+  | "warm"
+  | "fjord"
+  | "hellas"
+  | "terminal"
+  | "ember";
 
 export const DEFAULT_COLOR_THEME: ColorThemeId = "original";
 
@@ -6,7 +14,11 @@ export interface ColorThemeOption {
   id: ColorThemeId;
   label: { no: string; en: string };
   swatch: string;
+  /** Lighter ring on swatch button when swatch matches button bg (Thylo). */
+  swatchRing?: string;
   isDark: boolean;
+  /** Dark navbar/footer on a light page background (Thylo). */
+  darkChrome?: boolean;
 }
 
 export const colorThemes: ColorThemeOption[] = [
@@ -17,9 +29,17 @@ export const colorThemes: ColorThemeOption[] = [
     isDark: true,
   },
   {
-    id: "light",
-    label: { no: "Lys", en: "Light" },
-    swatch: "#f1f5f9",
+    id: "thylo",
+    label: { no: "Thylo", en: "Thylo" },
+    swatch: "#594D84",
+    swatchRing: "#a89fbf",
+    isDark: false,
+    darkChrome: true,
+  },
+  {
+    id: "paper",
+    label: { no: "Papir", en: "Paper" },
+    swatch: "#f5efe4",
     isDark: false,
   },
   {
@@ -29,15 +49,27 @@ export const colorThemes: ColorThemeOption[] = [
     isDark: true,
   },
   {
-    id: "ocean",
-    label: { no: "Hav", en: "Ocean" },
-    swatch: "#38bdf8",
+    id: "fjord",
+    label: { no: "Fjord", en: "Fjord" },
+    swatch: "#7a9aad",
     isDark: true,
   },
   {
-    id: "forest",
-    label: { no: "Skog", en: "Forest" },
-    swatch: "#4a9b6e",
+    id: "hellas",
+    label: { no: "Hellas", en: "Greece" },
+    swatch: "#2A9D8F",
+    isDark: false,
+  },
+  {
+    id: "terminal",
+    label: { no: "Terminal", en: "Terminal" },
+    swatch: "#090b0a",
+    isDark: true,
+  },
+  {
+    id: "ember",
+    label: { no: "Glød", en: "Ember" },
+    swatch: "#c4683a",
     isDark: true,
   },
 ];
@@ -53,4 +85,13 @@ export function getColorTheme(id: string) {
     colorThemes.find((theme) => theme.id === id) ??
     colorThemes.find((theme) => theme.id === DEFAULT_COLOR_THEME)!
   );
+}
+
+export function usesDarkChrome(id: string) {
+  const theme = getColorTheme(id);
+  return theme.isDark;
+}
+
+export function isThyloChrome(id: string) {
+  return id === "thylo";
 }

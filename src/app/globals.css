@@ -4,6 +4,8 @@
 html {
   scroll-padding-top: 120px;
   scroll-behavior: smooth;
+  min-height: 100%;
+  background-color: hsl(var(--background));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -14,7 +16,9 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: var(--page-gradient);
+  min-height: 100%;
+  background-color: hsl(var(--background));
+  background-image: var(--page-gradient);
   color: hsl(var(--foreground));
   font-feature-settings:
     "kern" 1,

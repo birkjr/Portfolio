@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Birk Jonathan Ramstad – full-stack utvikler og datateknologistudent ved NTNU. Portefølje med prosjekter, erfaring og ferdigheter innen web development, reverse engineering og cybersecurity.",
+    "Birk Jonathan Ramstad - full-stack utvikler og datateknologistudent ved NTNU. Portefølje med prosjekter, erfaring og ferdigheter innen web utvikling, sikkerhet og AI.",
   keywords: [
     "Birk Ramstad",
     "Birk Jonathan Ramstad",
@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     "React",
     "Next.js",
     "TypeScript",
+    "Thylo Insight",
   ],
   authors: [{ name: "Birk Jonathan Ramstad" }],
   creator: "Birk Jonathan Ramstad",
@@ -123,7 +124,6 @@ export default function RootLayout({
       "React",
       "Next.js",
       "TypeScript",
-      "Reverse Engineering",
       "Cybersecurity",
     ],
   };
@@ -135,7 +135,7 @@ export default function RootLayout({
       className={`${jetbrainsMono.variable} ${DEFAULT_COLOR_THEME}`}
     >
       <body
-        className={`${jetbrainsMono.className} min-h-screen bg-background text-foreground font-sans antialiased`}
+        className={`${jetbrainsMono.className} min-h-screen text-foreground font-sans antialiased`}
         suppressHydrationWarning
       >
         <Script
