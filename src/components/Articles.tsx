@@ -1,25 +1,60 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowUpRight, MessageCircleQuestion, X } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  MessageCircleQuestion,
+  X,
+} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { articlesSection, articles } from "@/content/articles";
+import { Button } from "@/components/ui/button";
+import {
+  ARTICLES_INITIAL_VISIBLE,
+  ARTICLES_LOAD_MORE,
+  articlesSection,
+  articles,
+} from "@/content/articles";
 
 export function Articles() {
   const { language } = useLanguage();
   const t = articlesSection[language];
-  const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(ARTICLES_INITIAL_VISIBLE);
+
+  const tags = useMemo(
+    () => [...new Set(articles.map((item) => item.tag[language]))],
+    [language]
+  );
+
+  const filteredArticles = useMemo(
+    () =>
+      activeTag === null
+        ? articles
+        : articles.filter((item) => item.tag[language] === activeTag),
+    [activeTag, language]
+  );
+
+  const visibleArticles = filteredArticles.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredArticles.length;
+  const canCollapse = visibleCount > ARTICLES_INITIAL_VISIBLE;
 
   useEffect(() => {
-    if (selectedArticle === null) return;
+    setVisibleCount(ARTICLES_INITIAL_VISIBLE);
+  }, [activeTag, language]);
+
+  useEffect(() => {
+    if (selectedSlug === null) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setSelectedArticle(null);
+        setSelectedSlug(null);
       }
     };
 
@@ -30,11 +65,13 @@ export function Articles() {
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [selectedArticle]);
+  }, [selectedSlug]);
 
   const selectedItem =
-    selectedArticle !== null ? articles[selectedArticle] : null;
-  const isModalOpen = selectedArticle !== null;
+    articles.find((item) => item.slug === selectedSlug) ?? null;
+  const isModalOpen = selectedSlug !== null;
+
+  const openArticle = (slug: string) => setSelectedSlug(slug);
 
   const modal =
     selectedItem && typeof document !== "undefined"
@@ -43,7 +80,7 @@ export function Articles() {
             <button
               type="button"
               className="fixed inset-0 z-[100] cursor-default bg-black/20 dark:bg-black/40"
-              onClick={() => setSelectedArticle(null)}
+              onClick={() => setSelectedSlug(null)}
               aria-label="Close"
             />
             <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
@@ -53,7 +90,7 @@ export function Articles() {
               >
                 <button
                   type="button"
-                  onClick={() => setSelectedArticle(null)}
+                  onClick={() => setSelectedSlug(null)}
                   className="absolute right-3 top-3 z-10 rounded-full bg-slate-900/70 p-1.5 text-white/80 transition-colors hover:bg-slate-800 hover:text-white dark:bg-slate-800/70 dark:hover:bg-slate-700"
                   aria-label="Close"
                 >
@@ -90,7 +127,7 @@ export function Articles() {
 
   return (
     <SectionContainer id="articles">
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative mx-auto max-w-3xl">
         <div
           className={`transition-[filter] duration-300 ${
             isModalOpen ? "pointer-events-none blur-sm" : ""
@@ -107,52 +144,108 @@ export function Articles() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-5">
-            {articles.map((item, index) => {
+          <div className="mb-5 flex flex-wrap justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveTag(null)}
+              className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                activeTag === null
+                  ? "border-foreground/30 bg-foreground text-background"
+                  : "border-border bg-card/40 text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+              }`}
+            >
+              {t.filterAll}
+            </button>
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => setActiveTag(tag)}
+                className={`rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                  activeTag === tag
+                    ? "border-foreground/30 bg-foreground text-background"
+                    : "border-border bg-card/40 text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+
+          <ul className="space-y-3">
+            {visibleArticles.map((item) => {
               const question = item.question[language];
               const teaser = item.paragraphs[language][0];
               const tag = item.tag[language];
 
               return (
-                <Card
-                  key={index}
-                  role="button"
-                  tabIndex={isModalOpen ? -1 : 0}
-                  onClick={() => setSelectedArticle(index)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setSelectedArticle(index);
-                    }
-                  }}
-                  className="group flex h-full cursor-pointer flex-col rounded-2xl border-2 border-border/60 card-gradient-bg transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <CardHeader className="flex-1 space-y-3 p-4 pb-2">
-                    <div className="flex items-center justify-between gap-2">
+                <li key={item.slug}>
+                  <Card
+                    role="button"
+                    tabIndex={isModalOpen ? -1 : 0}
+                    onClick={() => openArticle(item.slug)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openArticle(item.slug);
+                      }
+                    }}
+                    className="group cursor-pointer rounded-2xl border-2 border-border/60 card-gradient-bg transition-all duration-300 hover:-translate-y-0.5 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    <CardContent className="flex items-start gap-3 p-4 sm:gap-4 sm:p-5">
                       <div className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-muted/50">
                         <MessageCircleQuestion className="h-4 w-4 text-muted-foreground" />
                       </div>
-                      <Badge variant="secondary" className="text-xs">
-                        {tag}
-                      </Badge>
-                    </div>
-                    <CardTitle className="text-base font-semibold leading-snug transition-colors group-hover:text-foreground/90 sm:text-lg">
-                      {question}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col gap-3 p-4 pt-0">
-                    <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
-                      {teaser}
-                    </p>
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground/70 transition-colors group-hover:text-foreground">
-                      {t.readAnswer}
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
-                  </CardContent>
-                </Card>
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-2 flex flex-wrap items-center gap-2">
+                          <Badge variant="secondary" className="text-xs">
+                            {tag}
+                          </Badge>
+                        </div>
+                        <h3 className="text-base font-semibold leading-snug transition-colors group-hover:text-foreground/90 sm:text-lg">
+                          {question}
+                        </h3>
+                        <p className="mt-2 line-clamp-1 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                          {teaser}
+                        </p>
+                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-foreground/70 transition-colors group-hover:text-foreground">
+                          {t.readAnswer}
+                          <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </li>
               );
             })}
-          </div>
+          </ul>
+
+          {(hasMore || canCollapse) && (
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {hasMore && (
+                <Button
+                  variant="outline"
+                  onClick={() =>
+                    setVisibleCount((count) => count + ARTICLES_LOAD_MORE)
+                  }
+                  className="gap-2"
+                >
+                  {t.showMore}
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              )}
+              {canCollapse && (
+                <Button
+                  variant="ghost"
+                  onClick={() => setVisibleCount(ARTICLES_INITIAL_VISIBLE)}
+                  className="gap-2 text-muted-foreground"
+                >
+                  {t.showLess}
+                  <ChevronUp className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          )}
         </div>
 
         {modal}

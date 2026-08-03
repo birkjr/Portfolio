@@ -1,10 +1,14 @@
 import type { Localized } from "./types";
 
 export interface ArticleItem {
+  slug: string;
   question: { no: string; en: string };
   paragraphs: { no: string[]; en: string[] };
   tag: { no: string; en: string };
 }
+
+export const ARTICLES_INITIAL_VISIBLE = 4;
+export const ARTICLES_LOAD_MORE = 4;
 
 /** Section headings for the Articles block */
 export const articlesSection: Localized<{
@@ -12,6 +16,9 @@ export const articlesSection: Localized<{
   title: string;
   subtitle: string;
   readAnswer: string;
+  filterAll: string;
+  showMore: string;
+  showLess: string;
 }> = {
   no: {
     label: "Artikler",
@@ -19,6 +26,9 @@ export const articlesSection: Localized<{
     subtitle:
       "Selv om jeg er langt fra noe ekspert, så er dette noe av de tingene jeg tenker mye på og tror andre vil finne interessant.",
     readAnswer: "Les svar",
+    filterAll: "Alle",
+    showMore: "Vis flere",
+    showLess: "Vis færre",
   },
   en: {
     label: "Articles",
@@ -26,11 +36,15 @@ export const articlesSection: Localized<{
     subtitle:
       "Even though I'm far from being an expert, these are some of the things I think about and I think others will find interesting.",
     readAnswer: "Read answer",
+    filterAll: "All",
+    showMore: "Show more",
+    showLess: "Show less",
   },
 };
 
 export const articles: ArticleItem[] = [
   {
+    slug: "waitlist-mistake",
     question: {
       no: "Var ventelisten vår en feil?",
       en: "Was our waitlist a mistake?",
@@ -74,6 +88,83 @@ export const articles: ArticleItem[] = [
     tag: { no: "Thylo", en: "Thylo" },
   },
   {
+    slug: "thylo-idea-to-product",
+    question: {
+      no: "Hvordan Thylo Insight gikk fra idé til produkt",
+      en: "How Thylo Insight went from idea to product",
+    },
+    paragraphs: {
+      no: [
+        "Hvis noen hadde spurt meg for fem år siden hva jeg kom til å bruke mesteparten av fritiden min på, hadde jeg aldri svart «bygge en app for stoffskifte». Faktisk visste jeg knapt hva stoffskiftet var.",
+        "Jeg var heller ikke personen som kom med idéen.",
+        "En av medgründerne mine hadde selv opplevd hvor vanskelig det kunne være å leve med en stoffskiftesykdom. Ikke bare sykdommen i seg selv, men usikkerheten. Hvorfor er formen så dårlig i dag? Hvorfor fungerer noe én uke, men ikke den neste? Hvorfor føles det som om ingen klarer å se hele bildet?",
+        "Det var gjennom de samtalene jeg begynte å forstå at utfordringen kanskje ikke var mangel på data.",
+        "Kanskje var utfordringen at dataene aldri ble satt sammen.",
+        "Vi har blodprøver.",
+        "Vi har klokker som måler søvn.",
+        "Vi registrerer symptomer.",
+        "Vi tar medisiner.",
+        "Men alt eksisterer hver for seg.",
+        "Det var egentlig da jeg ble fascinert av problemet.",
+        "Ikke fordi det handlet om stoffskifte.",
+        "Men fordi det handlet om å gjøre noe veldig komplisert litt enklere å forstå.",
+        "Vi skjønte samtidig ganske tidlig at vi manglet noe viktig.",
+        "Vi kunne bygge teknologi.",
+        "Men vi var ikke eksperter på stoffskifte.",
+        "Derfor begynte vi å kontakte leger, forskere og annet fagpersonell. Etter hvert endte vi opp med å få med en av Norges fremste leger innen stoffskifte som medgründer.",
+        "Det forandret hele prosjektet.",
+        "I stedet for å bygge en AI som bare oppsummerte data, bygget vi AI-en rundt den medisinske modellen han selv hadde utviklet gjennom mange år med klinisk erfaring. Det ble fundamentet for vår egen modell – KIM – hvor teknologi og medisinsk kunnskap jobber sammen, i stedet for hver for seg.",
+        "Det lærte meg også en viktig ting.",
+        "Den beste teknologien blir sjelden bygget av teknologer alene.",
+        "Den blir bygget av mennesker med helt forskjellige perspektiver som prøver å løse det samme problemet.",
+        "Det høres kanskje litt rart ut, men noe av det viktigste vi har jobbet med er faktisk ikke AI.",
+        "Det er forklaringer.",
+        "Hvis Thylo Insight forteller deg at stress ser ut til å påvirke formen din, holder det ikke å vise én setning på skjermen.",
+        "Jeg ønsker at brukeren skal forstå hvorfor vi tror det, hvilke data som peker i den retningen, og når vi faktisk ikke vet.",
+        "De aller fleste som bruker Thylo Insight kommer aldri til å bry seg om hvilken AI-modell vi bruker.",
+        "De bryr seg om ett spørsmål:",
+        "«Hvorfor føler jeg meg sånn i dag?»",
+        "Hvis Thylo Insight kan hjelpe noen med å forstå kroppen sin litt bedre, se mønstre de ellers ikke ville oppdaget og stille de riktige spørsmålene, tror jeg vi har bygget noe som faktisk betyr noe.",
+        "Det er i hvert fall derfor jeg synes det er så spennende å bygge Thylo Insight.",
+      ],
+      en: [
+        "If someone had asked me five years ago what I'd end up spending most of my free time on, I'd never have answered \"building an app for thyroid health\". I barely knew what the thyroid even was.",
+        "I wasn't the one who came up with the idea either.",
+        "One of my co-founders had experienced firsthand how hard it could be to live with a thyroid condition. Not just the disease itself, but the uncertainty. Why is my energy so low today? Why does something work one week but not the next? Why does it feel like nobody can see the full picture?",
+        "It was through those conversations I started to understand that the challenge might not be a lack of data.",
+        "Maybe the challenge was that the data was never put together.",
+        "We have blood tests.",
+        "We have watches that track sleep.",
+        "We log symptoms.",
+        "We take medication.",
+        "But everything exists on its own.",
+        "That's really when I became fascinated by the problem.",
+        "Not because it was about thyroid health.",
+        "But because it was about making something very complicated a little easier to understand.",
+        "At the same time we realised fairly early that we were missing something important.",
+        "We could build technology.",
+        "But we weren't thyroid experts.",
+        "So we started reaching out to doctors, researchers and other specialists. Eventually we brought on one of Norway's leading thyroid physicians as a co-founder.",
+        "That changed the entire project.",
+        "Instead of building an AI that just summarised data, we built the AI around the medical model he had developed through many years of clinical experience. That became the foundation for our own model — KIM — where technology and medical knowledge work together, not in isolation.",
+        "It also taught me something important.",
+        "The best technology is rarely built by technologists alone.",
+        "It's built by people with completely different perspectives trying to solve the same problem.",
+        "It might sound a bit odd, but some of the most important work we've done isn't actually AI.",
+        "It's explanations.",
+        "If Thylo Insight tells you that stress seems to affect how you feel, it's not enough to show one sentence on screen.",
+        "I want the user to understand why we think that, which data points in that direction, and when we genuinely don't know.",
+        "Most people who use Thylo Insight will never care which AI model we use.",
+        "They care about one question:",
+        '"Why do I feel this way today?"',
+        "If Thylo Insight can help someone understand their body a little better, spot patterns they wouldn't otherwise notice, and ask the right questions, I think we've built something that actually matters.",
+        "That's at least why I find building Thylo Insight so exciting.",
+      ],
+    },
+    tag: { no: "Thylo", en: "Thylo" },
+  },
+  {
+    slug: "when-not-to-use-ai",
     question: {
       no: "Når bør man faktisk ikke bruke AI?",
       en: "When should you actually not use AI?",
@@ -117,6 +208,7 @@ export const articles: ArticleItem[] = [
     tag: { no: "AI", en: "AI" },
   },
   {
+    slug: "grades-vs-experience",
     question: {
       no: "Er karakterer eller erfaring viktigst i 2026?",
       en: "Are grades or experience more important in 2026?",
@@ -158,5 +250,73 @@ export const articles: ArticleItem[] = [
       ],
     },
     tag: { no: "Studieliv", en: "Student life" },
+  },
+  {
+    slug: "documenting-how-i-think",
+    question: {
+      no: "Den mest undervurderte ferdigheten jeg har lært: å dokumentere hvordan jeg tenker",
+      en: "The most underrated skill I've learned: documenting how I think",
+    },
+    paragraphs: {
+      no: [
+        "Jeg trodde lenge dokumentasjon var noe man skrev etter at prosjektet var ferdig. I dag tror jeg det er noe av det viktigste jeg gjør mens jeg bygger.",
+        "Da jeg begynte å programmere, skrev jeg nesten aldri ned hvorfor jeg tok en beslutning.",
+        "Jeg skrev kode.",
+        "Hvis noe fungerte, gikk jeg videre.",
+        "Tre måneder senere satt jeg ofte og stirret på min egen kode og tenkte: «Hvorfor i all verden gjorde jeg dette?»",
+        "Det viste seg at problemet sjelden var koden.",
+        "Problemet var at jeg hadde glemt tankegangen.",
+        "I dag dokumenterer jeg nesten alt.",
+        "Ikke fordi jeg forventer at andre skal lese det.",
+        "Men fordi jeg vet at fremtidige meg kommer til å gjøre det.",
+        "Når vi bygger Thylo skriver vi ikke bare hva vi gjør.",
+        "Vi skriver hvorfor.",
+        "Hvorfor valgte vi denne arkitekturen?",
+        "Hvorfor bruker vi denne AI-modellen?",
+        "Hvorfor er API-et strukturert på denne måten?",
+        "Hvorfor forkastet vi de tre andre løsningene?",
+        "Det høres kanskje ut som ekstra arbeid.",
+        "For meg har det vært det motsatte.",
+        "Når jeg kommer tilbake til et prosjekt seks måneder senere, slipper jeg å starte fra null. Jeg kan lese hvordan jeg tenkte den dagen beslutningen ble tatt.",
+        "Det gjør også noe annet.",
+        "Det tvinger meg til å tenke klarere.",
+        "Hvis jeg ikke klarer å forklare en beslutning med noen få setninger, er det ofte et tegn på at jeg ikke har forstått problemet godt nok.",
+        "Jeg tror derfor dokumentasjon handler om mye mer enn å hjelpe teamet.",
+        "Den hjelper deg med å tenke.",
+        "Og kanskje er det derfor jeg har begynt å se på dokumentasjon som en del av utviklingen – ikke noe som kommer etterpå.",
+        "Den beste dokumentasjonen beskriver ikke bare hvordan systemet fungerer.",
+        "Den beskriver hvorfor det ble bygget akkurat slik.",
+      ],
+      en: [
+        "For a long time I thought documentation was something you wrote after the project was finished. Today I think it's one of the most important things I do while building.",
+        "When I started programming, I almost never wrote down why I made a decision.",
+        "I wrote code.",
+        "If something worked, I moved on.",
+        'Three months later I\'d often sit staring at my own code thinking: "Why on earth did I do this?"',
+        "It turned out the problem was rarely the code.",
+        "The problem was that I'd forgotten the reasoning.",
+        "Today I document almost everything.",
+        "Not because I expect others to read it.",
+        "But because I know future me will.",
+        "When we build Thylo we don't just write what we do.",
+        "We write why.",
+        "Why did we choose this architecture?",
+        "Why are we using this AI model?",
+        "Why is the API structured this way?",
+        "Why did we discard the other three solutions?",
+        "It might sound like extra work.",
+        "For me it's been the opposite.",
+        "When I come back to a project six months later, I don't have to start from scratch. I can read how I was thinking the day the decision was made.",
+        "It also does something else.",
+        "It forces me to think more clearly.",
+        "If I can't explain a decision in a few sentences, it's often a sign that I haven't understood the problem well enough.",
+        "So I think documentation is about much more than helping the team.",
+        "It helps you think.",
+        "And maybe that's why I've started seeing documentation as part of development — not something that comes afterwards.",
+        "The best documentation doesn't just describe how the system works.",
+        "It describes why it was built exactly that way.",
+      ],
+    },
+    tag: { no: "Workflow", en: "Workflow" },
   },
 ];
