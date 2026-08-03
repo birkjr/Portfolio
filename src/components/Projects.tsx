@@ -19,6 +19,7 @@ import {
   projectsSection,
   type ProjectIcon,
 } from "@/content/projects";
+import { getGridRevealObserverOptions } from "@/lib/utils";
 
 const PROJECT_ICONS: Record<ProjectIcon, LucideIcon> = {
   database: Database,
@@ -56,28 +57,22 @@ export function Projects() {
     const node = gridRef.current;
     if (!node) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!wasInView.current) {
-              setIsVisible(false);
-              requestAnimationFrame(() => {
-                setIsVisible(true);
-              });
-            }
-            wasInView.current = true;
-          } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!wasInView.current) {
             setIsVisible(false);
-            wasInView.current = false;
+            requestAnimationFrame(() => {
+              setIsVisible(true);
+            });
           }
-        });
-      },
-      {
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: 0,
-      }
-    );
+          wasInView.current = true;
+        } else {
+          setIsVisible(false);
+          wasInView.current = false;
+        }
+      });
+    }, getGridRevealObserverOptions());
 
     observer.observe(node);
 

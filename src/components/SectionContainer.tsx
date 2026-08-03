@@ -2,6 +2,7 @@
 
 import { ReactNode, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { isMobileViewport } from "@/lib/utils";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -30,22 +31,24 @@ export function SectionContainer({
     const el = sectionRef.current;
     if (!el) return;
 
+    const mobile = isMobileViewport();
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
         {
           opacity: 0,
-          y: 60,
+          y: mobile ? 20 : 60,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: "power3.out",
+          duration: mobile ? 0.45 : 1,
+          ease: mobile ? "power2.out" : "power3.out",
           scrollTrigger: {
             trigger: el,
-            start: "top 80%",
-            end: "top 50%",
+            start: mobile ? "top 94%" : "top 80%",
+            end: mobile ? "top 78%" : "top 50%",
             toggleActions: "play none none none",
           },
         }

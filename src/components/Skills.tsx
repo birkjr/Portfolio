@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
 import { getTechItems, skillsSection, type TechIcon } from "@/content/skills";
 import { SectionContainer } from "./SectionContainer";
+import { getGridRevealObserverOptions } from "@/lib/utils";
 import { Github, TerminalSquare, X, type LucideIcon } from "lucide-react";
 
 const TECH_ICONS: Record<TechIcon, LucideIcon> = {
@@ -61,28 +62,22 @@ export function Skills() {
     const node = gridRef.current;
     if (!node) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!wasInView.current) {
-              setIsVisible(false);
-              requestAnimationFrame(() => {
-                setIsVisible(true);
-              });
-            }
-            wasInView.current = true;
-          } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!wasInView.current) {
             setIsVisible(false);
-            wasInView.current = false;
+            requestAnimationFrame(() => {
+              setIsVisible(true);
+            });
           }
-        });
-      },
-      {
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: 0,
-      }
-    );
+          wasInView.current = true;
+        } else {
+          setIsVisible(false);
+          wasInView.current = false;
+        }
+      });
+    }, getGridRevealObserverOptions());
 
     observer.observe(node);
 
