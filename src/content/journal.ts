@@ -1,17 +1,17 @@
 import type { Localized } from "./types";
 
-export interface ArticleItem {
+export interface JournalItem {
   slug: string;
   question: { no: string; en: string };
   paragraphs: { no: string[]; en: string[] };
   tag: { no: string; en: string };
 }
 
-export const ARTICLES_INITIAL_VISIBLE = 4;
-export const ARTICLES_LOAD_MORE = 4;
+export const JOURNAL_INITIAL_VISIBLE = 4;
+export const JOURNAL_LOAD_MORE = 4;
 
-/** Section headings for the Articles block */
-export const articlesSection: Localized<{
+/** Section headings for the Journal block */
+export const journalSection: Localized<{
   label: string;
   title: string;
   subtitle: string;
@@ -21,7 +21,7 @@ export const articlesSection: Localized<{
   showLess: string;
 }> = {
   no: {
-    label: "Artikler",
+    label: "Journal",
     title: "Deler noen av mine tanker og erfaringer",
     subtitle:
       "Selv om jeg er langt fra noe ekspert, så er dette noe av de tingene jeg tenker mye på og tror andre vil finne interessant.",
@@ -31,7 +31,7 @@ export const articlesSection: Localized<{
     showLess: "Vis færre",
   },
   en: {
-    label: "Articles",
+    label: "Journal",
     title: "Shares some of my thoughts and experiences",
     subtitle:
       "Even though I'm far from being an expert, these are some of the things I think about and I think others will find interesting.",
@@ -42,7 +42,7 @@ export const articlesSection: Localized<{
   },
 };
 
-export const articles: ArticleItem[] = [
+export const journal: JournalItem[] = [
   {
     slug: "waitlist-mistake",
     question: {

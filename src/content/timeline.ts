@@ -3,11 +3,10 @@ import type { Localized } from "./types";
 export type TimelineEntryType = "education" | "work" | "summerIntern";
 
 export interface TimelineExpandable {
-  images?: { src: string; alt: Localized<string> }[];
   architecture?: Localized<string>;
   github?: string;
   demo?: string;
-  articleSlugs?: string[];
+  journalSlugs?: string[];
 }
 
 export interface TimelineEntry {
@@ -33,12 +32,11 @@ export const timelineSection: Localized<{
   whatILearned: string;
   readMore: string;
   readLess: string;
-  images: string;
   architecture: string;
   github: string;
   demo: string;
-  articles: string;
-  readArticle: string;
+  journal: string;
+  readJournal: string;
 }> = {
   no: {
     label: "Tidslinje",
@@ -50,12 +48,11 @@ export const timelineSection: Localized<{
     whatILearned: "Hva lærte jeg?",
     readMore: "Les mer",
     readLess: "Vis mindre",
-    images: "Bilder",
     architecture: "Arkitektur",
     github: "GitHub",
     demo: "Nettside",
-    articles: "Artikler",
-    readArticle: "Les artikkel",
+    journal: "Journal",
+    readJournal: "Les journal",
   },
   en: {
     label: "Timeline",
@@ -67,12 +64,11 @@ export const timelineSection: Localized<{
     whatILearned: "What did I learn?",
     readMore: "Read more",
     readLess: "Show less",
-    images: "Images",
     architecture: "Architecture",
     github: "GitHub",
     demo: "Website",
-    articles: "Articles",
-    readArticle: "Read article",
+    journal: "Journal",
+    readJournal: "Read journal",
   },
 };
 
@@ -85,30 +81,21 @@ export const timelineEntries: TimelineEntry[] = [
     title: { no: "Medgründer og CTO", en: "Co-founder and CTO" },
     subtitle: { no: "Thylo Insight", en: "Thylo Insight" },
     description: {
-      no: "Innsikt og analyse av stoffskifte-data. App og nettside bygget med React Native og Next.js.",
-      en: "Insights and analysis of thyroid data. App and website built with React Native and Next.js.",
+      no: "En full plattform der vi løser et kompleks problem for en stor klinisk gruppe. Vi gjør innsikt og analyse av stoffskifte-data, og er en assistent for brukere som står fast i en vanskelig situasjon. App og nettside bygget med React Native og Next.js.",
+      en: "A full platform where we solve a complex problem for a large clinical group. We make insights and analysis of thyroid data, and are an assistant for users who are stuck in a difficult situation. App and website built with React Native and Next.js.",
     },
     type: "work",
     learnings: {
-      no: "Jeg lærte at den vanskeligste delen av AI ikke er modellen, men å få brukeren til å stole på svaret.",
-      en: "I learned that the hardest part of AI isn't the model — it's getting the user to trust the answer.",
+      no: "Når man sitter med en idé og utvikler et produkt er det ingen fasit på hvordan man skal komme i mål. Det å lære seg å stå alene, uviten og gjenta utallige feil er en stor utfordring, men det er her jeg har lært klart mest på kortest tid..",
+      en: "When you're sitting with an idea and developing a product, there's no formula for how to get to the goal. Learning to stand alone, unknown and repeating countless mistakes is a big challenge, but it's here I've learned the most in the shortest time.",
     },
     expandable: {
-      images: [
-        {
-          src: "/ThyloInsightv2.png",
-          alt: {
-            no: "Thylo Insight nettside",
-            en: "Thylo Insight website",
-          },
-        },
-      ],
       architecture: {
         no: "React Native-app mot Supabase og FastAPI-backend. Next.js for markedsføringsside. AI-pipeline (KIM) bygget sammen med medisinsk fagpersonell — teknologi og klinisk modell i samme system.",
         en: "React Native app against Supabase and a FastAPI backend. Next.js for the marketing site. AI pipeline (KIM) built together with medical experts — technology and clinical model in the same system.",
       },
       demo: "https://thyloinsight.no",
-      articleSlugs: [
+      journalSlugs: [
         "waitlist-mistake",
         "thylo-idea-to-product",
         "when-not-to-use-ai",
@@ -130,8 +117,8 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "summerIntern",
     learnings: {
-      no: "Jeg lærte at gode API-er handler minst like mye om dokumentasjon som om kode.",
-      en: "I learned that good APIs are at least as much about documentation as they are about code.",
+      no: "Det å jobbe i et scaleup bedrift gjorde meg bevisst på hvor viktig det er å være fleksibel og kreativ når det kommer til problemløsning. Dokumentasjon og kommunikasjon er kritisk for å få det til å fungere.",
+      en: "Working in a scaleup company made me aware of how important it is to be flexible and creative when it comes to problem solving. Documentation and communication are critical to make it work.",
     },
   },
   {
@@ -144,13 +131,13 @@ export const timelineEntries: TimelineEntry[] = [
       en: "NTNU — 5-year master's",
     },
     description: {
-      no: "Integrert master med fokus på AI, IoT og komplekse IT-systemer.",
-      en: "Integrated master's with focus on AI, IoT and complex IT systems.",
+      no: "Integrert master med fokus på programvareutvikling, IoT og komplekse IT-systemer.",
+      en: "Integrated master's with focus on software development, IoT and complex IT systems.",
     },
     type: "education",
     learnings: {
-      no: "Jeg lærte at bredde slår spesialisering tidlig — det er lettere å gå dypt når du først vet hva som fascinerer deg.",
-      en: "I learned that breadth beats specialisation early on — it's easier to go deep once you know what fascinates you.",
+      no: "Du kan lære mye på egenhånd eller kurs, men det er ingenting som gir meg mer trygghet når jeg utvikler systemer enn en grundig utdanning.",
+      en: "You can learn a lot on your own or through courses, but there's nothing that gives me more confidence when I'm developing systems than a thorough education.",
     },
   },
   {
@@ -164,8 +151,8 @@ export const timelineEntries: TimelineEntry[] = [
     subtitle: { no: "Concentrix", en: "Concentrix" },
     type: "summerIntern",
     learnings: {
-      no: "Jeg lærte at de fleste AI-prosjekter feiler ikke på modellen, men på datakvalitet og tydelige success-kriterier.",
-      en: "Most AI projects don't fail on the model — they fail on data quality and clear success criteria.",
+      no: "Jeg lærte hvordan hvordan AI modeller skal testes, forbedres og vedlikeholdes. At kompleksiteten ved AI ikke er kode, men språkdata og restriksjoner. ",
+      en: "I learned how to test, improve and maintain AI models. That the complexity of AI isn't code, but language data and restrictions.",
     },
   },
   {
@@ -180,16 +167,10 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "work",
     learnings: {
-      no: "Jeg lærte at teknologi og markedsføring ikke er to verdener — en god nettside er et produkt, ikke bare en brosjyre.",
-      en: "I learned that technology and marketing aren't separate worlds — a good website is a product, not just a brochure.",
+      no: "Dette var det første prosjetet jeg hadde ansvaret for, her gjorde jeg utallige mange feil, noe jeg lærte ekstremt mye av. Det er ikke det stolteste produktet jeg har lansert, men linjeforeningen bruker det fortsatt den dag i dag.",
+      en: "This was the first project I had the responsibility for, here I made countless mistakes, something I learned a lot from. It's not the most impressive product I've launched, but the student organization still uses it to this day.",
     },
     expandable: {
-      images: [
-        {
-          src: "/emil_link.png",
-          alt: { no: "EMIL-Link nettside", en: "EMIL-Link website" },
-        },
-      ],
       architecture: {
         no: "React-frontend med Supabase som backend. Fokus på enkel innholdsstruktur og rask publisering for et frivillig team uten teknisk bakgrunn.",
         en: "React frontend with Supabase as backend. Focus on simple content structure and fast publishing for a volunteer team without a technical background.",
@@ -209,25 +190,16 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "work",
     learnings: {
-      no: "Jeg lærte at det beste studentprosjekter lærer deg er å shippe noe folk faktisk bruker — ikke bare noe som ser bra ut i en demo.",
-      en: "The best thing student projects teach you is shipping something people actually use — not just something that looks good in a demo.",
+      no: "Lansere noe folk faktisk bruker — ikke bare noe som ser bra ut i en demo.",
+      en: "Launching something people actually use — not just something that looks good in a demo.",
     },
     expandable: {
-      images: [
-        {
-          src: "/teknologiporten_nettside.png",
-          alt: {
-            no: "Teknologiporten nettside",
-            en: "Teknologiporten website",
-          },
-        },
-      ],
       architecture: {
         no: "Next.js med Supabase for auth, innhold og admin. Statisk generering der det gir mening, server actions for dynamisk innhold.",
         en: "Next.js with Supabase for auth, content and admin. Static generation where it makes sense, server actions for dynamic content.",
       },
       demo: "https://tp-nettside.vercel.app/",
-      articleSlugs: ["grades-vs-experience", "documenting-how-i-think"],
+      journalSlugs: ["grades-vs-experience", "documenting-how-i-think"],
     },
   },
   {
@@ -244,8 +216,8 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "education",
     learnings: {
-      no: "Jeg lærte at elsket programmering, og at fysikk og mekanikk ikke nødvendigvis var for meg. Byttet derfor etter 2 år.",
-      en: "I learned that I loved programming, and that physics and mechanics weren't necessarily for me. I therefore switched after 2 years.",
+      no: "Jeg forstod at programmering var det jeg virkelig ville jobbe med, og at fysikk og mekanikk ikke nødvendigvis var for meg. Byttet derfor etter 2 år.",
+      en: "I understood that programming was what I really wanted to work with, and that physics and mechanics weren't necessarily for me. I therefore switched after 2 years.",
     },
   },
   {
@@ -274,14 +246,14 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "education",
     learnings: {
-      no: "Jeg lærte at disiplin og å tåle å gjøre det kjedelige arbeidet hver dag er undervurdert — også i utvikling.",
-      en: "I learned that discipline and tolerating boring daily work is underrated — in development too.",
+      no: "Disiplin og å tåle å gjøre det kjedelige arbeidet hver dag er undervurdert — også i utvikling.",
+      en: "Discipline and tolerating boring daily work is underrated — in development too.",
     },
   },
 ].sort((a, b) => b.sortKey - a.sortKey) as TimelineEntry[];
 
-export function getArticleSlugFromHash(hash: string): string | null {
-  if (!hash.startsWith("#article-")) return null;
-  const slug = hash.slice("#article-".length);
+export function getJournalSlugFromHash(hash: string): string | null {
+  if (!hash.startsWith("#journal-")) return null;
+  const slug = hash.slice("#journal-".length);
   return slug.length > 0 ? slug : null;
 }

@@ -9,17 +9,16 @@ import TextType from "@/components/TextType";
 import { SectionContainer } from "./SectionContainer";
 import { hero } from "@/content/hero";
 
+const heroAccentSurface =
+  "border-[#e3d4c3]/80 dark:border-slate-800/50 card-gradient-bg";
+
 const portraitCardShell =
   "relative rounded-[2rem] overflow-hidden transition-transform duration-150 ease-out will-change-transform bg-gradient-to-b from-white via-[#fdf7f0] to-[#f3e6d6] border border-[#e3d4c3]/80 shadow-lg shadow-slate-900/10 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:border-slate-800/70 dark:shadow-[0_20px_60px_rgba(15,23,42,0.75)]";
 
 const portraitImageSection =
-  "relative overflow-hidden rounded-t-[2rem] bg-slate-100 dark:bg-slate-900";
+  "relative overflow-hidden rounded-t-[2rem] bg-slate-200 dark:bg-slate-900";
 
-const portraitImageClass =
-  "h-full w-full object-cover brightness-100 dark:brightness-[0.85]";
-
-const portraitFooter =
-  "relative z-10 rounded-b-[2rem] border-t border-[#e3d4c3]/60 bg-[#fdf7f0]/95 px-4 py-4 dark:border-slate-800/50 dark:bg-slate-950/95";
+const portraitFooter = `relative z-10 rounded-b-[2rem] border-t-2 ${heroAccentSurface} px-4 py-4`;
 
 const portraitLogoBadge =
   "flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md dark:border-transparent dark:bg-foreground/90 dark:text-background";
@@ -29,21 +28,38 @@ function PortraitImage() {
 
   if (hasError) {
     return (
-      <div className="flex h-full w-full items-center justify-center text-4xl font-bold text-foreground">
+      <div className="flex h-full w-full items-center justify-center bg-slate-200 text-4xl font-bold text-foreground dark:bg-slate-900 dark:text-white">
         BJR
       </div>
     );
   }
 
   return (
-    <Image
-      src="/Selvportrett-kopi.png"
-      alt="Birk Ramstad"
-      fill
-      priority
-      className={portraitImageClass}
-      onError={() => setHasError(true)}
-    />
+    <>
+      <Image
+        src="/Selvportrett-kopi.png"
+        alt="Birk Ramstad"
+        fill
+        priority
+        unoptimized
+        sizes="(max-width: 1024px) 320px, 344px"
+        className="h-full w-full object-cover object-[center_14%] dark:brightness-[0.94]"
+        onError={() => setHasError(true)}
+      />
+
+      <div
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent dark:from-black/30"
+        aria-hidden
+      />
+    </>
+  );
+}
+
+function PortraitImageFrame() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <PortraitImage />
+    </div>
   );
 }
 
@@ -140,9 +156,9 @@ export function Hero() {
 
           {/* Main Headline */}
           <div className="space-y-4">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight">
-              <span className="block text-foreground">{t.greeting}</span>
-              <span className="block text-foreground">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight text-foreground dark:text-slate-300">
+              <span className="block">{t.greeting}</span>
+              <span className="block">
                 <TextType
                   text={[t.name]}
                   typingSpeed={75}
@@ -174,9 +190,7 @@ export function Hero() {
                     className={`relative h-64 sm:h-88 md:h-96 ${portraitImageSection}`}
                   >
                     {/* Portrait image (not round) */}
-                    <div className="absolute inset-0">
-                      <PortraitImage />
-                    </div>
+                    <PortraitImageFrame />
                   </div>
 
                   {/* Text section below image - dark background, part of card */}
@@ -212,8 +226,8 @@ export function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-10">
             <Button
-              onClick={() => scrollToSection("#timeline")}
-              className="group h-11 border-2 border-slate-200/80 bg-white/90 px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-transparent dark:bg-primary dark:text-primary-foreground dark:shadow-none dark:hover:bg-primary/90"
+              onClick={() => scrollToSection("#journal")}
+              className="group h-11 border-2 border-slate-200/80 bg-white px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-slate-600/35 dark:bg-slate-900/45 dark:text-slate-300 dark:shadow-none dark:backdrop-blur-sm dark:hover:border-slate-500/45 dark:hover:bg-slate-800/55"
             >
               {t.cta}
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -221,7 +235,7 @@ export function Hero() {
             <Button
               variant="outline"
               onClick={() => scrollToSection("#contact")}
-              className="h-11 border-2 border-slate-200/80 bg-white/60 px-6 text-sm font-semibold text-slate-900 hover:bg-white/90 dark:border-input dark:bg-background dark:text-foreground dark:hover:bg-accent"
+              className={`h-11 border-2 ${heroAccentSurface} px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[#e3d4c3] dark:text-foreground dark:hover:bg-accent`}
             >
               {t.ctaSecondary}
             </Button>
@@ -252,9 +266,7 @@ export function Hero() {
                 {/* Portrait image section */}
                 <div className={`relative h-96 ${portraitImageSection}`}>
                   {/* Portrait image (not round) */}
-                  <div className="absolute inset-0">
-                    <PortraitImage />
-                  </div>
+                  <PortraitImageFrame />
                 </div>
 
                 {/* Text section below image - dark background, part of card */}

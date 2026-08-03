@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import {
   ChevronDown,
   ExternalLink,
@@ -16,7 +15,7 @@ import {
   type TimelineEntry,
   type TimelineEntryType,
 } from "@/content/timeline";
-import { articles } from "@/content/articles";
+import { journal } from "@/content/journal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -30,9 +29,9 @@ const timelineTypeLabels: Record<
   summerIntern: "summerIntern",
 };
 
-function openArticle(slug: string) {
-  window.location.hash = `article-${slug}`;
-  document.getElementById("articles")?.scrollIntoView({ behavior: "smooth" });
+function openJournal(slug: string) {
+  window.location.hash = `journal-${slug}`;
+  document.getElementById("journal")?.scrollIntoView({ behavior: "smooth" });
 }
 
 function TimelineCard({
@@ -51,16 +50,15 @@ function TimelineCard({
   const expandable = entry.expandable;
   const hasExpandable = Boolean(
     expandable &&
-      (expandable.images?.length ||
-        expandable.architecture ||
+      (expandable.architecture ||
         expandable.github ||
         expandable.demo ||
-        expandable.articleSlugs?.length)
+        expandable.journalSlugs?.length)
   );
 
-  const linkedArticles =
-    expandable?.articleSlugs
-      ?.map((slug) => articles.find((article) => article.slug === slug))
+  const linkedJournals =
+    expandable?.journalSlugs
+      ?.map((slug) => journal.find((item) => item.slug === slug))
       .filter(Boolean) ?? [];
 
   return (
@@ -123,27 +121,6 @@ function TimelineCard({
           <div className="overflow-hidden">
             {expandable && (
               <div className="space-y-5 pt-4">
-                {expandable.images && expandable.images.length > 0 && (
-                  <ExpandableSection title={t.images}>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {expandable.images.map((image) => (
-                        <div
-                          key={image.src}
-                          className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-muted/20"
-                        >
-                          <Image
-                            src={image.src}
-                            alt={image.alt[language]}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 320px"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </ExpandableSection>
-                )}
-
                 {expandable.architecture && (
                   <ExpandableSection title={t.architecture}>
                     <p className="text-sm leading-relaxed text-muted-foreground/90">
@@ -188,19 +165,19 @@ function TimelineCard({
                   </ExpandableSection>
                 )}
 
-                {linkedArticles.length > 0 && (
-                  <ExpandableSection title={t.articles}>
+                {linkedJournals.length > 0 && (
+                  <ExpandableSection title={t.journal}>
                     <ul className="space-y-2">
-                      {linkedArticles.map((article) => (
-                        <li key={article!.slug}>
+                      {linkedJournals.map((journalItem) => (
+                        <li key={journalItem!.slug}>
                           <button
                             type="button"
-                            onClick={() => openArticle(article!.slug)}
+                            onClick={() => openJournal(journalItem!.slug)}
                             className="group flex w-full items-start gap-2 rounded-lg border border-border/60 bg-background/40 px-3 py-2.5 text-left transition-colors hover:border-foreground/20 hover:bg-background/70"
                           >
                             <MessageCircleQuestion className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                             <span className="text-sm leading-snug text-foreground/90 group-hover:text-foreground">
-                              {article!.question[language]}
+                              {journalItem!.question[language]}
                             </span>
                           </button>
                         </li>
@@ -313,21 +290,21 @@ export function Timeline() {
 
   return (
     <SectionContainer id="timeline">
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-10 text-center">
           <div className="section-badge">
             <div className="section-badge-dot" />
             <span className="section-badge-label">{t.label}</span>
           </div>
           <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
+          <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-lg">
             {t.subtitle}
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative -ml-1 sm:-ml-2 md:-ml-3">
           <div
-            className="absolute bottom-2 left-[7px] top-2 w-px bg-border sm:left-[9px]"
+            className="absolute bottom-2 left-0 top-2 w-px bg-border"
             aria-hidden
           />
 
@@ -342,10 +319,10 @@ export function Timeline() {
                     itemRefs.current[index] = el;
                   }}
                   data-timeline-index={index}
-                  className="relative pl-8 sm:pl-10"
+                  className="relative pl-7 sm:pl-9 md:pl-11"
                 >
                   <div
-                    className={`absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border-2 transition-all duration-300 sm:h-[19px] sm:w-[19px] ${
+                    className={`absolute left-0 top-1.5 h-[15px] w-[15px] -translate-x-1/2 rounded-full border-2 transition-all duration-300 sm:h-[19px] sm:w-[19px] ${
                       isActive
                         ? "border-slate-900 bg-slate-900 shadow-[0_0_12px_rgba(15,23,42,0.45)] dark:border-white dark:bg-white dark:shadow-[0_0_12px_rgba(255,255,255,0.85)]"
                         : "border-border bg-background"

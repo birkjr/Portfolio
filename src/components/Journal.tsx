@@ -15,16 +15,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  ARTICLES_INITIAL_VISIBLE,
-  ARTICLES_LOAD_MORE,
-  articlesSection,
-  articles,
-} from "@/content/articles";
-import { getArticleSlugFromHash } from "@/content/timeline";
+  JOURNAL_INITIAL_VISIBLE,
+  JOURNAL_LOAD_MORE,
+  journalSection,
+  journal,
+} from "@/content/journal";
+import { getJournalSlugFromHash } from "@/content/timeline";
 
-export function Articles() {
+export function Journal() {
   const { language } = useLanguage();
-  const t = articlesSection[language];
+  const t = journalSection[language];
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [visibleCountsByFilter, setVisibleCountsByFilter] = useState<
@@ -33,28 +33,28 @@ export function Articles() {
 
   const filterKey = `${language}:${activeTag ?? "all"}`;
   const visibleCount =
-    visibleCountsByFilter[filterKey] ?? ARTICLES_INITIAL_VISIBLE;
+    visibleCountsByFilter[filterKey] ?? JOURNAL_INITIAL_VISIBLE;
 
   const tags = useMemo(
-    () => [...new Set(articles.map((item) => item.tag[language]))],
+    () => [...new Set(journal.map((item) => item.tag[language]))],
     [language]
   );
 
-  const filteredArticles = useMemo(
+  const filteredJournal = useMemo(
     () =>
       activeTag === null
-        ? articles
-        : articles.filter((item) => item.tag[language] === activeTag),
+        ? journal
+        : journal.filter((item) => item.tag[language] === activeTag),
     [activeTag, language]
   );
 
-  const visibleArticles = filteredArticles.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredArticles.length;
-  const canCollapse = visibleCount > ARTICLES_INITIAL_VISIBLE;
+  const visibleJournal = filteredJournal.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredJournal.length;
+  const canCollapse = visibleCount > JOURNAL_INITIAL_VISIBLE;
 
   const closeArticle = () => {
     setSelectedSlug(null);
-    if (window.location.hash.startsWith("#article-")) {
+    if (window.location.hash.startsWith("#journal-")) {
       window.history.replaceState(
         null,
         "",
@@ -65,8 +65,8 @@ export function Articles() {
 
   useEffect(() => {
     const openFromHash = () => {
-      const slug = getArticleSlugFromHash(window.location.hash);
-      if (slug && articles.some((item) => item.slug === slug)) {
+      const slug = getJournalSlugFromHash(window.location.hash);
+      if (slug && journal.some((item) => item.slug === slug)) {
         setSelectedSlug(slug);
       }
     };
@@ -98,7 +98,7 @@ export function Articles() {
   }, [selectedSlug]);
 
   const selectedItem =
-    articles.find((item) => item.slug === selectedSlug) ?? null;
+    journal.find((item) => item.slug === selectedSlug) ?? null;
   const isModalOpen = selectedSlug !== null;
 
   const openArticle = (slug: string) => setSelectedSlug(slug);
@@ -113,9 +113,9 @@ export function Articles() {
               onClick={closeArticle}
               aria-label="Close"
             />
-            <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
+            <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-3 sm:p-4">
               <Card
-                className="card-gradient-bg pointer-events-auto relative flex max-h-[min(68vh,28rem)] w-full max-w-xl animate-fade-in flex-col overflow-hidden border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
+                className="card-gradient-bg pointer-events-auto relative flex max-h-[min(75vh,36rem)] w-full max-w-7xl animate-fade-in flex-col overflow-hidden border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
@@ -126,21 +126,21 @@ export function Articles() {
                 >
                   <X className="h-4 w-4" />
                 </button>
-                <CardHeader className="shrink-0 space-y-2 px-5 pb-3 pt-5 pr-11">
+                <CardHeader className="shrink-0 space-y-2 px-5 pb-2 pt-5 pr-12 sm:px-6 sm:pt-6">
                   <Badge variant="outline" className="w-fit text-xs">
                     {selectedItem.tag[language]}
                   </Badge>
-                  <CardTitle className="text-base font-semibold leading-snug sm:text-lg">
+                  <CardTitle className="text-lg font-semibold leading-snug sm:text-xl">
                     {selectedItem.question[language]}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-5 pt-0">
-                  <div className="space-y-2.5">
+                <CardContent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-5 pt-0 sm:px-6 sm:pb-6">
+                  <div className="columns-1 gap-x-8 md:columns-2 md:gap-x-10">
                     {selectedItem.paragraphs[language].map(
                       (paragraph, pIndex) => (
                         <p
                           key={pIndex}
-                          className="text-sm leading-relaxed text-muted-foreground"
+                          className="mb-2.5 break-inside-avoid text-sm leading-snug text-muted-foreground sm:text-[0.9375rem]"
                         >
                           {paragraph}
                         </p>
@@ -156,7 +156,7 @@ export function Articles() {
       : null;
 
   return (
-    <SectionContainer id="articles">
+    <SectionContainer id="journal">
       <div className="relative mx-auto max-w-3xl">
         <div
           className={`transition-[filter] duration-300 ${
@@ -203,7 +203,7 @@ export function Articles() {
           </div>
 
           <ul className="space-y-3">
-            {visibleArticles.map((item) => {
+            {visibleJournal.map((item) => {
               const question = item.question[language];
               const teaser = item.paragraphs[language][0];
               const tag = item.tag[language];
@@ -258,7 +258,7 @@ export function Articles() {
                   onClick={() =>
                     setVisibleCountsByFilter((prev) => ({
                       ...prev,
-                      [filterKey]: visibleCount + ARTICLES_LOAD_MORE,
+                      [filterKey]: visibleCount + JOURNAL_LOAD_MORE,
                     }))
                   }
                   className="gap-2"
@@ -273,7 +273,7 @@ export function Articles() {
                   onClick={() =>
                     setVisibleCountsByFilter((prev) => ({
                       ...prev,
-                      [filterKey]: ARTICLES_INITIAL_VISIBLE,
+                      [filterKey]: JOURNAL_INITIAL_VISIBLE,
                     }))
                   }
                   className="gap-2 text-muted-foreground"

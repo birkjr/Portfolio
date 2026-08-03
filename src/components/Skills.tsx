@@ -56,7 +56,7 @@ export function Skills() {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const wasInView = useRef(false);
+  const hasRevealed = useRef(false);
 
   useEffect(() => {
     const node = gridRef.current;
@@ -64,17 +64,12 @@ export function Skills() {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!wasInView.current) {
-            setIsVisible(false);
-            requestAnimationFrame(() => {
-              setIsVisible(true);
-            });
-          }
-          wasInView.current = true;
-        } else {
+        if (entry.isIntersecting && !hasRevealed.current) {
+          hasRevealed.current = true;
           setIsVisible(false);
-          wasInView.current = false;
+          requestAnimationFrame(() => {
+            setIsVisible(true);
+          });
         }
       });
     }, getGridRevealObserverOptions());
