@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Activity,
   Code,
@@ -70,6 +69,7 @@ export function Experience() {
     // If already animated, don't set up observer again
     if (hasAnimated.current) return;
 
+    const node = sectionRef.current;
     const isMobile = window.innerWidth < 768;
 
     // Fallback: Show section after 1 second if animation hasn't triggered
@@ -109,8 +109,8 @@ export function Experience() {
             setIsVisible(true);
             hasAnimated.current = true;
             // Unobserve after animation triggers to prevent re-triggering
-            if (sectionRef.current) {
-              observer.unobserve(sectionRef.current);
+            if (node) {
+              observer.unobserve(node);
             }
           }
         });
@@ -121,13 +121,13 @@ export function Experience() {
       }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (node) {
+        observer.unobserve(node);
       }
       if (fallbackTimer.current) {
         clearTimeout(fallbackTimer.current);

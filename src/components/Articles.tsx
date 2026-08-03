@@ -13,11 +13,6 @@ export function Articles() {
   const { language } = useLanguage();
   const t = articlesSection[language];
   const [selectedArticle, setSelectedArticle] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (selectedArticle === null) return;
@@ -42,7 +37,7 @@ export function Articles() {
   const isModalOpen = selectedArticle !== null;
 
   const modal =
-    mounted && selectedItem
+    selectedItem && typeof document !== "undefined"
       ? createPortal(
           <>
             <button
@@ -53,7 +48,7 @@ export function Articles() {
             />
             <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
               <Card
-                className="card-gradient-bg pointer-events-auto relative flex max-h-[min(68vh,28rem)] w-full max-w-md animate-fade-in flex-col overflow-hidden border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
+                className="card-gradient-bg pointer-events-auto relative flex max-h-[min(68vh,28rem)] w-full max-w-xl animate-fade-in flex-col overflow-hidden border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button

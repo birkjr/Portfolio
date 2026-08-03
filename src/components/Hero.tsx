@@ -3,14 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Calendar,
-  MapPin,
-  ArrowRight,
-  Github,
-  Linkedin,
-  Mail,
-} from "lucide-react";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import TextType from "@/components/TextType";
 import { SectionContainer } from "./SectionContainer";
@@ -58,6 +51,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
+    const node = desktopCardRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -71,13 +65,13 @@ export function Hero() {
       { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
     );
 
-    if (desktopCardRef.current) {
-      observer.observe(desktopCardRef.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (desktopCardRef.current) {
-        observer.unobserve(desktopCardRef.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, []);
