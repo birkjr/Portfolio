@@ -39,6 +39,20 @@ body::before {
   background-size: 20px 20px;
   pointer-events: none;
   z-index: 0;
+  -webkit-mask-image: radial-gradient(
+    circle var(--magnet-radius, 0px) at var(--cursor-x, -9999px)
+      var(--cursor-y, -9999px),
+    transparent 0,
+    transparent calc(100% - 1px),
+    black 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--magnet-radius, 0px) at var(--cursor-x, -9999px)
+      var(--cursor-y, -9999px),
+    transparent 0,
+    transparent calc(100% - 1px),
+    black 100%
+  );
 }
 
 .card-gradient-bg {

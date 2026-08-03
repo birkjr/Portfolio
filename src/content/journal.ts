@@ -7,8 +7,8 @@ export interface JournalItem {
   tag: { no: string; en: string };
 }
 
-export const JOURNAL_INITIAL_VISIBLE = 4;
-export const JOURNAL_LOAD_MORE = 4;
+export const JOURNAL_INITIAL_VISIBLE = 3;
+export const JOURNAL_LOAD_MORE = 3;
 
 /** Section headings for the Journal block */
 export const journalSection: Localized<{
@@ -57,7 +57,7 @@ export const journal: JournalItem[] = [
         "Det var utrolig motiverende.",
         "Men så skjedde noe jeg ikke hadde forventet.",
         "Jo flere som sto på ventelisten, desto mer redd ble jeg for å lansere.",
-        "Plutselig føltes det som om versjon 1 måtte være perfekt. Vi hadde jo «1000 mennesker som ventet». Hver eneste bug føltes som en katastrofe, og hver eneste funksjon måtte være gjennomtenkt.",
+        "Plutselig føltes det som om versjon 1 måtte være perfekt. Vi hadde jo 1000 personer som ventet. Hver eneste bug føltes som en katastrofe, og hver eneste funksjon måtte være gjennomtenkt.",
         "Sett i ettertid tror jeg vi stilte helt feil spørsmål.",
         "Ikke: «Er produktet perfekt?»",
         "Men: «Lærer vi noe nytt ved å vente én måned til?»",
@@ -205,7 +205,7 @@ export const journal: JournalItem[] = [
         "I'm far from having the final answer on this. I'm still trying to find the balance myself.",
       ],
     },
-    tag: { no: "AI", en: "AI" },
+    tag: { no: "Workflow", en: "Workflow" },
   },
   {
     slug: "grades-vs-experience",

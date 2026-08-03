@@ -4,19 +4,27 @@ import { useEffect, useRef } from "react";
 
 const GRID_SIZE = 20;
 const MAX_TWINKLES = 8;
-const MAX_CURSOR_DOTS = 8;
+const MAX_CURSOR_DOTS = 10;
 const RANDOM_TWINKLE_RADIUS = 1.35;
 const CURSOR_TWINKLE_RADIUS = 2.35;
 const CURSOR_PULSE_DURATION = 320;
 const CURSOR_RESTING_ALPHA = 0.36;
-const CURSOR_CELL_RADIUS = 2;
 const CURSOR_MOVE_THROTTLE_MS = 32;
+const MAGNET_RADIUS = 85;
+const MAX_PULL = 11;
+const MAGNET_LERP = 0.2;
+const BASE_DOT_RADIUS = 1;
 
 interface Twinkle {
   col: number;
   row: number;
   startTime: number;
   duration: number;
+}
+
+interface DotOffset {
+  x: number;
+  y: number;
 }
 
 function getTwinkleColor(alpha: number, cursor: boolean) {
@@ -33,23 +41,63 @@ function getTwinkleColor(alpha: number, cursor: boolean) {
     : `rgba(15, 23, 42, ${alpha})`;
 }
 
-function getNearbyGridDots(cursorX: number, cursorY: number) {
+function getGridDotColor() {
+  return (
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--page-grid-dot")
+      .trim() || "rgba(15, 23, 42, 0.12)"
+  );
+}
+
+function getGridDotPosition(col: number, row: number) {
+  return { x: col * GRID_SIZE + 2, y: row * GRID_SIZE + 2 };
+}
+
+function getDotsInMagnetRange(cursorX: number, cursorY: number) {
   const centerCol = Math.floor(cursorX / GRID_SIZE);
   const centerRow = Math.floor(cursorY / GRID_SIZE);
+  const cellRadius = Math.ceil(MAGNET_RADIUS / GRID_SIZE) + 1;
   const dots: { col: number; row: number; dist: number }[] = [];
 
-  for (let dc = -CURSOR_CELL_RADIUS; dc <= CURSOR_CELL_RADIUS; dc += 1) {
-    for (let dr = -CURSOR_CELL_RADIUS; dr <= CURSOR_CELL_RADIUS; dr += 1) {
+  for (let dc = -cellRadius; dc <= cellRadius; dc += 1) {
+    for (let dr = -cellRadius; dr <= cellRadius; dr += 1) {
       const col = centerCol + dc;
       const row = centerRow + dr;
-      const x = col * GRID_SIZE + 2;
-      const y = row * GRID_SIZE + 2;
-      dots.push({ col, row, dist: Math.hypot(x - cursorX, y - cursorY) });
+      const { x, y } = getGridDotPosition(col, row);
+      const dist = Math.hypot(x - cursorX, y - cursorY);
+
+      if (dist <= MAGNET_RADIUS) {
+        dots.push({ col, row, dist });
+      }
     }
   }
 
   dots.sort((a, b) => a.dist - b.dist);
   return dots;
+}
+
+function computeMagneticTarget(
+  dotX: number,
+  dotY: number,
+  cursorX: number,
+  cursorY: number
+) {
+  const dx = cursorX - dotX;
+  const dy = cursorY - dotY;
+  const dist = Math.hypot(dx, dy);
+
+  if (dist >= MAGNET_RADIUS || dist < 0.5) {
+    return { x: 0, y: 0, strength: 0 };
+  }
+
+  const strength = 1 - dist / MAGNET_RADIUS;
+  const pull = strength * strength * MAX_PULL;
+
+  return {
+    x: (dx / dist) * pull,
+    y: (dy / dist) * pull,
+    strength,
+  };
 }
 
 function cursorPulseStrength(progress: number) {
@@ -74,6 +122,16 @@ function drawTwinkleDot(
   ctx.fill();
 }
 
+function setCursorCssVars(x: number, y: number, active: boolean) {
+  const root = document.documentElement;
+  root.style.setProperty("--cursor-x", `${x}px`);
+  root.style.setProperty("--cursor-y", `${y}px`);
+  root.style.setProperty(
+    "--magnet-radius",
+    active ? `${MAGNET_RADIUS}px` : "0px"
+  );
+}
+
 export function LivingGridDots() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -92,6 +150,7 @@ export function LivingGridDots() {
 
     const twinkles: Twinkle[] = [];
     const cursorPulses = new Map<string, number>();
+    const dotOffsets = new Map<string, DotOffset>();
     const cursor = { x: -9999, y: -9999, active: false };
     let animationId = 0;
     let lastSpawn = 0;
@@ -129,7 +188,7 @@ export function LivingGridDots() {
     };
 
     const triggerCursorPulse = (now: number) => {
-      const nearby = getNearbyGridDots(cursor.x, cursor.y).slice(
+      const nearby = getDotsInMagnetRange(cursor.x, cursor.y).slice(
         0,
         MAX_CURSOR_DOTS
       );
@@ -139,38 +198,98 @@ export function LivingGridDots() {
       }
     };
 
-    const drawCursorHalo = (time: number) => {
-      if (!cursor.active) return;
+    const getDotOffset = (key: string) => {
+      const existing = dotOffsets.get(key);
+      if (existing) return existing;
 
-      const nearby = getNearbyGridDots(cursor.x, cursor.y).slice(
-        0,
-        MAX_CURSOR_DOTS
-      );
+      const offset = { x: 0, y: 0 };
+      dotOffsets.set(key, offset);
+      return offset;
+    };
+
+    const updateDotOffsets = () => {
       const activeKeys = new Set<string>();
+
+      if (cursor.active) {
+        for (const dot of getDotsInMagnetRange(cursor.x, cursor.y)) {
+          const key = `${dot.col},${dot.row}`;
+          activeKeys.add(key);
+
+          const { x, y } = getGridDotPosition(dot.col, dot.row);
+          const target = computeMagneticTarget(x, y, cursor.x, cursor.y);
+          const offset = getDotOffset(key);
+
+          offset.x += (target.x - offset.x) * MAGNET_LERP;
+          offset.y += (target.y - offset.y) * MAGNET_LERP;
+        }
+      }
+
+      for (const [key, offset] of dotOffsets) {
+        if (activeKeys.has(key)) continue;
+
+        offset.x += (0 - offset.x) * MAGNET_LERP;
+        offset.y += (0 - offset.y) * MAGNET_LERP;
+
+        if (Math.abs(offset.x) < 0.05 && Math.abs(offset.y) < 0.05) {
+          dotOffsets.delete(key);
+        }
+      }
+    };
+
+    const drawMagneticField = (time: number) => {
+      const gridDotColor = getGridDotColor();
+      const nearby = cursor.active
+        ? getDotsInMagnetRange(cursor.x, cursor.y)
+        : [];
+      const activeKeys = new Set<string>();
+      const nearestKeys = new Set(
+        nearby.slice(0, MAX_CURSOR_DOTS).map((dot) => `${dot.col},${dot.row}`)
+      );
 
       for (const dot of nearby) {
         const key = `${dot.col},${dot.row}`;
         activeKeys.add(key);
 
-        const x = dot.col * GRID_SIZE + 2;
-        const y = dot.row * GRID_SIZE + 2;
+        const { x, y } = getGridDotPosition(dot.col, dot.row);
+        const offset = dotOffsets.get(key) ?? { x: 0, y: 0 };
+        const drawX = x + offset.x;
+        const drawY = y + offset.y;
+        const strength = computeMagneticTarget(
+          x,
+          y,
+          cursor.x,
+          cursor.y
+        ).strength;
+        const isNearest = nearestKeys.has(key);
 
-        let alpha = CURSOR_RESTING_ALPHA;
-        let radius = CURSOR_TWINKLE_RADIUS * 0.96;
+        let alpha = 0.12 + strength * 0.55;
+        let radius = BASE_DOT_RADIUS + strength * 1.1;
 
         const pulseStart = cursorPulses.get(key);
         if (pulseStart !== undefined) {
           const elapsed = time - pulseStart;
           if (elapsed < CURSOR_PULSE_DURATION) {
-            const strength = cursorPulseStrength(
-              elapsed / CURSOR_PULSE_DURATION
-            );
-            alpha = CURSOR_RESTING_ALPHA + strength * 0.42;
-            radius = CURSOR_TWINKLE_RADIUS * (0.96 + strength * 0.24);
+            const pulse = cursorPulseStrength(elapsed / CURSOR_PULSE_DURATION);
+            alpha += pulse * 0.28;
+            radius += pulse * 0.9;
           }
         }
 
-        drawTwinkleDot(ctx, x, y, alpha, true, radius);
+        if (isNearest) {
+          alpha = Math.max(alpha, CURSOR_RESTING_ALPHA + strength * 0.35);
+          radius = Math.max(
+            radius,
+            CURSOR_TWINKLE_RADIUS * (0.9 + strength * 0.3)
+          );
+          drawTwinkleDot(ctx, drawX, drawY, alpha, true, radius);
+        } else {
+          ctx.beginPath();
+          ctx.arc(drawX, drawY, radius, 0, Math.PI * 2);
+          ctx.fillStyle = gridDotColor;
+          ctx.globalAlpha = 0.55 + strength * 0.45;
+          ctx.fill();
+          ctx.globalAlpha = 1;
+        }
       }
 
       for (const key of cursorPulses.keys()) {
@@ -178,6 +297,29 @@ export function LivingGridDots() {
           cursorPulses.delete(key);
         }
       }
+
+      for (const [key, offset] of dotOffsets) {
+        if (activeKeys.has(key)) continue;
+
+        const [col, row] = key.split(",").map(Number);
+        const { x, y } = getGridDotPosition(col, row);
+
+        ctx.beginPath();
+        ctx.arc(x + offset.x, y + offset.y, BASE_DOT_RADIUS, 0, Math.PI * 2);
+        ctx.fillStyle = gridDotColor;
+        ctx.fill();
+      }
+    };
+
+    const getTwinkleDrawPosition = (col: number, row: number) => {
+      const { x, y } = getGridDotPosition(col, row);
+      const offset = dotOffsets.get(`${col},${row}`);
+
+      if (!offset) {
+        return { x, y };
+      }
+
+      return { x: x + offset.x, y: y + offset.y };
     };
 
     const spawnRandomTwinkle = () => {
@@ -194,6 +336,7 @@ export function LivingGridDots() {
       cursor.x = event.clientX;
       cursor.y = event.clientY;
       cursor.active = true;
+      setCursorCssVars(cursor.x, cursor.y, true);
 
       const now = performance.now();
       if (now - lastCursorPulse < CURSOR_MOVE_THROTTLE_MS) return;
@@ -205,12 +348,15 @@ export function LivingGridDots() {
     const onLeave = () => {
       cursor.active = false;
       cursorPulses.clear();
+      setCursorCssVars(cursor.x, cursor.y, false);
     };
 
     const draw = (time: number) => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       ctx.clearRect(0, 0, width, height);
+
+      updateDotOffsets();
 
       if (time - lastSpawn > 650 + Math.random() * 500) {
         spawnRandomTwinkle();
@@ -232,18 +378,17 @@ export function LivingGridDots() {
 
         if (alpha < 0.03) continue;
 
-        const x = twinkle.col * GRID_SIZE + 2;
-        const y = twinkle.row * GRID_SIZE + 2;
-
+        const { x, y } = getTwinkleDrawPosition(twinkle.col, twinkle.row);
         drawTwinkleDot(ctx, x, y, alpha, false);
       }
 
-      drawCursorHalo(time);
+      drawMagneticField(time);
 
       animationId = requestAnimationFrame(draw);
     };
 
     resize();
+    setCursorCssVars(cursor.x, cursor.y, false);
     window.addEventListener("resize", resize);
     if (!isCoarsePointer) {
       window.addEventListener("mousemove", onMove, { passive: true });
@@ -253,6 +398,7 @@ export function LivingGridDots() {
 
     return () => {
       cancelAnimationFrame(animationId);
+      setCursorCssVars(cursor.x, cursor.y, false);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);

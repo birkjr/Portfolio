@@ -157,7 +157,7 @@ export function Journal() {
 
   return (
     <SectionContainer id="journal">
-      <div className="relative mx-auto max-w-3xl">
+      <div className="relative mx-auto max-w-7xl">
         <div
           className={`transition-[filter] duration-300 ${
             isModalOpen ? "pointer-events-none blur-sm" : ""

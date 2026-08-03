@@ -39,8 +39,8 @@ export const techItems: TechItemEntry[] = [
     name: "React",
     group: { no: "Frontend", en: "Frontend" },
     why: {
-      no: "Bruker React i Thylo Insight (app og web), Teknologiporten og EMIL-Link. Komponentmodellen sitter, og jeg slipper å bytte mental modell mellom prosjektene mine.",
-      en: "I use React across Thylo Insight (app and web), Teknologiporten and EMIL-Link. The component model clicks for me, and I don't have to switch mental models between projects.",
+      no: "React er et UI-bibliotek — det handler om komponenter, state og gjenbrukbar frontend-logikk. Jeg bruker det i Thylo Insight, Teknologiporten og EMIL-Link. Men React alene er bare view-laget: uten et rammeverk rundt rendrer siden ofte i nettleseren (CSR), og da får søkemotorer mindre ferdig HTML med én gang. For SEO-tunge nettsider holder det ofte ikke alene.",
+      en: "React is a UI library — components, state and reusable frontend logic. I use it across Thylo Insight, Teknologiporten and EMIL-Link. On its own, though, React is just the view layer: without a framework around it, the page often renders in the browser (CSR), so search engines get less ready-made HTML upfront. For SEO-heavy sites, that often isn't enough on its own.",
     },
     iconType: "image",
     imageSrc: "/Icons/react.jpeg",
@@ -49,8 +49,8 @@ export const techItems: TechItemEntry[] = [
     name: "Next.js",
     group: { no: "Frontend", en: "Frontend" },
     why: {
-      no: "Routing, SSR og deploy rett ut av boksen. Teknologiporten og denne porteføljen kjører Next.js — mindre oppsett, mer tid til å shippe.",
-      en: "Routing, SSR and deployment out of the box. Teknologiporten and this portfolio run on Next.js — less setup, more time shipping.",
+      no: "Next.js er rammeverket jeg legger oppå React for offentlige nettsider. Forskjellen: React bygger UI-et, mens Next.js legger til routing, SSR/SSG, metadata og deploy — HTML sendes ferdig fra serveren, bedre for SEO og raskere første visning. Derfor kjører Teknologiporten og denne porteføljen Next.js, ikke ren client-side React.",
+      en: "Next.js is the framework I layer on top of React for public websites. The difference: React builds the UI, while Next.js adds routing, SSR/SSG, metadata and deployment — HTML is sent ready from the server, which is better for SEO and faster first paint. That's why Teknologiporten and this portfolio run on Next.js, not plain client-side React.",
     },
     iconType: "image",
     imageSrc: "/Icons/nextjs.jpeg",
@@ -59,8 +59,8 @@ export const techItems: TechItemEntry[] = [
     name: "TypeScript",
     group: { no: "Språk", en: "Language" },
     why: {
-      no: "Når jeg hopper mellom studie, startup og internships, fanger TypeScript feil før de når brukerne. Typene er dokumentasjon jeg faktisk holder oppdatert.",
-      en: "When I jump between studies, startup work and internships, TypeScript catches bugs before users do. The types are documentation I actually keep up to date.",
+      no: "Fra å først være kjent med JavaScript til å bli kjent med TypeScript var natt og dag, og spesielt når man skal lage felles komponenter for flere repoer er dette det perfekte språket for meg. Det gjør det også lettere å vedlikehole kodebasen.",
+      en: "From being familiar with JavaScript to becoming familiar with TypeScript was night and day, and especially when making shared components for multiple repos this is the perfect language for me. It also makes it easier to maintain the codebase.",
     },
     iconType: "image",
     imageSrc: "/Icons/typescriptv2.png",
@@ -107,7 +107,7 @@ export const techItems: TechItemEntry[] = [
   },
   {
     name: "Vercel",
-    group: { no: "Infrastruktur", en: "Infrastructure" },
+    group: { no: "Deploy", en: "Deploy" },
     why: {
       no: "Push til main, live på sekunder. For sideprosjekter og produksjonssider er friksjonen så lav at jeg faktisk deployer ofte.",
       en: "Push to main, live in seconds. For side projects and production sites the friction is low enough that I actually deploy often.",

@@ -23,6 +23,8 @@ const portraitFooter = `relative z-10 rounded-b-[2rem] border-t-2 ${heroAccentSu
 const portraitLogoBadge =
   "flex items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md dark:border-transparent dark:bg-foreground/90 dark:text-background";
 
+const socialLinksShell = `group relative flex items-center justify-center gap-4 overflow-hidden rounded-md border-2 ${heroAccentSurface} px-6 py-3 shadow-sm hover:border-[#e3d4c3] hover-glow`;
+
 function PortraitImage() {
   const [hasError, setHasError] = useState(false);
 
@@ -235,9 +237,10 @@ export function Hero() {
             <Button
               variant="outline"
               onClick={() => scrollToSection("#contact")}
-              className={`h-11 border-2 ${heroAccentSurface} px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[#e3d4c3] dark:text-foreground dark:hover:bg-accent`}
+              className={`group relative h-11 overflow-hidden border-2 ${heroAccentSurface} px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[#e3d4c3] hover-glow dark:text-foreground dark:hover:bg-accent`}
             >
-              {t.ctaSecondary}
+              <div className="card-shine" aria-hidden />
+              <span className="relative z-10">{t.ctaSecondary}</span>
             </Button>
           </div>
         </div>
@@ -295,32 +298,37 @@ export function Hero() {
               </div>
 
               {/* Social Links */}
-              <div className="flex w-[21.5rem] items-center justify-center gap-4 pt-12">
-                <a
-                  href="https://github.com/birkjr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium">GitHub</span>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/birkjramstad/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium">LinkedIn</span>
-                </a>
-                <a
-                  href="mailto:birkrams@gmail.com"
-                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium">Email</span>
-                </a>
+              <div className="flex w-[21.5rem] items-center justify-center pt-12">
+                <div className={socialLinksShell}>
+                  <div className="card-shine" aria-hidden />
+                  <div className="relative z-10 flex items-center justify-center gap-4">
+                    <a
+                      href="https://github.com/birkjr"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Github className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-medium">GitHub</span>
+                    </a>
+                    <a
+                      href="https://www.linkedin.com/in/birkjramstad/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Linkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-medium">LinkedIn</span>
+                    </a>
+                    <a
+                      href="mailto:birkrams@gmail.com"
+                      className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-medium">Email</span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
