@@ -276,8 +276,9 @@ export default function Navbar() {
                 onClick={() => scrollToSection(item.href)}
                 className="group relative w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-white/70 border-2 border-slate-200/70 hover:border-foreground/30 hover:bg-white transition-all duration-300 overflow-hidden shadow-lg shadow-slate-900/10 hover:shadow-black/10 dark:bg-slate-800/90 dark:border-slate-700/50 dark:hover:bg-slate-800 dark:hover:shadow-black/10"
                 style={{
-                  animationDelay: `${index * 60}ms`,
-                  animation: isOpen ? "slideInLeft 0.6s ease-out both" : "none",
+                  animation: isOpen
+                    ? `slideInLeft 0.6s ease-out ${index * 60}ms both`
+                    : "none",
                 }}
               >
                 <div className="absolute inset-0 group-hover:bg-muted/50 transition-all duration-300" />

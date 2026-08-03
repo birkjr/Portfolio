@@ -262,37 +262,40 @@ export function Timeline() {
     });
   }, []);
 
-  useEffect(() => {
+  const updateActive = useCallback(() => {
     const nodes = itemRefs.current.filter(Boolean) as HTMLLIElement[];
     if (nodes.length === 0) return;
 
+    const viewportCenter = window.innerHeight / 2;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    nodes.forEach((node, index) => {
+      const rect = node.getBoundingClientRect();
+      const itemCenter = rect.top + rect.height / 2;
+      const distance = Math.abs(itemCenter - viewportCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveIndex(closestIndex);
+  }, []);
+
+  useEffect(() => {
     let frame = 0;
-
-    const updateActive = () => {
-      const viewportCenter = window.innerHeight / 2;
-      let closestIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      nodes.forEach((node, index) => {
-        const rect = node.getBoundingClientRect();
-        const itemCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(itemCenter - viewportCenter);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      setActiveIndex(closestIndex);
-    };
 
     const scheduleUpdate = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(updateActive);
     };
 
-    scheduleUpdate();
+    frame = requestAnimationFrame(() => {
+      requestAnimationFrame(scheduleUpdate);
+    });
+
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
 
@@ -301,7 +304,12 @@ export function Timeline() {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
     };
-  }, []);
+  }, [updateActive]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(updateActive);
+    return () => cancelAnimationFrame(frame);
+  }, [expandedIds, updateActive]);
 
   return (
     <SectionContainer id="timeline">
