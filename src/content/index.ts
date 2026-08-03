@@ -12,13 +12,6 @@ export {
   type TechIcon,
 } from "./skills";
 export {
-  projectsSection,
-  projectEntries,
-  getProjectEntries,
-  type ProjectEntry,
-  type ProjectIcon,
-} from "./projects";
-export {
   timelineSection,
   timelineEntries,
   type TimelineEntry,

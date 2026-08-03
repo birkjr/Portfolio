@@ -1,14 +1,25 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import {
+  ChevronDown,
+  ExternalLink,
+  Github,
+  MessageCircleQuestion,
+} from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "./SectionContainer";
 import {
   timelineSection,
   timelineEntries,
+  type TimelineEntry,
   type TimelineEntryType,
 } from "@/content/timeline";
+import { articles } from "@/content/articles";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const timelineTypeLabels: Record<
   TimelineEntryType,
@@ -19,11 +30,237 @@ const timelineTypeLabels: Record<
   summerIntern: "summerIntern",
 };
 
+function openArticle(slug: string) {
+  window.location.hash = `article-${slug}`;
+  document.getElementById("articles")?.scrollIntoView({ behavior: "smooth" });
+}
+
+function TimelineCard({
+  entry,
+  isActive,
+  isExpanded,
+  onToggleExpand,
+}: {
+  entry: TimelineEntry;
+  isActive: boolean;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
+}) {
+  const { language } = useLanguage();
+  const t = timelineSection[language];
+  const expandable = entry.expandable;
+  const hasExpandable = Boolean(
+    expandable &&
+      (expandable.images?.length ||
+        expandable.architecture ||
+        expandable.github ||
+        expandable.demo ||
+        expandable.articleSlugs?.length)
+  );
+
+  const linkedArticles =
+    expandable?.articleSlugs
+      ?.map((slug) => articles.find((article) => article.slug === slug))
+      .filter(Boolean) ?? [];
+
+  return (
+    <div
+      className={cn(
+        "rounded-xl border bg-card/40 transition-colors",
+        isActive
+          ? "border-foreground/25"
+          : "border-border hover:border-foreground/20"
+      )}
+    >
+      <div className="p-4 sm:p-5">
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium text-muted-foreground">
+            {entry.period}
+          </span>
+          <Badge variant="outline" className="text-[10px]">
+            {t[timelineTypeLabels[entry.type]]}
+          </Badge>
+        </div>
+
+        <h3 className="mb-0.5 text-base font-bold sm:text-lg">
+          {entry.subtitle[language]}
+        </h3>
+        <p className="mb-2 text-sm font-medium text-muted-foreground">
+          {entry.title[language]}
+        </p>
+
+        {entry.description && (
+          <p className="text-sm leading-relaxed text-muted-foreground/90">
+            {entry.description[language]}
+          </p>
+        )}
+
+        {hasExpandable && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={onToggleExpand}
+            aria-expanded={isExpanded}
+            className="mt-3 h-8 gap-1.5 px-2 text-xs font-medium text-muted-foreground hover:text-foreground"
+          >
+            {isExpanded ? t.readLess : t.readMore}
+            <ChevronDown
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-300",
+                isExpanded && "rotate-180"
+              )}
+            />
+          </Button>
+        )}
+
+        <div
+          className={cn(
+            "grid transition-[grid-template-rows] duration-300 ease-out",
+            isExpanded && hasExpandable ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+          )}
+        >
+          <div className="overflow-hidden">
+            {expandable && (
+              <div className="space-y-5 pt-4">
+                {expandable.images && expandable.images.length > 0 && (
+                  <ExpandableSection title={t.images}>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {expandable.images.map((image) => (
+                        <div
+                          key={image.src}
+                          className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-muted/20"
+                        >
+                          <Image
+                            src={image.src}
+                            alt={image.alt[language]}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 320px"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </ExpandableSection>
+                )}
+
+                {expandable.architecture && (
+                  <ExpandableSection title={t.architecture}>
+                    <p className="text-sm leading-relaxed text-muted-foreground/90">
+                      {expandable.architecture[language]}
+                    </p>
+                  </ExpandableSection>
+                )}
+
+                {(expandable.github || expandable.demo) && (
+                  <ExpandableSection
+                    title={expandable.github ? t.github : t.demo}
+                  >
+                    <div className="flex flex-wrap gap-2">
+                      {expandable.github && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-8 text-xs"
+                          onClick={() =>
+                            window.open(expandable.github, "_blank")
+                          }
+                        >
+                          <Github className="mr-1.5 h-3.5 w-3.5" />
+                          GitHub
+                          <ExternalLink className="ml-1.5 h-3 w-3" />
+                        </Button>
+                      )}
+                      {expandable.demo && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-8 text-xs"
+                          onClick={() => window.open(expandable.demo, "_blank")}
+                        >
+                          {t.demo}
+                          <ExternalLink className="ml-1.5 h-3 w-3" />
+                        </Button>
+                      )}
+                    </div>
+                  </ExpandableSection>
+                )}
+
+                {linkedArticles.length > 0 && (
+                  <ExpandableSection title={t.articles}>
+                    <ul className="space-y-2">
+                      {linkedArticles.map((article) => (
+                        <li key={article!.slug}>
+                          <button
+                            type="button"
+                            onClick={() => openArticle(article!.slug)}
+                            className="group flex w-full items-start gap-2 rounded-lg border border-border/60 bg-background/40 px-3 py-2.5 text-left transition-colors hover:border-foreground/20 hover:bg-background/70"
+                          >
+                            <MessageCircleQuestion className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                            <span className="text-sm leading-snug text-foreground/90 group-hover:text-foreground">
+                              {article!.question[language]}
+                            </span>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </ExpandableSection>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-4 border-t border-border/60 pt-4">
+          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            {t.whatILearned}
+          </p>
+          <p className="text-sm leading-relaxed text-foreground/90 italic">
+            {entry.learnings[language]}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExpandableSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+        {title}
+      </p>
+      {children}
+    </div>
+  );
+}
+
 export function Timeline() {
   const { language } = useLanguage();
   const t = timelineSection[language];
   const [activeIndex, setActiveIndex] = useState(0);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  const toggleExpanded = useCallback((id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     const nodes = itemRefs.current.filter(Boolean) as HTMLLIElement[];
@@ -92,7 +329,7 @@ export function Timeline() {
 
               return (
                 <li
-                  key={index}
+                  key={entry.id}
                   ref={(el) => {
                     itemRefs.current[index] = el;
                   }}
@@ -108,33 +345,12 @@ export function Timeline() {
                     aria-hidden
                   />
 
-                  <div
-                    className={`rounded-xl border bg-card/40 p-4 transition-colors sm:p-5 ${
-                      isActive
-                        ? "border-foreground/25"
-                        : "border-border hover:border-foreground/20"
-                    }`}
-                  >
-                    <div className="mb-2 flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {entry.period}
-                      </span>
-                      <Badge variant="outline" className="text-[10px]">
-                        {t[timelineTypeLabels[entry.type]]}
-                      </Badge>
-                    </div>
-                    <h3 className="mb-0.5 text-base font-bold sm:text-lg">
-                      {entry.title[language]}
-                    </h3>
-                    <p className="mb-2 text-sm font-medium text-muted-foreground">
-                      {entry.subtitle[language]}
-                    </p>
-                    {entry.description && (
-                      <p className="text-sm leading-relaxed text-muted-foreground/90">
-                        {entry.description[language]}
-                      </p>
-                    )}
-                  </div>
+                  <TimelineCard
+                    entry={entry}
+                    isActive={isActive}
+                    isExpanded={expandedIds.has(entry.id)}
+                    onToggleExpand={() => toggleExpanded(entry.id)}
+                  />
                 </li>
               );
             })}

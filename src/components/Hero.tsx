@@ -198,7 +198,7 @@ export function Hero() {
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center lg:items-start sm:items-center gap-3 pt-10">
             <Button
-              onClick={() => scrollToSection("#projects")}
+              onClick={() => scrollToSection("#timeline")}
               className="group h-11 border-2 border-slate-200/80 bg-white/90 px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-transparent dark:bg-primary dark:text-primary-foreground dark:shadow-none dark:hover:bg-primary/90"
             >
               {t.cta}

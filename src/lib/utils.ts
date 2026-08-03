@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/** IntersectionObserver options for grid reveal animations (Projects, Skills). */
+/** IntersectionObserver options for grid reveal animations (Skills). */
 export function getGridRevealObserverOptions(): IntersectionObserverInit {
   if (typeof window === "undefined") {
     return { rootMargin: "-40% 0px -40% 0px", threshold: 0 };

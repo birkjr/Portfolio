@@ -2,14 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const SECTION_IDS = [
-  "about",
-  "projects",
-  "articles",
-  "timeline",
-  "skills",
-  "contact",
-];
+const SECTION_IDS = ["about", "timeline", "articles", "skills", "contact"];
 const HEADING_BOX_HEIGHT = 140;
 
 function getPathData(

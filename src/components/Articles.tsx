@@ -20,6 +20,7 @@ import {
   articlesSection,
   articles,
 } from "@/content/articles";
+import { getArticleSlugFromHash } from "@/content/timeline";
 
 export function Articles() {
   const { language } = useLanguage();
@@ -51,12 +52,39 @@ export function Articles() {
   const hasMore = visibleCount < filteredArticles.length;
   const canCollapse = visibleCount > ARTICLES_INITIAL_VISIBLE;
 
+  const closeArticle = () => {
+    setSelectedSlug(null);
+    if (window.location.hash.startsWith("#article-")) {
+      window.history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}${window.location.search}`
+      );
+    }
+  };
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const slug = getArticleSlugFromHash(window.location.hash);
+      if (slug && articles.some((item) => item.slug === slug)) {
+        setSelectedSlug(slug);
+      }
+    };
+
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+
+    return () => {
+      window.removeEventListener("hashchange", openFromHash);
+    };
+  }, []);
+
   useEffect(() => {
     if (selectedSlug === null) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setSelectedSlug(null);
+        closeArticle();
       }
     };
 
@@ -82,7 +110,7 @@ export function Articles() {
             <button
               type="button"
               className="fixed inset-0 z-[100] cursor-default bg-black/20 dark:bg-black/40"
-              onClick={() => setSelectedSlug(null)}
+              onClick={closeArticle}
               aria-label="Close"
             />
             <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
@@ -92,7 +120,7 @@ export function Articles() {
               >
                 <button
                   type="button"
-                  onClick={() => setSelectedSlug(null)}
+                  onClick={closeArticle}
                   className="absolute right-3 top-3 z-10 rounded-full bg-slate-900/70 p-1.5 text-white/80 transition-colors hover:bg-slate-800 hover:text-white dark:bg-slate-800/70 dark:hover:bg-slate-700"
                   aria-label="Close"
                 >
