@@ -96,9 +96,10 @@ export async function runCli(cwd = process.cwd(), defaultDirectory?: string) {
   const tooling = await p.multiselect({
     message: "Include tooling",
     options: [
-      { value: "cursor", label: "Cursor rules (.cursor/)", default: true },
-      { value: "husky", label: "Husky + lint-staged", default: true },
+      { value: "cursor", label: "Cursor rules (.cursor/)" },
+      { value: "husky", label: "Husky + lint-staged" },
     ],
+    initialValues: ["cursor", "husky"],
     required: false,
   });
 

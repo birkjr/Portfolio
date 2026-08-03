@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { isMobileViewport, prefersReducedMotion } from "@/lib/utils";
@@ -20,25 +20,30 @@ const HOLD_SHARE = 0.48;
 export function ScrollIntoMachine({
   hero,
   about,
+  aboutMobile,
 }: {
   hero: ReactNode;
   about: ReactNode;
+  /** Normal stacked About on mobile — defaults to `about`. */
+  aboutMobile?: ReactNode;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
 
+  const useSimpleLayout = useSyncExternalStore(
+    () => () => {},
+    () => prefersReducedMotion() || isMobileViewport(),
+    () => true
+  );
+
   useEffect(() => {
+    if (useSimpleLayout) return;
+
     const track = trackRef.current;
     const heroEl = heroRef.current;
     const aboutEl = aboutRef.current;
     if (!track || !heroEl || !aboutEl) return;
-
-    if (prefersReducedMotion() || isMobileViewport()) {
-      gsap.set([heroEl, aboutEl], { clearProps: "all" });
-      gsap.set(aboutEl, { opacity: 1, yPercent: 0 });
-      return;
-    }
 
     const left = heroEl.querySelector<HTMLElement>('[data-hero-side="left"]');
     const right = heroEl.querySelector<HTMLElement>('[data-hero-side="right"]');
@@ -117,7 +122,16 @@ export function ScrollIntoMachine({
     }, trackRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [useSimpleLayout]);
+
+  if (useSimpleLayout) {
+    return (
+      <>
+        {hero}
+        {aboutMobile ?? about}
+      </>
+    );
+  }
 
   return (
     <div ref={trackRef} className="relative h-[195vh]">

@@ -21,7 +21,11 @@ export default function Home() {
 
       <Navbar />
       <main className="relative z-10 overflow-x-clip">
-        <ScrollIntoMachine hero={<Hero />} about={<About motion="none" />} />
+        <ScrollIntoMachine
+          hero={<Hero />}
+          about={<About motion="none" />}
+          aboutMobile={<About />}
+        />
         <Timeline />
         <Journal />
         <Skills />
