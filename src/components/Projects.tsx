@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -48,6 +48,30 @@ export function Projects() {
   const [cardTilts, setCardTilts] = useState<CardTilt[]>(() =>
     projects.map(() => ({ ...DEFAULT_TILT }))
   );
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsVisible(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (node) {
+      observer.observe(node);
+    }
+
+    return () => {
+      if (node) {
+        observer.unobserve(node);
+      }
+    };
+  }, []);
 
   const handleCardMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -80,7 +104,7 @@ export function Projects() {
 
   return (
     <SectionContainer id="projects">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-7xl" ref={sectionRef}>
         <div className="mb-10 text-center">
           <div className="section-badge">
             <div className="section-badge-dot" />
@@ -104,7 +128,10 @@ export function Projects() {
             return (
               <div
                 key={project.title}
-                className="card-project [perspective:1000px]"
+                className={`card-project [perspective:1000px] ${
+                  isVisible ? "tech-card-slide-up" : "opacity-0"
+                }`}
+                style={{ animationDelay: `${index * 0.05}s` }}
                 onMouseMove={(e) => handleCardMouseMove(e, index)}
                 onMouseLeave={() => handleCardMouseLeave(index)}
               >

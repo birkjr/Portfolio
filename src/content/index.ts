@@ -24,12 +24,7 @@ export {
   type TimelineEntry,
   type TimelineEntryType,
 } from "./timeline";
-export {
-  articlesSection,
-  articles,
-  type ArticleItem,
-  type ArticleKind,
-} from "./articles";
+export { articlesSection, articles, type ArticleItem } from "./articles";
 export {
   educationSection,
   educationEntries,

@@ -9,18 +9,18 @@ export const about: Localized<{
     label: "Om meg",
     title: "Kort om meg",
     paragraphs: [
-      "Jeg er programvareutvikler og datateknologistudent ved NTNU. Jeg liker å bygge produkter som er enkle å bruke, men teknisk solide under overflaten.",
-      "Som medgründer og CTO for Thylo Insight jobber jeg med full-stack utvikling — fra React og Next.js i frontend til Supabase og API-er i backend. Jeg er også interessert i AI, reverse engineering og sikkerhet.",
-      "Jeg trives best når jeg kan ta et problem fra idé til produksjon: forstå domenet, designe strukturen, skrive koden og levere noe folk faktisk bruker.",
+      "Jeg elsker å bygge nye ting — kanskje litt for mye, om jeg skal være ærlig. Det hender jeg har et sideprosjekt til sideprosjektet, og så ett til som «bare skal ta en halvtime».",
+      "Jeg vokste opp med rundt fem ulike idretter, og lærte tidlig at det er greit å være nybegynner igjen: bytte arena, stille dumme spørsmål, og finne ut underveis hva man faktisk liker.",
+      "Det har fulgt meg inn i voksenlivet. Programvareutvikling ble stedet der jeg får kombinere begge deler — bygge noe konkret, samtidig som jeg stadig må lære noe nytt. Jeg er langt fra ferdig, men det er egentlig det som gjør det gøy.",
     ],
   },
   en: {
     label: "About",
     title: "Short about me",
     paragraphs: [
-      "I'm a software engineer and computer science student at NTNU. I like building products that are simple to use, but technically solid under the hood.",
-      "As co-founder and CTO of Thylo Insight, I work on full-stack development — from React and Next.js on the frontend to Supabase and APIs on the backend. I'm also interested in AI, reverse engineering and security.",
-      "I'm at my best when I can take a problem from idea to production: understand the domain, design the structure, write the code and ship something people actually use.",
+      "I love building new things — maybe a bit too much, if I'm honest. I often end up with a side project for my side project, plus another one that's \"just a quick half hour\".",
+      "I grew up doing around five different sports, and learned early that it's okay to be a beginner again: switch arenas, ask silly questions, and figure out along the way what you actually enjoy.",
+      "That has stayed with me into adulthood. Software development became the place where I get to combine both — build something concrete while constantly having to learn something new. I'm far from done, but that's kind of what makes it fun.",
     ],
   },
 };
