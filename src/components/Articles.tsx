@@ -26,7 +26,13 @@ export function Articles() {
   const t = articlesSection[language];
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [activeTag, setActiveTag] = useState<string | null>(null);
-  const [visibleCount, setVisibleCount] = useState(ARTICLES_INITIAL_VISIBLE);
+  const [visibleCountsByFilter, setVisibleCountsByFilter] = useState<
+    Record<string, number>
+  >({});
+
+  const filterKey = `${language}:${activeTag ?? "all"}`;
+  const visibleCount =
+    visibleCountsByFilter[filterKey] ?? ARTICLES_INITIAL_VISIBLE;
 
   const tags = useMemo(
     () => [...new Set(articles.map((item) => item.tag[language]))],
@@ -44,10 +50,6 @@ export function Articles() {
   const visibleArticles = filteredArticles.slice(0, visibleCount);
   const hasMore = visibleCount < filteredArticles.length;
   const canCollapse = visibleCount > ARTICLES_INITIAL_VISIBLE;
-
-  useEffect(() => {
-    setVisibleCount(ARTICLES_INITIAL_VISIBLE);
-  }, [activeTag, language]);
 
   useEffect(() => {
     if (selectedSlug === null) return;
@@ -226,7 +228,10 @@ export function Articles() {
                 <Button
                   variant="outline"
                   onClick={() =>
-                    setVisibleCount((count) => count + ARTICLES_LOAD_MORE)
+                    setVisibleCountsByFilter((prev) => ({
+                      ...prev,
+                      [filterKey]: visibleCount + ARTICLES_LOAD_MORE,
+                    }))
                   }
                   className="gap-2"
                 >
@@ -237,7 +242,12 @@ export function Articles() {
               {canCollapse && (
                 <Button
                   variant="ghost"
-                  onClick={() => setVisibleCount(ARTICLES_INITIAL_VISIBLE)}
+                  onClick={() =>
+                    setVisibleCountsByFilter((prev) => ({
+                      ...prev,
+                      [filterKey]: ARTICLES_INITIAL_VISIBLE,
+                    }))
+                  }
                   className="gap-2 text-muted-foreground"
                 >
                   {t.showLess}
