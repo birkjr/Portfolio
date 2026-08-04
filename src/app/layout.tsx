@@ -12,6 +12,10 @@ const baseUrl = isProduction
   ? "https://www.birkramstad.no"
   : "http://localhost:3000";
 
+export const viewport = {
+  viewportFit: "cover" as const,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {

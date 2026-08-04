@@ -4,7 +4,7 @@
   }
 
   .section-container--hero {
-    @apply flex min-h-[70vh] items-start scroll-mt-28 pt-28 sm:min-h-[80vh] sm:items-center sm:scroll-mt-36 sm:pt-36 md:min-h-[85vh] md:scroll-mt-36 md:pt-36 lg:scroll-mt-40 lg:pt-40;
+    @apply flex min-h-[100dvh] items-start scroll-mt-24 pb-3 pt-[7.75rem] sm:min-h-[80vh] sm:scroll-mt-36 sm:pb-8 sm:pt-36 md:min-h-[85vh] md:scroll-mt-36 md:items-center md:pt-36 lg:scroll-mt-40 lg:pt-40;
   }
 
   .section-container--featured {

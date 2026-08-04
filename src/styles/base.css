@@ -5,6 +5,23 @@ html {
   background-color: hsl(var(--background));
 }
 
+@media (max-width: 767px) {
+  html {
+    background-image: var(--page-gradient);
+    background-color: hsl(var(--background));
+    min-height: 100dvh;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  body::before {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -96,7 +113,7 @@ body::before {
   z-index: 1;
 }
 
-.section-container:first-child {
+.section-container:first-child:not(.section-container--hero) {
   padding-top: 80px;
 }
 

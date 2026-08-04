@@ -1,14 +1,18 @@
 @layer components {
   .hero-layout {
-    @apply mt-0 flex flex-col items-center gap-6 sm:mt-16 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12;
+    @apply mt-0 flex flex-col items-center gap-4 sm:mt-16 sm:gap-6 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12;
   }
 
   .hero-column-left {
-    @apply order-1 flex w-full flex-col items-center gap-14 text-center will-change-transform sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left;
+    @apply order-1 flex w-full flex-col items-center gap-8 text-center will-change-transform sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left;
   }
 
   .hero-column-left-inner {
-    @apply flex w-full flex-col items-center gap-8 sm:gap-16 lg:items-start lg:gap-14;
+    @apply flex w-full flex-col items-center gap-5 sm:gap-16 lg:items-start lg:gap-14;
+  }
+
+  .hero-column-left-inner .section-badge {
+    @apply mt-2 sm:mt-0;
   }
 
   .hero-column-right {
@@ -16,7 +20,7 @@
   }
 
   .hero-headline {
-    @apply text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl dark:text-slate-300;
+    @apply text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl dark:text-slate-300;
   }
 
   .hero-headline-line {
@@ -24,7 +28,7 @@
   }
 
   .hero-headline-typed {
-    @apply block min-h-[2.6em];
+    @apply block min-h-[2.15em] sm:min-h-[2.6em];
   }
 
   .hero-mobile-portrait-wrap {
@@ -65,7 +69,7 @@
   }
 
   .hero-portrait-card--mobile {
-    @apply w-72 sm:w-[26rem] md:w-[26rem];
+    @apply w-[15.5rem] sm:w-[26rem] md:w-[26rem];
   }
 
   .hero-portrait-card--desktop {
@@ -77,7 +81,7 @@
   }
 
   .hero-portrait-image-section--mobile {
-    @apply h-64 sm:h-88 md:h-96;
+    @apply h-48 sm:h-88 md:h-96;
   }
 
   .hero-portrait-image-section--desktop {
@@ -101,7 +105,7 @@
   }
 
   .hero-portrait-footer {
-    @apply relative z-10 rounded-b-[2rem] border-t-2 border-[var(--hero-border)]/80 px-4 py-4 dark:border-slate-800/50;
+    @apply relative z-10 rounded-b-[2rem] border-t-2 border-[var(--hero-border)]/80 px-3 py-3 dark:border-slate-800/50 sm:px-4 sm:py-4;
     background: var(--card-gradient);
   }
 
@@ -134,11 +138,11 @@
   }
 
   .hero-cta-row {
-    @apply flex flex-col items-center gap-3 sm:flex-row sm:items-center lg:h-11 lg:shrink-0 lg:items-start;
+    @apply flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:gap-3 lg:h-11 lg:shrink-0 lg:items-start;
   }
 
   .hero-cta-primary {
-    @apply h-11 border-2 border-slate-200/80 bg-white px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-slate-600/35 dark:bg-slate-900/45 dark:text-slate-300 dark:shadow-none dark:backdrop-blur-sm dark:hover:border-slate-500/45 dark:hover:bg-slate-800/55;
+    @apply h-10 border-2 border-slate-200/80 bg-white px-5 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white sm:h-11 sm:px-6 dark:border-slate-600/35 dark:bg-slate-900/45 dark:text-slate-300 dark:shadow-none dark:backdrop-blur-sm dark:hover:border-slate-500/45 dark:hover:bg-slate-800/55;
   }
 
   .hero-cta-primary-icon {
@@ -146,7 +150,7 @@
   }
 
   .hero-cta-secondary {
-    @apply relative h-11 overflow-hidden border-2 border-[var(--hero-border)]/80 px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[var(--hero-border)] dark:border-slate-800/50 dark:bg-accent dark:text-muted-foreground dark:hover:text-foreground;
+    @apply relative h-10 overflow-hidden border-2 border-[var(--hero-border)]/80 px-5 text-sm font-semibold text-slate-900 shadow-sm hover:border-[var(--hero-border)] sm:h-11 sm:px-6 dark:border-slate-800/50 dark:bg-accent dark:text-muted-foreground dark:hover:text-foreground;
     background: var(--card-gradient);
   }
 

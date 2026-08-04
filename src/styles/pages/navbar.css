@@ -1,6 +1,6 @@
 @layer components {
   .navbar-root {
-    @apply fixed top-0 z-50 w-full px-4 pt-4 sm:px-6;
+    @apply fixed top-0 z-50 w-full px-4 pt-2 sm:px-6 md:pt-4;
   }
 
   .navbar-shell {
@@ -35,7 +35,7 @@
   }
 
   .navbar-bar {
-    @apply flex h-20 items-center justify-between;
+    @apply flex h-16 items-center justify-between md:h-20;
   }
 
   .navbar-logo-wrap {
