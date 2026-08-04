@@ -8,7 +8,7 @@
   }
 
   .section-container--featured {
-    @apply py-12 sm:py-16 md:py-20;
+    @apply min-h-0 pt-12 pb-5 sm:pt-16 sm:pb-6 md:pt-20 md:pb-8;
   }
 
   .section-container-overlay {

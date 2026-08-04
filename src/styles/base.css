@@ -103,7 +103,6 @@ body::before {
 }
 
 .section-container {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -111,6 +110,10 @@ body::before {
   scroll-margin-top: 0;
   position: relative;
   z-index: 1;
+}
+
+.section-container--featured {
+  min-height: 0;
 }
 
 .section-container:first-child:not(.section-container--hero) {

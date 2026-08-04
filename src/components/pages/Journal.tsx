@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   ArrowUpRight,
@@ -21,7 +21,101 @@ import {
   journal,
 } from "@/content/journal";
 import { getJournalSlugFromHash } from "@/content/timeline";
-import { cn } from "@/lib/utils";
+import { cn, prefersReducedMotion } from "@/lib/utils";
+
+function JournalArticleCard({
+  item,
+  index,
+  language,
+  readAnswerLabel,
+  isModalOpen,
+  animationKey,
+  onOpen,
+}: {
+  item: (typeof journal)[number];
+  index: number;
+  language: "no" | "en";
+  readAnswerLabel: string;
+  isModalOpen: boolean;
+  animationKey: string;
+  onOpen: (slug: string) => void;
+}) {
+  const liRef = useRef<HTMLLIElement>(null);
+  const [entered, setEntered] = useState(false);
+
+  useEffect(() => {
+    setEntered(false);
+
+    if (prefersReducedMotion()) {
+      setEntered(true);
+      return;
+    }
+
+    const node = liRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setEntered(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -4% 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [item.slug, animationKey]);
+
+  const question = item.question[language];
+  const teaser = item.paragraphs[language][0];
+  const tag = item.tag[language];
+
+  return (
+    <li ref={liRef}>
+      <Card
+        role="button"
+        tabIndex={isModalOpen ? -1 : 0}
+        onClick={() => onOpen(item.slug)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onOpen(item.slug);
+          }
+        }}
+        className={cn(
+          "group journal-card",
+          entered ? "journal-card-slide-in" : "journal-card--hidden"
+        )}
+        style={
+          entered
+            ? { animationDelay: `${Math.min(index, 10) * 0.07}s` }
+            : undefined
+        }
+      >
+        <CardContent className="journal-card-content">
+          <div className="journal-card-icon-wrap">
+            <MessageCircleQuestion className="journal-card-icon" />
+          </div>
+          <div className="journal-card-body">
+            <div className="journal-card-tags">
+              <Badge variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            </div>
+            <h3 className="journal-card-question">{question}</h3>
+            <p className="journal-card-teaser">{teaser}</p>
+            <span className="journal-card-link">
+              {readAnswerLabel}
+              <ArrowUpRight className="journal-card-link-icon" />
+            </span>
+          </div>
+        </CardContent>
+      </Card>
+    </li>
+  );
+}
 
 export function Journal() {
   const { language } = useLanguage();
@@ -196,47 +290,18 @@ export function Journal() {
         </div>
 
         <ul className="journal-list">
-          {visibleJournal.map((item) => {
-            const question = item.question[language];
-            const teaser = item.paragraphs[language][0];
-            const tag = item.tag[language];
-
-            return (
-              <li key={item.slug}>
-                <Card
-                  role="button"
-                  tabIndex={isModalOpen ? -1 : 0}
-                  onClick={() => openArticle(item.slug)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      openArticle(item.slug);
-                    }
-                  }}
-                  className="group journal-card"
-                >
-                  <CardContent className="journal-card-content">
-                    <div className="journal-card-icon-wrap">
-                      <MessageCircleQuestion className="journal-card-icon" />
-                    </div>
-                    <div className="journal-card-body">
-                      <div className="journal-card-tags">
-                        <Badge variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      </div>
-                      <h3 className="journal-card-question">{question}</h3>
-                      <p className="journal-card-teaser">{teaser}</p>
-                      <span className="journal-card-link">
-                        {t.readAnswer}
-                        <ArrowUpRight className="journal-card-link-icon" />
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </li>
-            );
-          })}
+          {visibleJournal.map((item, index) => (
+            <JournalArticleCard
+              key={item.slug}
+              item={item}
+              index={index}
+              language={language}
+              readAnswerLabel={t.readAnswer}
+              isModalOpen={isModalOpen}
+              animationKey={filterKey}
+              onOpen={openArticle}
+            />
+          ))}
         </ul>
 
         {(hasMore || canCollapse) && (

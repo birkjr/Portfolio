@@ -29,6 +29,17 @@
   }
 }
 
+@keyframes journalSlideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes slideInRight {
   from {
     opacity: 0;
@@ -269,6 +280,11 @@
 
 .tech-card-slide-up {
   animation: techCardDrop 0.95s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+.journal-card-slide-in {
+  animation: journalSlideInLeft 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
   opacity: 0;
 }
 

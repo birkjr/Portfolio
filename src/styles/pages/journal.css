@@ -19,6 +19,10 @@
     @apply space-y-3;
   }
 
+  .journal-card--hidden {
+    @apply opacity-0;
+  }
+
   .journal-card {
     @apply cursor-pointer rounded-2xl border-2 border-border/60 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
     background: var(--card-gradient);
