@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionContainer } from "./SectionContainer";
+import { SectionContainer } from "@/components/animations/SectionContainer";
 import { about } from "@/content/about";
 
 export function About({ motion = "depth" }: { motion?: "depth" | "none" }) {
@@ -9,21 +9,18 @@ export function About({ motion = "depth" }: { motion?: "depth" | "none" }) {
   const t = about[language];
 
   const content = (
-    <div className="mx-auto max-w-3xl">
-      <div className="mb-8 text-center sm:mb-10">
+    <div className="about-root">
+      <div className="page-header--compact">
         <div className="section-badge">
           <div className="section-badge-dot" />
           <span className="section-badge-label">{t.label}</span>
         </div>
-        <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
+        <h2 className="page-title">{t.title}</h2>
       </div>
 
-      <div className="space-y-5">
+      <div className="about-paragraphs">
         {t.paragraphs.map((paragraph, index) => (
-          <p
-            key={index}
-            className="text-base leading-relaxed text-muted-foreground sm:text-lg"
-          >
+          <p key={index} className="about-paragraph">
             {paragraph}
           </p>
         ))}

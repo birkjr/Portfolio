@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Analytics } from "@vercel/analytics/react";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import { jetbrainsMono } from "@/lib/fonts";
 import { colorThemeIds, DEFAULT_COLOR_THEME } from "@/config/color-themes";
 

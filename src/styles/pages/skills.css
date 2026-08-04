@@ -1,0 +1,101 @@
+@layer components {
+  .skills-subtitle {
+    @apply whitespace-pre-line;
+  }
+
+  .skills-grid {
+    @apply grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6;
+  }
+
+  .skills-card {
+    @apply relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[var(--hero-border)]/80 transition-all duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70;
+    background: var(--card-gradient);
+  }
+
+  .skills-card:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .skills-card--hidden {
+    @apply opacity-0;
+  }
+
+  .skills-card-content {
+    @apply relative z-10 flex flex-col gap-3 p-4;
+  }
+
+  .skills-card-icon-wrap {
+    @apply inline-flex h-12 w-12 items-center justify-center;
+  }
+
+  .skills-card-icon-wrap--image {
+    @apply sm:h-14 sm:w-14;
+  }
+
+  .skills-card-icon-image {
+    @apply rounded-lg object-contain;
+  }
+
+  .skills-card-icon-shell {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 dark:border-slate-700/70 dark:bg-slate-950/80;
+  }
+
+  .skills-card-icon-shell--lg {
+    @apply sm:h-14 sm:w-14;
+  }
+
+  .skills-card-icon {
+    @apply h-6 w-6 text-muted-foreground sm:h-7 sm:w-7;
+  }
+
+  .skills-card-name {
+    @apply text-sm font-semibold text-foreground;
+  }
+
+  .skills-card-group {
+    @apply mt-0.5 text-xs text-muted-foreground;
+  }
+
+  /* Modal */
+  .skills-modal-card {
+    @apply max-h-[min(85vh,32rem)] w-full max-w-lg overflow-y-auto;
+  }
+
+  .skills-modal-card:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .skills-modal-header {
+    @apply space-y-4 pr-12;
+  }
+
+  .skills-modal-header-row {
+    @apply flex items-center gap-4;
+  }
+
+  .skills-modal-header-text {
+    @apply min-w-0;
+  }
+
+  .skills-modal-title {
+    @apply text-xl text-foreground;
+  }
+
+  .skills-modal-description {
+    @apply text-sm font-medium;
+  }
+
+  .skills-modal-body {
+    @apply pt-0;
+  }
+
+  .skills-modal-text {
+    @apply text-sm leading-relaxed text-muted-foreground sm:text-base;
+  }
+}

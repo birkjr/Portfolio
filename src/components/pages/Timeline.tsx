@@ -8,7 +8,7 @@ import {
   MessageCircleQuestion,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { SectionContainer } from "./SectionContainer";
+import { SectionContainer } from "@/components/animations/SectionContainer";
 import {
   timelineSection,
   timelineEntries,
@@ -65,31 +65,23 @@ function TimelineCard({
     <div
       data-timeline-card
       className={cn(
-        "rounded-xl border bg-card/40 transition-colors will-change-[opacity,transform,filter]",
-        isActive
-          ? "border-foreground/25"
-          : "border-border hover:border-foreground/20"
+        "timeline-card",
+        isActive ? "timeline-card--active" : "timeline-card--inactive"
       )}
     >
-      <div className="p-4 sm:p-5">
-        <div className="mb-2 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-medium text-muted-foreground">
-            {entry.period}
-          </span>
-          <Badge variant="outline" className="text-[10px]">
+      <div className="timeline-card-inner">
+        <div className="timeline-card-meta">
+          <span className="timeline-card-period">{entry.period}</span>
+          <Badge variant="outline" className="timeline-card-type-badge">
             {t[timelineTypeLabels[entry.type]]}
           </Badge>
         </div>
 
-        <h3 className="mb-0.5 text-base font-bold sm:text-lg">
-          {entry.subtitle[language]}
-        </h3>
-        <p className="mb-2 text-sm font-medium text-muted-foreground">
-          {entry.title[language]}
-        </p>
+        <h3 className="timeline-card-role">{entry.subtitle[language]}</h3>
+        <p className="timeline-card-title">{entry.title[language]}</p>
 
         {entry.description && (
-          <p className="text-sm leading-relaxed text-muted-foreground/90">
+          <p className="timeline-card-description">
             {entry.description[language]}
           </p>
         )}
@@ -101,13 +93,13 @@ function TimelineCard({
             size="sm"
             onClick={onToggleExpand}
             aria-expanded={isExpanded}
-            className="mt-3 h-8 gap-1.5 px-2 text-xs font-medium text-muted-foreground hover:text-foreground"
+            className="timeline-expand-btn"
           >
             {isExpanded ? t.readLess : t.readMore}
             <ChevronDown
               className={cn(
-                "h-3.5 w-3.5 transition-transform duration-300",
-                isExpanded && "rotate-180"
+                "timeline-expand-icon",
+                isExpanded && "timeline-expand-icon--open"
               )}
             />
           </Button>
@@ -115,16 +107,18 @@ function TimelineCard({
 
         <div
           className={cn(
-            "grid transition-[grid-template-rows] duration-300 ease-out",
-            isExpanded && hasExpandable ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            "timeline-expand-panel",
+            isExpanded && hasExpandable
+              ? "timeline-expand-panel--open"
+              : "timeline-expand-panel--closed"
           )}
         >
-          <div className="overflow-hidden">
+          <div className="timeline-expand-panel-inner">
             {expandable && (
-              <div className="space-y-5 pt-4">
+              <div className="timeline-expand-content">
                 {expandable.architecture && (
                   <ExpandableSection title={t.architecture}>
-                    <p className="text-sm leading-relaxed text-muted-foreground/90">
+                    <p className="timeline-expand-text">
                       {expandable.architecture[language]}
                     </p>
                   </ExpandableSection>
@@ -134,20 +128,20 @@ function TimelineCard({
                   <ExpandableSection
                     title={expandable.github ? t.github : t.demo}
                   >
-                    <div className="flex flex-wrap gap-2">
+                    <div className="timeline-link-actions">
                       {expandable.github && (
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="h-8 text-xs"
+                          className="timeline-link-btn"
                           onClick={() =>
                             window.open(expandable.github, "_blank")
                           }
                         >
-                          <Github className="mr-1.5 h-3.5 w-3.5" />
+                          <Github className="timeline-link-btn-icon" />
                           GitHub
-                          <ExternalLink className="ml-1.5 h-3 w-3" />
+                          <ExternalLink className="timeline-link-btn-icon-end" />
                         </Button>
                       )}
                       {expandable.demo && (
@@ -155,11 +149,11 @@ function TimelineCard({
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="h-8 text-xs"
+                          className="timeline-link-btn"
                           onClick={() => window.open(expandable.demo, "_blank")}
                         >
                           {t.demo}
-                          <ExternalLink className="ml-1.5 h-3 w-3" />
+                          <ExternalLink className="timeline-link-btn-icon-end" />
                         </Button>
                       )}
                     </div>
@@ -168,16 +162,16 @@ function TimelineCard({
 
                 {linkedJournals.length > 0 && (
                   <ExpandableSection title={t.journal}>
-                    <ul className="space-y-2">
+                    <ul className="timeline-journal-list">
                       {linkedJournals.map((journalItem) => (
                         <li key={journalItem!.slug}>
                           <button
                             type="button"
                             onClick={() => openJournal(journalItem!.slug)}
-                            className="group flex w-full items-start gap-2 rounded-lg border border-border/60 bg-background/40 px-3 py-2.5 text-left transition-colors hover:border-foreground/20 hover:bg-background/70"
+                            className="group timeline-journal-link"
                           >
-                            <MessageCircleQuestion className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                            <span className="text-sm leading-snug text-foreground/90 group-hover:text-foreground">
+                            <MessageCircleQuestion className="timeline-journal-link-icon" />
+                            <span className="timeline-journal-link-text">
                               {journalItem!.question[language]}
                             </span>
                           </button>
@@ -191,13 +185,9 @@ function TimelineCard({
           </div>
         </div>
 
-        <div className="mt-4 border-t border-border/60 pt-4">
-          <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-            {t.whatILearned}
-          </p>
-          <p className="text-sm leading-relaxed text-foreground/90 italic">
-            {entry.learnings[language]}
-          </p>
+        <div className="timeline-learnings">
+          <p className="timeline-learnings-label">{t.whatILearned}</p>
+          <p className="timeline-learnings-text">{entry.learnings[language]}</p>
         </div>
       </div>
     </div>
@@ -213,9 +203,7 @@ function ExpandableSection({
 }) {
   return (
     <div>
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-        {title}
-      </p>
+      <p className="timeline-expand-section-title">{title}</p>
       {children}
     </div>
   );
@@ -348,25 +336,20 @@ export function Timeline() {
 
   return (
     <SectionContainer id="timeline">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-10 text-center">
+      <div className="timeline-root">
+        <div className="page-header">
           <div className="section-badge">
             <div className="section-badge-dot" />
             <span className="section-badge-label">{t.label}</span>
           </div>
-          <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
-          <p className="mx-auto max-w-3xl text-base text-muted-foreground sm:text-lg">
-            {t.subtitle}
-          </p>
+          <h2 className="page-title">{t.title}</h2>
+          <p className="page-subtitle-wide">{t.subtitle}</p>
         </div>
 
-        <div className="relative -ml-1 sm:-ml-2 md:-ml-3">
-          <div
-            className="absolute bottom-2 left-0 top-2 w-px bg-border"
-            aria-hidden
-          />
+        <div className="timeline-track-wrap">
+          <div className="timeline-line" aria-hidden />
 
-          <ul className="space-y-8">
+          <ul className="timeline-list">
             {timelineEntries.map((entry, index) => {
               const isActive = index === activeIndex;
 
@@ -377,19 +360,17 @@ export function Timeline() {
                     itemRefs.current[index] = el;
                   }}
                   data-timeline-index={index}
-                  className="relative pl-7 sm:pl-9 md:pl-11"
+                  className="timeline-item"
                 >
-                  <div
-                    className="absolute left-0 top-1.5 -translate-x-1/2"
-                    aria-hidden
-                  >
+                  <div className="timeline-dot-wrap" aria-hidden>
                     <div
                       data-timeline-dot
-                      className={`h-[15px] w-[15px] rounded-full border-2 transition-[border-color,background-color,box-shadow] duration-300 will-change-[opacity,transform] sm:h-[19px] sm:w-[19px] ${
+                      className={cn(
+                        "timeline-dot",
                         isActive
-                          ? "border-slate-900 bg-slate-900 shadow-[0_0_12px_rgba(15,23,42,0.45)] dark:border-white dark:bg-white dark:shadow-[0_0_12px_rgba(255,255,255,0.85)]"
-                          : "border-foreground/45 bg-foreground/20 dark:border-white/40 dark:bg-white/25"
-                      }`}
+                          ? "timeline-dot--active"
+                          : "timeline-dot--inactive"
+                      )}
                     />
                   </div>
 

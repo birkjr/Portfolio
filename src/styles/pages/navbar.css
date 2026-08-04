@@ -1,0 +1,223 @@
+@layer components {
+  .navbar-root {
+    @apply fixed top-0 z-50 w-full px-4 pt-4 sm:px-6;
+  }
+
+  .navbar-shell {
+    @apply relative mx-auto w-full max-w-7xl overflow-hidden;
+  }
+
+  .navbar-shell--default {
+    @apply rounded-3xl border-2 border-[var(--hero-border)]/80 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40;
+    background: var(--card-gradient);
+  }
+
+  .navbar-shell--thylo {
+    @apply overflow-hidden rounded-2xl border text-slate-700;
+  }
+
+  .navbar-glow-overlay {
+    @apply pointer-events-none absolute inset-0 hidden bg-gradient-to-b from-transparent via-transparent to-black/30 dark:block;
+  }
+
+  .navbar-pattern-overlay {
+    @apply pointer-events-none absolute inset-0 opacity-[0.02];
+    background-image: radial-gradient(
+      circle at 2px 2px,
+      var(--grid-pattern-dot) 1px,
+      transparent 0
+    );
+    background-size: 30px 30px;
+  }
+
+  .navbar-inner {
+    @apply relative w-full px-4 sm:px-6;
+  }
+
+  .navbar-bar {
+    @apply flex h-20 items-center justify-between;
+  }
+
+  .navbar-logo-wrap {
+    @apply flex flex-shrink-0 items-center space-x-3 sm:space-x-4;
+  }
+
+  .navbar-logo-group {
+    @apply relative;
+  }
+
+  .navbar-logo-badge {
+    @apply relative flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 text-xs font-bold shadow-md backdrop-blur-sm transition-all duration-300 group-hover:border-foreground/30 group-hover:shadow-slate-900/10 sm:h-9 sm:w-9 sm:text-sm dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg dark:group-hover:shadow-black/10;
+  }
+
+  .navbar-logo-text {
+    @apply text-slate-900 dark:text-white;
+  }
+
+  .navbar-desktop {
+    @apply hidden flex-shrink-0 items-center md:flex;
+  }
+
+  .navbar-links {
+    @apply mr-6 flex items-center space-x-1;
+  }
+
+  .navbar-link {
+    @apply relative cursor-pointer overflow-hidden whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium tracking-wide text-slate-900/80 transition-all duration-300 hover:text-slate-950 dark:text-white/90 dark:hover:text-white;
+  }
+
+  .navbar-link-hover-bg {
+    @apply absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50;
+  }
+
+  .navbar-link-text {
+    @apply relative z-10 transition-all duration-300 group-hover:text-foreground;
+  }
+
+  .navbar-link-indicator {
+    @apply absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 rounded-full bg-foreground/40 transition-all duration-500 group-hover:w-[60%];
+  }
+
+  .navbar-separator {
+    @apply mr-6 h-8 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent;
+  }
+
+  .navbar-lang-btn {
+    @apply flex items-center gap-2 text-slate-900/80;
+  }
+
+  .navbar-lang-btn--desktop {
+    @apply px-4 py-2;
+  }
+
+  .navbar-lang-btn--mobile {
+    @apply px-3 py-2;
+  }
+
+  .navbar-chrome-btn-hover {
+    @apply absolute inset-0 transition-all duration-300 group-hover:bg-muted/50 dark:group-hover:bg-white/10;
+  }
+
+  .navbar-lang-icon {
+    @apply relative z-10 h-4 w-4 text-slate-500 transition-colors duration-300 group-hover:text-foreground dark:text-slate-400 dark:group-hover:text-foreground;
+  }
+
+  .navbar-lang-label {
+    @apply relative z-10 font-medium uppercase transition-all duration-300 group-hover:text-foreground;
+  }
+
+  .navbar-lang-label--desktop {
+    @apply text-sm;
+  }
+
+  .navbar-lang-label--mobile {
+    @apply text-xs;
+  }
+
+  .navbar-theme-picker {
+    @apply ml-3;
+  }
+
+  .navbar-mobile-actions {
+    @apply flex items-center gap-3 md:hidden;
+  }
+
+  .navbar-menu-btn {
+    @apply flex h-11 w-11 items-center justify-center text-slate-900 hover:text-foreground dark:text-white dark:hover:text-foreground;
+  }
+
+  .navbar-menu-icon-wrap {
+    @apply relative z-10 h-6 w-6;
+  }
+
+  .navbar-menu-icon {
+    @apply absolute inset-0 transition-all duration-300;
+  }
+
+  .navbar-menu-icon--menu-open {
+    @apply scale-0 rotate-90 opacity-0;
+  }
+
+  .navbar-menu-icon--menu-closed {
+    @apply scale-100 rotate-0 opacity-100;
+  }
+
+  .navbar-menu-icon--close-open {
+    @apply scale-100 rotate-0 opacity-100;
+  }
+
+  .navbar-menu-icon--close-closed {
+    @apply scale-0 -rotate-90 opacity-0;
+  }
+
+  .navbar-overlay {
+    @apply fixed inset-0 z-[200] transition-all duration-500 ease-in-out md:hidden;
+  }
+
+  .navbar-overlay--open {
+    @apply pointer-events-auto opacity-100;
+  }
+
+  .navbar-overlay--closed {
+    @apply pointer-events-none opacity-0;
+  }
+
+  .navbar-overlay-backdrop {
+    @apply absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-black;
+  }
+
+  .navbar-overlay-pattern {
+    @apply pointer-events-none absolute inset-0 opacity-[0.03];
+    background-image: radial-gradient(
+      circle at 2px 2px,
+      var(--grid-pattern-dot) 1px,
+      transparent 0
+    );
+    background-size: 40px 40px;
+  }
+
+  .navbar-overlay-content {
+    @apply relative flex h-full w-full flex-col items-center px-6 pt-28 transition-transform duration-500;
+    padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .navbar-overlay-content--open {
+    @apply translate-y-0;
+  }
+
+  .navbar-overlay-content--closed {
+    @apply translate-y-8;
+  }
+
+  .navbar-overlay-close {
+    @apply absolute right-6 top-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-200/70 bg-white/70 text-slate-900 shadow-xl shadow-slate-900/10 transition-all duration-300 hover:scale-110 hover:rotate-90 hover:border-foreground/30 hover:bg-white hover:shadow-black/10 dark:border-slate-700/50 dark:bg-slate-800/90 dark:text-white dark:hover:bg-slate-700;
+  }
+
+  .navbar-mobile-nav {
+    @apply flex w-full max-w-md flex-1 flex-col justify-center space-y-3 px-2;
+  }
+
+  .navbar-mobile-item {
+    @apply relative flex w-full items-center justify-between overflow-hidden rounded-2xl border-2 border-slate-200/70 bg-white/70 px-5 py-4 shadow-lg shadow-slate-900/10 transition-all duration-300 hover:border-foreground/30 hover:bg-white hover:shadow-black/10 dark:border-slate-700/50 dark:bg-slate-800/90 dark:hover:bg-slate-800 dark:hover:shadow-black/10;
+  }
+
+  .navbar-mobile-item-hover {
+    @apply absolute inset-0 transition-all duration-300 group-hover:bg-muted/50;
+  }
+
+  .navbar-mobile-item-inner {
+    @apply relative z-10 flex w-full items-center gap-4;
+  }
+
+  .navbar-mobile-item-label {
+    @apply text-xl font-semibold tracking-wide text-slate-900 transition-all duration-300 group-hover:text-foreground dark:text-white;
+  }
+
+  .navbar-mobile-item-chevron {
+    @apply ml-auto text-slate-500 transition-all duration-300 group-hover:translate-x-3 group-hover:text-foreground dark:text-slate-400 dark:group-hover:text-foreground;
+  }
+
+  .navbar-mobile-item-line {
+    @apply absolute bottom-0 left-0 h-[2px] w-0 bg-foreground/30 transition-all duration-500 group-hover:w-full;
+  }
+}

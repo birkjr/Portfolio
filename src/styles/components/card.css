@@ -1,0 +1,25 @@
+@layer components {
+  .ui-card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+
+  .ui-card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .ui-card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+
+  .ui-card-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .ui-card-content {
+    @apply p-6 pt-0;
+  }
+
+  .ui-card-footer {
+    @apply flex items-center p-6 pt-0;
+  }
+}

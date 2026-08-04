@@ -6,106 +6,148 @@ Rules and conventions for AI coding assistants working on this repository.
 
 ## General Behaviour
 
-- **Read before writing.** Always read the target file (and any related components it imports) before making edits.
-- **Match existing patterns.** Every file has an established style — class ordering, spacing conventions, naming. Follow it exactly.
-- **Prefer editing to creating.** Only create a new file when the component genuinely does not exist yet.
-- **Never introduce unnecessary complexity.** If a straightforward Tailwind + React solution works, use it. Do not reach for new libraries.
-- **Never modify files outside the task scope.** A task about the hero section should not touch the projects section.
+- **Read before writing.** Read the target file and related imports/styles before editing.
+- **Match existing patterns.** Follow semantic CSS in `pages/`, tokens in `config/ui-theme.css`, shared patterns in `styles/`.
+- **Prefer editing to creating.** Only add files when genuinely new (e.g. a new section → `pages/X.tsx` + `styles/pages/x.css`).
+- **Never introduce unnecessary complexity.** No new styling libraries.
+- **Stay in scope.** A hero task should not touch unrelated sections.
 
 ---
 
-## UI Component Rules
+## Styling Rules (Critical)
 
-### Always use `SectionContainer` for new sections
+### Page components (`src/components/pages/`) — no inline Tailwind
 
-```tsx
-<SectionContainer id="my-section">{/* content */}</SectionContainer>
-```
-
-This provides consistent padding, the GSAP scroll-reveal animation, and the background gradient overlay automatically.
-
-### Use shadcn primitives from `components/ui/`
-
-Prefer `Card`, `CardHeader`, `CardContent`, `CardTitle`, `CardDescription`, `Badge`, `Button` over custom markup. Import from `@/components/ui/`.
-
-### Section label pattern
-
-Every section header uses this badge pattern above the `<h2>`:
+All visual styling belongs in `src/styles/`. TSX uses semantic class names:
 
 ```tsx
-<div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 border border-blue-500/20 dark:from-blue-500/20 dark:via-cyan-500/20 dark:to-blue-500/20 dark:border-blue-500/30 backdrop-blur-sm mb-4">
-  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-  <span className="text-xs font-medium text-blue-600 dark:text-blue-400">
-    {t.label}
-  </span>
+<div className="journal-card">
+  <div className="section-badge">
+    <div className="section-badge-dot" />
+    <span className="section-badge-label">{t.label}</span>
+  </div>
 </div>
 ```
 
-Match this pattern for any new sections. Use a different accent colour if the section has a distinct identity (e.g. violet for AI/systems sections).
+When adding or changing UI for a section:
+
+1. Add/update classes in `src/styles/pages/<section>.css`
+2. Import the file in `src/app/globals.css` if new
+3. Use only semantic classes (+ allowed exceptions) in the TSX file
+
+### Allowed in TSX
+
+| Pattern                    | Example                              | Why                                 |
+| -------------------------- | ------------------------------------ | ----------------------------------- |
+| Semantic classes           | `hero-portrait-card`                 | Primary styling                     |
+| Shared components          | `section-badge`, `card-shine`        | Defined in `components.css`         |
+| Theme hooks                | `thylo-chrome`, `nav-chrome-btn`     | Palette overrides in `ui-theme.css` |
+| `group`                    | `className="group hero-cta-primary"` | Child hover variants                |
+| State modifiers via `cn()` | `footer-card--visible`               | Dynamic visibility                  |
+| Runtime `style`            | 3D tilt, stagger delay, nav slide-in | JS-computed values                  |
+
+### Not allowed in `pages/`
+
+- Long Tailwind utility strings
+- `const foo = "flex items-center gap-4 …"` style constants
+- `@apply` of custom classes inside section CSS
+
+### shadcn primitives (`components/ui/`)
+
+May keep internal Tailwind/cva. Page components override via semantic classes:
+
+```tsx
+<Button className="hero-cta-primary">{t.cta}</Button>
+```
+
+Define `hero-cta-primary` in `styles/pages/hero.css`.
 
 ---
 
-## Styling Rules
+## Section Checklist (new section)
 
-- **Tailwind only** for static styles. Use inline `style` only for values that must be computed at runtime (e.g. mouse position for tilt/shine effects).
-- **Dark mode via `dark:` prefix** — never use `if (theme === 'dark')` in JSX for styling.
-- **Responsive first** — add `sm:`, `md:`, `lg:` variants for all layout-affecting classes.
-- **Opacity modifiers** for translucent colours: `blue-500/20` not `rgba(59,130,246,0.2)`.
-- **`cn()` utility** for conditional class merging: `import { cn } from "@/lib/utils"`.
+1. Create `src/components/pages/MySection.tsx` — markup + logic only
+2. Create `src/styles/pages/my-section.css` — all visual styles
+3. Add `@import "../styles/pages/my-section.css"` to `globals.css`
+4. Add content to `src/content/my-section.ts` with `no` / `en` keys
+5. Wrap in `<SectionContainer id="my-section">`
+6. Register nav link in `src/content/navbar.ts` if needed
 
 ---
 
-## Animation Rules
+## SectionContainer
 
-- Prefer Tailwind `transition-all duration-300` for hover effects.
-- Use `hover:scale-[1.02]` for card lift — not `hover:scale-105` (too aggressive).
-- Shadows should be colour-tinted: `hover:shadow-blue-500/15` not plain `hover:shadow-lg`.
-- For enter animations use GSAP via `SectionContainer` or the `section-slide-up` / `section-slide-down` CSS classes already defined in `globals.css`.
-- Do not add `framer-motion` or other animation libraries — GSAP and CSS keyframes are already in use.
-- All animated properties must be GPU-composited: use `transform` and `opacity` only.
+```tsx
+<SectionContainer id="my-section">{/* content */}</SectionContainer>
+<SectionContainer variant="hero" id="home">{/* hero */}</SectionContainer>
+<SectionContainer variant="featured" id="contact">{/* footer */}</SectionContainer>
+<SectionContainer motion="none">{/* skip GSAP when driven elsewhere */}</SectionContainer>
+```
 
 ---
 
 ## Internationalisation
 
-Every component with user-facing text must define a `content` object with `no` and `en` keys:
+Content lives in `src/content/`, not inside components:
 
 ```ts
-const content = {
-  no: { title: "Norsk tekst", ... },
-  en: { title: "English text", ... },
+// src/content/my-section.ts
+import type { Localized } from "./types";
+
+export const mySection: Localized<{ title: string; label: string }> = {
+  no: { title: "…", label: "…" },
+  en: { title: "…", label: "…" },
 };
 ```
 
-Consume it with:
-
-```ts
+```tsx
 const { language } = useLanguage();
-const t = content[language];
+const t = mySection[language];
 ```
 
-Never hardcode English-only strings in JSX.
+Never hardcode English-only strings.
+
+---
+
+## Theme System
+
+- Palettes: `original`, `thylo`, `paper`, `warm`, `fjord`, `hellas`, `terminal`, `ember`
+- Tokens: `config/ui-theme.css` (`@theme inline` + `html.<theme>` blocks)
+- Helpers: `usesDarkChrome()`, `isThyloChrome()` from `config/color-themes.ts`
+- Navbar/footer chrome: combine semantic class + `thylo-chrome` when needed
+
+---
+
+## Animation Rules
+
+- Scroll reveal: `SectionContainer` (GSAP) — don't duplicate
+- Enter animations: add keyframes to `animations.css`, utility class in same file
+- No `framer-motion` or new animation libraries
+- GPU-only: `transform`, `opacity`, `scale`
 
 ---
 
 ## Naming Conventions
 
-| Thing                  | Convention                                                                  |
-| ---------------------- | --------------------------------------------------------------------------- |
-| Component files        | `PascalCase.tsx`                                                            |
-| Component exports      | Named exports (`export function Foo`)                                       |
-| Content data constants | `content_no`, `content_en` or a single `content` object with `no`/`en` keys |
-| Section IDs            | kebab-case matching the nav href (e.g. `id="systems"`)                      |
-| Accent colour tokens   | Use the colour name as a string key in a local map (see `SystemsBuilt.tsx`) |
+| Thing           | Convention                                               |
+| --------------- | -------------------------------------------------------- |
+| Page components | `src/components/pages/PascalCase.tsx`                    |
+| Section CSS     | `src/styles/pages/kebab-case.css`                        |
+| CSS classes     | `<section>-<element>` e.g. `navbar-link`, `footer-title` |
+| Content files   | `src/content/kebab-case.ts`                              |
+| Section IDs     | kebab-case matching nav href (`id="timeline"`)           |
+| Imports         | `@/components/pages/…`, `@/content/…`, `@/config/…`      |
 
 ---
 
 ## What AI Assistants Must Never Do
 
-- Add `framer-motion`, `styled-components`, `emotion`, or CSS modules
-- Remove or alter the `SectionContainer` scroll animation logic
-- Change the `LanguageContext` API
-- Hardcode language strings without adding both `no` and `en` variants
+- Add long Tailwind strings to `pages/` components
+- Put section-specific styles in `globals.css` (use `styles/pages/`)
+- Add `framer-motion`, CSS modules, or styled-components
+- Remove `ScrollIntoMachine` / `SectionContainer` animation without explicit request
+- Change `LanguageContext` API
+- Hardcode copy without `no` + `en` in `src/content/`
 - Use `!important` in Tailwind classes
 - Introduce `any` TypeScript types
 - Create documentation files unless explicitly requested

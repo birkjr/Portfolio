@@ -13,8 +13,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
 import { getTechItems, skillsSection, type TechIcon } from "@/content/skills";
-import { SectionContainer } from "./SectionContainer";
-import { getGridRevealObserverOptions } from "@/lib/utils";
+import { SectionContainer } from "@/components/animations/SectionContainer";
+import { cn, getGridRevealObserverOptions } from "@/lib/utils";
 import { Github, TerminalSquare, X, type LucideIcon } from "lucide-react";
 
 const TECH_ICONS: Record<TechIcon, LucideIcon> = {
@@ -31,21 +31,21 @@ function TechIconDisplay({
 
   if (item.iconType === "image" && item.imageSrc) {
     return (
-      <div className="inline-flex h-12 w-12 items-center justify-center sm:h-14 sm:w-14">
+      <div className="skills-card-icon-wrap skills-card-icon-wrap--image">
         <Image
           src={item.imageSrc}
           alt={item.name}
           width={56}
           height={56}
-          className="rounded-lg object-contain"
+          className="skills-card-icon-image"
         />
       </div>
     );
   }
 
   return (
-    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 sm:h-14 sm:w-14">
-      {Icon && <Icon className="h-6 w-6 text-muted-foreground sm:h-7 sm:w-7" />}
+    <div className="skills-card-icon-shell skills-card-icon-shell--lg">
+      {Icon && <Icon className="skills-card-icon" />}
     </div>
   );
 }
@@ -109,31 +109,31 @@ export function Skills() {
           <>
             <button
               type="button"
-              className="fixed inset-0 z-[100] cursor-default bg-black/20 dark:bg-black/40"
+              className="modal-backdrop"
               onClick={() => setSelectedSkill(null)}
               aria-label="Close"
             />
-            <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6">
+            <div className="modal-viewport modal-viewport--skills">
               <Card
-                className="card-gradient-bg hover-glow pointer-events-auto relative max-h-[min(85vh,32rem)] w-full max-w-lg animate-fade-in overflow-y-auto border-2 border-border text-left shadow-[0_20px_60px_rgba(15,23,42,0.45)] dark:border-slate-800/50 dark:backdrop-blur-xl"
+                className="modal-card-base skills-modal-card animate-fade-in"
                 onClick={(e) => e.stopPropagation()}
               >
                 <button
                   type="button"
                   onClick={() => setSelectedSkill(null)}
-                  className="absolute right-4 top-4 z-10 rounded-full bg-slate-900/70 p-2 text-white/80 transition-colors hover:bg-slate-800 hover:text-white dark:bg-slate-800/70 dark:hover:bg-slate-700"
+                  className="modal-close-btn modal-close-btn--md"
                   aria-label="Close"
                 >
                   <X className="h-5 w-5" />
                 </button>
-                <CardHeader className="space-y-4 pr-12">
-                  <div className="flex items-center gap-4">
+                <CardHeader className="skills-modal-header">
+                  <div className="skills-modal-header-row">
                     <TechIconDisplay item={selectedItem} />
-                    <div className="min-w-0">
-                      <CardTitle className="text-xl text-foreground">
+                    <div className="skills-modal-header-text">
+                      <CardTitle className="skills-modal-title">
                         {selectedItem.name}
                       </CardTitle>
-                      <CardDescription className="text-sm font-medium">
+                      <CardDescription className="skills-modal-description">
                         {selectedItem.group}
                       </CardDescription>
                     </div>
@@ -142,10 +142,8 @@ export function Skills() {
                     {t.whyHeading}
                   </Badge>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-                    {selectedItem.why}
-                  </p>
+                <CardContent className="skills-modal-body">
+                  <p className="skills-modal-text">{selectedItem.why}</p>
                 </CardContent>
               </Card>
             </div>
@@ -156,26 +154,17 @@ export function Skills() {
 
   return (
     <SectionContainer id="skills">
-      <div
-        className={`transition-[filter] duration-300 ${
-          isModalOpen ? "pointer-events-none blur-sm" : ""
-        }`}
-      >
-        <div className="mb-10 text-center">
+      <div className={cn("page-body", isModalOpen && "page-body--blurred")}>
+        <div className="page-header">
           <div className="section-badge">
             <div className="section-badge-dot" />
             <span className="section-badge-label">{t.label}</span>
           </div>
-          <h2 className="mb-3 text-3xl font-bold sm:text-4xl">{t.title}</h2>
-          <p className="mx-auto max-w-2xl whitespace-pre-line text-base text-muted-foreground sm:text-lg">
-            {t.subtitle}
-          </p>
+          <h2 className="page-title">{t.title}</h2>
+          <p className={cn("page-subtitle", "skills-subtitle")}>{t.subtitle}</p>
         </div>
 
-        <div
-          ref={gridRef}
-          className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6"
-        >
+        <div ref={gridRef} className="skills-grid">
           {techItems.map((item, index) => {
             const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
 
@@ -191,37 +180,32 @@ export function Skills() {
                     setSelectedSkill(index);
                   }
                 }}
-                className={`group card-gradient-bg relative cursor-pointer overflow-hidden rounded-2xl border-2 border-[var(--hero-border)]/80 transition-all duration-300 hover:-translate-y-1 hover-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring dark:border-slate-800/70 ${
-                  isVisible ? "tech-card-slide-up" : "opacity-0"
-                }`}
+                className={cn(
+                  "group skills-card",
+                  isVisible ? "tech-card-slide-up" : "skills-card--hidden"
+                )}
                 style={{ animationDelay: `${index * 0.07}s` }}
               >
                 <div className="card-shine" />
-                <CardContent className="relative z-10 flex flex-col gap-3 p-4">
+                <CardContent className="skills-card-content">
                   {item.iconType === "image" && item.imageSrc ? (
-                    <div className="inline-flex h-12 w-12 items-center justify-center">
+                    <div className="skills-card-icon-wrap">
                       <Image
                         src={item.imageSrc}
                         alt={item.name}
                         width={48}
                         height={48}
-                        className="rounded-lg object-contain"
+                        className="skills-card-icon-image"
                       />
                     </div>
                   ) : (
-                    <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-700/70 bg-slate-950/80 shadow-md shadow-black/10 dark:border-slate-700/70 dark:bg-slate-950/80">
-                      {Icon && (
-                        <Icon className="h-6 w-6 text-muted-foreground" />
-                      )}
+                    <div className="skills-card-icon-shell">
+                      {Icon && <Icon className="skills-card-icon" />}
                     </div>
                   )}
                   <div>
-                    <p className="text-sm font-semibold text-foreground">
-                      {item.name}
-                    </p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">
-                      {item.group}
-                    </p>
+                    <p className="skills-card-name">{item.name}</p>
+                    <p className="skills-card-group">{item.group}</p>
                   </div>
                 </CardContent>
               </Card>

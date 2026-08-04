@@ -1,0 +1,25 @@
+@layer components {
+  .section-container {
+    @apply relative py-8 sm:py-12 md:py-16 lg:py-20;
+  }
+
+  .section-container--hero {
+    @apply flex min-h-[70vh] items-start scroll-mt-28 pt-28 sm:min-h-[80vh] sm:items-center sm:scroll-mt-36 sm:pt-36 md:min-h-[85vh] md:scroll-mt-36 md:pt-36 lg:scroll-mt-40 lg:pt-40;
+  }
+
+  .section-container--featured {
+    @apply py-12 sm:py-16 md:py-20;
+  }
+
+  .section-container-overlay {
+    @apply pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent;
+  }
+
+  .section-container-inner {
+    @apply relative z-10 w-full px-4 sm:px-6;
+  }
+
+  .section-container-content {
+    @apply relative mx-auto w-full max-w-7xl will-change-transform;
+  }
+}

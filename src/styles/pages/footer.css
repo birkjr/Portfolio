@@ -1,0 +1,92 @@
+@layer components {
+  .footer-card {
+    @apply relative w-full overflow-hidden transition-all duration-500;
+  }
+
+  .footer-card--default {
+    @apply rounded-3xl border-2 border-[var(--hero-border)]/80 shadow-lg shadow-slate-900/10 backdrop-blur-[4px] dark:border-slate-800/50 dark:shadow-2xl dark:shadow-black/40;
+    background: var(--card-gradient);
+  }
+
+  .footer-card--default:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .footer-card--thylo {
+    @apply overflow-hidden rounded-2xl border text-slate-700;
+  }
+
+  .footer-card--thylo:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .footer-card--visible {
+    animation: cardFadeInUp 0.6s ease-out forwards;
+  }
+
+  .footer-card--hidden {
+    @apply opacity-0;
+  }
+
+  .footer-inner {
+    @apply px-6 pb-8 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-12;
+  }
+
+  .footer-header {
+    @apply mb-12 text-center;
+  }
+
+  .footer-title {
+    @apply mb-4 text-3xl font-bold sm:text-4xl;
+  }
+
+  .footer-subtitle {
+    @apply mx-auto mb-8 max-w-2xl text-base text-muted-foreground sm:text-lg;
+  }
+
+  .footer-social-row {
+    @apply flex items-center justify-center gap-6;
+  }
+
+  .footer-social-btn {
+    @apply text-muted-foreground hover:!bg-transparent hover:text-foreground hover:scale-110;
+  }
+
+  .footer-social-icon {
+    @apply h-7 w-7 transition-transform duration-200 group-hover:scale-110;
+  }
+
+  .footer-divider {
+    @apply mx-6 border-t border-slate-200/60 sm:mx-8 lg:mx-12 dark:border-slate-800/60;
+  }
+
+  .footer-bar {
+    @apply px-6 py-8 sm:px-8 lg:px-12;
+  }
+
+  .footer-bar-inner {
+    @apply flex flex-col items-center justify-center gap-6 md:flex-row;
+  }
+
+  .footer-brand-row {
+    @apply flex items-center space-x-3;
+  }
+
+  .footer-logo-badge {
+    @apply flex h-8 w-8 items-center justify-center rounded-md border-2 border-slate-200/70 bg-white/90 shadow-md backdrop-blur-sm sm:h-9 sm:w-9 dark:border-slate-700/50 dark:bg-slate-800/80 dark:shadow-lg;
+  }
+
+  .footer-logo-text {
+    @apply text-xs font-bold text-slate-900 sm:text-sm dark:text-white;
+  }
+
+  .footer-copyright {
+    @apply text-sm font-medium text-muted-foreground sm:text-base;
+  }
+}

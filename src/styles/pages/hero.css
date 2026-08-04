@@ -1,0 +1,191 @@
+@layer components {
+  .hero-layout {
+    @apply mt-0 flex flex-col items-center gap-6 sm:mt-16 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12;
+  }
+
+  .hero-column-left {
+    @apply order-1 flex w-full flex-col items-center gap-14 text-center will-change-transform sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left;
+  }
+
+  .hero-column-left-inner {
+    @apply flex w-full flex-col items-center gap-8 sm:gap-16 lg:items-start lg:gap-14;
+  }
+
+  .hero-column-right {
+    @apply order-2 hidden will-change-transform lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:justify-items-end lg:gap-14;
+  }
+
+  .hero-headline {
+    @apply text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl dark:text-slate-300;
+  }
+
+  .hero-headline-line {
+    @apply block;
+  }
+
+  .hero-headline-typed {
+    @apply block min-h-[2.6em];
+  }
+
+  .hero-mobile-portrait-wrap {
+    @apply flex justify-center lg:hidden;
+  }
+
+  .hero-portrait-stack {
+    @apply relative;
+  }
+
+  .hero-portrait-orb {
+    @apply pointer-events-none absolute inset-0 rounded-[2.25rem] bg-slate-400/10 blur-3xl dark:bg-slate-500/10;
+  }
+
+  .hero-portrait-tilt-wrap {
+    @apply relative z-10 [perspective:1100px];
+  }
+
+  .hero-portrait-tilt-wrap--enter {
+    animation: heroCardSlideUp 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+
+  .hero-portrait-tilt-wrap--hidden {
+    @apply opacity-0 translate-y-[260px] scale-[0.94];
+  }
+
+  .hero-portrait-tilt-wrap--desktop {
+    @apply flex flex-col items-center;
+  }
+
+  .hero-accent-surface {
+    @apply border-[var(--hero-border)]/80 dark:border-slate-800/50;
+    background: var(--card-gradient);
+  }
+
+  .hero-portrait-card {
+    @apply relative overflow-hidden rounded-[2rem] border border-[var(--hero-border)]/80 bg-gradient-to-b from-white via-[#fdf7f0] to-[#f3e6d6] shadow-lg shadow-slate-900/10 transition-transform duration-150 ease-out will-change-transform dark:border-slate-800/70 dark:from-slate-900/90 dark:via-slate-950/95 dark:to-black/98 dark:shadow-[0_20px_60px_rgba(15,23,42,0.75)];
+  }
+
+  .hero-portrait-card--mobile {
+    @apply w-72 sm:w-[26rem] md:w-[26rem];
+  }
+
+  .hero-portrait-card--desktop {
+    @apply w-[28rem];
+  }
+
+  .hero-portrait-image-section {
+    @apply relative overflow-hidden rounded-t-[2rem] bg-slate-200 dark:bg-slate-900;
+  }
+
+  .hero-portrait-image-section--mobile {
+    @apply h-64 sm:h-88 md:h-96;
+  }
+
+  .hero-portrait-image-section--desktop {
+    @apply h-96;
+  }
+
+  .hero-portrait-frame {
+    @apply absolute inset-0 overflow-hidden;
+  }
+
+  .hero-portrait-image {
+    @apply h-full w-full object-cover object-[center_14%] dark:brightness-[0.94];
+  }
+
+  .hero-portrait-image-overlay {
+    @apply pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent dark:from-black/30;
+  }
+
+  .hero-portrait-fallback {
+    @apply flex h-full w-full items-center justify-center bg-slate-200 text-4xl font-bold text-foreground dark:bg-slate-900 dark:text-white;
+  }
+
+  .hero-portrait-footer {
+    @apply relative z-10 rounded-b-[2rem] border-t-2 border-[var(--hero-border)]/80 px-4 py-4 dark:border-slate-800/50;
+    background: var(--card-gradient);
+  }
+
+  .hero-portrait-name-row {
+    @apply mb-3 flex items-center justify-between gap-3;
+  }
+
+  .hero-portrait-name {
+    @apply text-sm font-semibold text-slate-900 dark:text-white;
+  }
+
+  .hero-portrait-logo-badge {
+    @apply hidden h-8 w-8 items-center justify-center rounded-2xl border border-slate-200/70 bg-white/90 text-[10px] font-semibold text-slate-900 shadow-md sm:flex dark:border-transparent dark:bg-foreground/90 dark:text-background;
+  }
+
+  .hero-portrait-tags {
+    @apply flex flex-wrap gap-1.5;
+  }
+
+  .hero-meta-row {
+    @apply mb-3 flex items-center justify-between gap-2;
+  }
+
+  .hero-meta-chip {
+    @apply shrink-0 rounded-lg border border-border/50 bg-muted/50 px-2.5 py-1.5 backdrop-blur-sm;
+  }
+
+  .hero-meta-chip-label {
+    @apply whitespace-nowrap text-[11px] text-muted-foreground;
+  }
+
+  .hero-cta-row {
+    @apply flex flex-col items-center gap-3 sm:flex-row sm:items-center lg:h-11 lg:shrink-0 lg:items-start;
+  }
+
+  .hero-cta-primary {
+    @apply h-11 border-2 border-slate-200/80 bg-white px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-slate-300 hover:bg-white dark:border-slate-600/35 dark:bg-slate-900/45 dark:text-slate-300 dark:shadow-none dark:backdrop-blur-sm dark:hover:border-slate-500/45 dark:hover:bg-slate-800/55;
+  }
+
+  .hero-cta-primary-icon {
+    @apply ml-2 h-4 w-4 transition-transform group-hover:translate-x-1;
+  }
+
+  .hero-cta-secondary {
+    @apply relative h-11 overflow-hidden border-2 border-[var(--hero-border)]/80 px-6 text-sm font-semibold text-slate-900 shadow-sm hover:border-[var(--hero-border)] dark:border-slate-800/50 dark:bg-accent dark:text-muted-foreground dark:hover:text-foreground;
+    background: var(--card-gradient);
+  }
+
+  .hero-cta-secondary:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .hero-cta-secondary-label {
+    @apply relative z-10;
+  }
+
+  .hero-desktop-portrait-anchor {
+    @apply relative self-end;
+  }
+
+  .hero-social-row {
+    @apply flex w-[28rem] shrink-0 items-center justify-between gap-4 self-end;
+  }
+
+  .hero-social-link {
+    @apply relative flex h-11 flex-1 items-center justify-center gap-1.5 overflow-hidden rounded-md border-2 border-[var(--hero-border)]/80 text-muted-foreground shadow-sm transition-colors hover:border-[var(--hero-border)] hover:text-foreground dark:border-slate-800/50;
+    background: var(--card-gradient);
+  }
+
+  .hero-social-link:hover {
+    box-shadow:
+      0 0 30px var(--glow-color),
+      0 0 60px var(--glow-color-secondary);
+    transform: translateY(-2px);
+  }
+
+  .hero-social-icon {
+    @apply relative z-10 h-4 w-4 transition-transform group-hover:scale-110;
+  }
+
+  .hero-social-label {
+    @apply relative z-10 text-xs font-medium;
+  }
+}

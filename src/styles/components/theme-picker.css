@@ -1,0 +1,49 @@
+@layer components {
+  .theme-picker {
+    @apply relative;
+  }
+
+  .theme-picker-trigger {
+    @apply relative flex h-11 min-w-11 items-center justify-center gap-2 rounded-lg border border-slate-200/60 bg-white/60 px-3 text-slate-700 backdrop-blur-sm transition-all duration-300 hover:border-foreground/30 hover:text-slate-950 dark:border-slate-700/50 dark:bg-slate-800/50 dark:text-white/90 dark:hover:text-white;
+  }
+
+  .theme-picker-trigger-hover {
+    @apply absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50;
+  }
+
+  .theme-picker-icon {
+    @apply relative z-10 h-4 w-4;
+  }
+
+  .theme-picker-swatch {
+    @apply relative z-10 hidden h-3.5 w-3.5 rounded-full border-2 bg-transparent sm:inline-block;
+  }
+
+  .theme-picker-menu {
+    @apply fixed z-[200] max-h-[min(24rem,calc(100vh-6rem))] overflow-y-auto rounded-2xl border-2 border-border/70 bg-white/95 p-1.5 shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-slate-700/60 dark:bg-slate-900/95 dark:shadow-black/40;
+  }
+
+  .theme-picker-option {
+    @apply flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors;
+  }
+
+  .theme-picker-option--selected {
+    @apply bg-muted/80 text-foreground;
+  }
+
+  .theme-picker-option--idle {
+    @apply text-foreground/85 hover:bg-muted/50;
+  }
+
+  .theme-picker-option-swatch {
+    @apply h-4 w-4 shrink-0 rounded-full border border-black/10 shadow-sm dark:border-white/15;
+  }
+
+  .theme-picker-option-label {
+    @apply flex-1 font-medium;
+  }
+
+  .theme-picker-option-check {
+    @apply h-4 w-4 shrink-0 opacity-70;
+  }
+}

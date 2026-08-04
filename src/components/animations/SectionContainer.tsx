@@ -81,10 +81,9 @@ export function SectionContainer({
       ref={sectionRef}
       id={id}
       className={cn(
-        "relative py-8 sm:py-12 md:py-16 lg:py-20",
-        variant === "hero" &&
-          "min-h-[70vh] sm:min-h-[80vh] md:min-h-[85vh] flex items-center pt-40 sm:pt-36 md:pt-36 lg:pt-40 scroll-mt-40 sm:scroll-mt-36 md:scroll-mt-36 lg:scroll-mt-40",
-        variant === "featured" && "py-12 sm:py-16 md:py-20",
+        "section-container",
+        variant === "hero" && "section-container--hero",
+        variant === "featured" && "section-container--featured",
         className
       )}
       style={
@@ -93,14 +92,12 @@ export function SectionContainer({
           : undefined
       }
     >
-      {variant !== "hero" && (
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent" />
-      )}
+      {variant !== "hero" && <div className="section-container-overlay" />}
 
-      <div className="relative z-10 w-full px-4 sm:px-6">
+      <div className="section-container-inner">
         <div
           ref={contentRef}
-          className="relative mx-auto w-full max-w-7xl will-change-transform"
+          className="section-container-content"
           style={
             motion === "none" ? undefined : { transformStyle: "preserve-3d" }
           }

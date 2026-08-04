@@ -1,167 +1,179 @@
 # Components Map
 
-A complete reference of every component in the project — what it does, where it lives, and how it fits into the page.
+Reference for every component — role, path, and page position.
 
 ---
 
 ## Page Assembly
 
-`src/app/page.tsx` composes the entire single-page portfolio in this order:
+`src/app/page.tsx` renders in this order:
 
 ```
+CursorEffect, LivingGridDots, FloatingOrbs   ← global ambient layers
 Navbar
-└── Hero
-└── Projects
-└── SystemsBuilt
-└── Education
-└── Experience
-└── Skills
+main
+├── ScrollIntoMachine
+│   ├── Hero
+│   └── About (desktop: motion="none"; mobile: normal SectionContainer)
+├── Timeline
+├── Journal
+├── Skills
 └── Footer
 ```
 
 ---
 
-## Layout & Infrastructure
+## Styles Map
 
-### `SectionContainer` — `src/components/SectionContainer.tsx`
+| File                          | Purpose                                                        |
+| ----------------------------- | -------------------------------------------------------------- |
+| `src/app/globals.css`         | Tailwind entry — imports only                                  |
+| `src/config/ui-theme.css`     | `@theme` tokens + palette variables                            |
+| `src/styles/base.css`         | html, body, dot grid, scrollbar, cursor-none                   |
+| `src/styles/components.css`   | `.section-badge`, `.tag-pill`, `.card-shine`, `.hover-glow`, … |
+| `src/styles/animations.css`   | All `@keyframes` + `.animate-*`, `.hero-card-slide-up`, …      |
+| `src/styles/pages/hero.css`   | `.hero-*` classes                                              |
+| `src/styles/pages/navbar.css` | `.navbar-*` classes                                            |
+| `src/styles/pages/footer.css` | `.footer-*` classes                                            |
 
-**Role:** Universal section wrapper.  
-**Provides:** Consistent vertical padding, GSAP scroll-reveal (fade up from y:60), subtle background gradient overlay, responsive container.  
-**Props:** `id`, `variant` (`"default"` | `"hero"` | `"featured"`), `className`, `children`.  
-**Usage:** Wrap every new top-level section in this component.
-
-### `Navbar` — `src/components/Navbar.tsx`
-
-**Role:** Fixed top navigation bar.  
-**Features:** Smooth-scroll to sections, language toggle (EN/NO), dark/light theme toggle, mobile hamburger menu with full-screen overlay.  
-**Nav items:** About Me, Projects, Systems, Education, Experience, Skills.  
-**State:** `isOpen` (mobile menu), reads `language` from context, reads `theme` from `next-themes`.
-
-### `ScrollProgressLine` — `src/components/ScrollProgressLine.tsx`
-
-**Role:** Thin gradient line at the top of the viewport that fills as the user scrolls.
-
-### `theme-provider.tsx` — `src/components/theme-provider.tsx`
-
-**Role:** Wraps the app in `next-themes` provider. Placed in `layout.tsx`.
+**Migration status:** All page components (Hero, Navbar, Footer, About, Timeline, Journal, Skills) → semantic CSS in `styles/pages/`.
 
 ---
 
-## Section Components
+## Layout & Infrastructure
 
-### `Hero` — `src/components/Hero.tsx`
+### `SectionContainer` — `src/components/animations/SectionContainer.tsx`
 
-**Role:** First visible section — name, tagline, portrait card, social links, CTAs.  
-**Key features:**
+Universal section wrapper.
 
-- Portrait card with 3D mouse-tilt (perspective + rotateX/Y via React state)
-- Radial gradient "shine" overlay that follows cursor
-- Slide-up entrance animation on intersection
-- `TextType` typewriter for the name
-- Scroll-to-section CTA buttons
-- Location and birthdate metadata pills
+- Padding, max-width, scroll-margin
+- GSAP depth-reveal (`motion="depth"`, default)
+- Variants: `"default"` | `"hero"` | `"featured"`
+- Skip animation: `motion="none"`
 
-**Content keys:** `info`, `role`, `greeting`, `name`, `description`, `location`, `born`, `cta`, `ctaSecondary`
+### `ScrollIntoMachine` — `src/components/animations/ScrollIntoMachine.tsx`
 
-### `Projects` — `src/components/Projects.tsx`
+Desktop: sticky scroll journey — hero sides peel, About emerges.  
+Mobile / reduced-motion: simple `{hero}{about}` stack.
 
-**Role:** Project showcase grid — featured products and specialised system/security projects.  
-**Data structure:** Two arrays per language — `projects_no`/`projects_en` (featured full-stack) and `reverseProjects_no`/`reverseProjects_en` (security + AI). Merged at render time.  
-**Card variants:**
+### `Navbar` — `src/components/pages/Navbar.tsx`
 
-- **Standard card:** image or icon header, title, description, tech badges, external link
-- **AI System card:** violet accent, "AI System" badge, opens a detail modal on click
+Fixed top nav. Styles: `styles/pages/navbar.css`.
 
-**Modal (`activeProject` state):** Full-screen overlay with tabbed sections (Problem / System / System Architecture / Result). Architecture section renders `<ArchitectureDiagram />` — a CSS-based pipeline flow visualisation.  
-**Project interface:** `title`, `description`, `technologies`, `github`, `demo`, `featured`, `image`, `icon`, `isAISystem`, `sections`
+- Desktop links, lang toggle, `ThemePicker`
+- Mobile full-screen overlay
+- Theme-aware shell: `navbar-shell--default` | `thylo-chrome navbar-shell--thylo`
 
-### `SystemsBuilt` — `src/components/SystemsBuilt.tsx`
+### `CursorEffect` — `src/components/animations/CursorEffect.tsx`
 
-**Role:** Signals system-level thinking — lists architectures and platforms built, not just individual apps.  
-**Layout:** Responsive 3-column card grid (1-col mobile, 2-col sm, 3-col lg).  
-**Each card:** Coloured icon, system name, short description, tag pills with unique accent colour.  
-**Accent colours:** violet, emerald, cyan, blue, purple, amber — each mapped to border/bg/text/icon classes via `accentMap`.  
-**Systems listed:** AI Health Insight Engine, Secure Health Data Platform, Wearable Data Integration Layer, Prompt Orchestration Framework, AI Insight Generation Pipeline, Full-Stack Auth & Security Layer.
+Custom cursor; toggles `body.cursor-none`.
 
-### `Education` — `src/components/Education.tsx`
+### `FloatingOrbs` / `LivingGridDots` — `src/components/animations/`
 
-**Role:** Academic background — NTNU programme, courses, grades.
+Ambient background motion and dot grid magnet effect.
 
-### `Experience` — `src/components/Experience.tsx`
+### `theme-provider` — `src/components/ui/theme-provider.tsx`
 
-**Role:** Professional roles and organisational positions with timeline layout.
+`next-themes` wrapper in `layout.tsx`.
 
-### `Skills` — `src/components/Skills.tsx`
+### `ThemePicker` — `src/components/ui/ThemePicker.tsx`
 
-**Role:** Technology stack overview.  
-**Contains:** `SkillsRadarChart` sub-component for visual skill distribution.
+Multi-palette picker (original, thylo, paper, warm, fjord, hellas, terminal, ember).
 
-### `Footer` — `src/components/Footer.tsx`
+---
 
-**Role:** Page footer with social links and copyright.
+## Section Components — `src/components/pages/`
+
+### `Hero` — `Hero.tsx` + `styles/pages/hero.css`
+
+Portrait card with 3D mouse-tilt, `TextType` name, CTAs, social links.
+
+Key classes: `hero-layout`, `hero-portrait-card`, `hero-cta-primary`, `hero-social-link`  
+Content: `@/content/hero`
+
+### `About` — `About.tsx`
+
+Bio section. Uses `.section-badge`. Embedded in `ScrollIntoMachine` on desktop.  
+Content: `@/content/about`
+
+### `Timeline` — `Timeline.tsx`
+
+Scroll-based card fade timeline.  
+Content: `@/content/timeline`
+
+### `Journal` — `Journal.tsx`
+
+Filterable journal entries + detail modal.  
+Content: `@/content/journal`
+
+### `Skills` — `Skills.tsx`
+
+Tech grid with bounce-in cards + detail modal.  
+Content: `@/content/skills`
+
+### `Footer` — `Footer.tsx` + `styles/pages/footer.css`
+
+Contact CTA, social icons, copyright. Variant: `SectionContainer featured`.
+
+Key classes: `footer-card`, `footer-title`, `footer-social-btn`  
+Content: `@/content/footer`
 
 ---
 
 ## UI Primitives — `src/components/ui/`
 
-These are lightly customised shadcn/ui components. Do not rewrite them — extend via `className` prop.
+shadcn/ui components. Extend via `className` — do not rewrite internals.
 
-| File            | Export                                                                            | Use for                                  |
-| --------------- | --------------------------------------------------------------------------------- | ---------------------------------------- |
-| `card.tsx`      | `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` | All card surfaces                        |
-| `badge.tsx`     | `Badge`                                                                           | Tech tags, status labels, section badges |
-| `button.tsx`    | `Button`                                                                          | CTAs, action triggers                    |
-| `avatar.tsx`    | `Avatar`, `AvatarImage`, `AvatarFallback`                                         | Profile image in Hero                    |
-| `separator.tsx` | `Separator`                                                                       | Horizontal dividers                      |
-| `progress.tsx`  | `Progress`                                                                        | Skill bars (if used)                     |
-
----
-
-## Utility Components
-
-### `GradientText` — `src/components/GradientText.tsx`
-
-Wraps text in the standard blue→cyan gradient clip. Use for highlighted inline text.
-
-### `TextType` — `src/components/TextType.tsx`
-
-Typewriter effect. Props: `text` (string[]), `typingSpeed`, `pauseDuration`, `showCursor`, `cursorCharacter`.  
-Currently used only in `Hero` for the name reveal.
-
-### `AnimatedSection` — `src/components/AnimatedSection.tsx`
-
-Alternative scroll-reveal wrapper (intersection observer based). Prefer `SectionContainer` for new sections.
-
-### `Avatar` (custom) — `src/components/Avatar.tsx`
-
-Human avatar illustration used in the Navbar.
-
-### `CTFScripts` — `src/components/CTFScripts.tsx`
-
-Hidden component that loads CTF / hacking-related easter eggs or scripts. Do not modify.
-
-### `GitHubCommitsChart` — `src/components/GitHubCommitsChart.tsx`
-
-Visualises GitHub commit history. Data fetched client-side.
+| File              | Export                               | Use for                |
+| ----------------- | ------------------------------------ | ---------------------- |
+| `card.tsx`        | `Card`, `CardHeader`, `CardTitle`, … | Card surfaces          |
+| `badge.tsx`       | `Badge`                              | Status labels          |
+| `button.tsx`      | `Button`                             | CTAs                   |
+| `TextType.tsx`    | default                              | Typewriter (Hero name) |
+| `ThemePicker.tsx` | `ThemePicker`                        | Palette switcher       |
 
 ---
 
-## Context & Hooks
+## Content — `src/content/`
+
+| File          | Used by             |
+| ------------- | ------------------- |
+| `hero.ts`     | Hero                |
+| `about.ts`    | About               |
+| `navbar.ts`   | Navbar              |
+| `footer.ts`   | Footer              |
+| `timeline.ts` | Timeline            |
+| `journal.ts`  | Journal             |
+| `skills.ts`   | Skills              |
+| `types.ts`    | `Localized<T>` type |
+
+All content objects export `no` and `en` keys.
+
+---
+
+## Context & Lib
 
 ### `LanguageContext` — `src/context/LanguageContext.tsx`
 
-Provides `language` (`"en"` | `"no"`) and `setLanguage` via `useLanguage()` hook.  
-Every component with user-facing text consumes this context.
+`useLanguage()` → `{ language, setLanguage }` where `language` is `"en"` | `"no"`.
+
+### `lib/utils.ts`
+
+- `cn()` — clsx + tailwind-merge
+- `isMobileViewport()`, `prefersReducedMotion()`
+
+### `lib/fonts.ts`
+
+JetBrains Mono via `next/font/google`.
 
 ---
 
-## Public Assets — `public/`
+## Config
 
-Key images referenced in components:
+### `config/color-themes.ts`
 
-| File                           | Used in                         |
-| ------------------------------ | ------------------------------- |
-| `Selvportrett-kopi.png`        | Hero portrait card              |
-| `ThyloInsightv2.png`           | Projects — Thylo Insight card   |
-| `teknologiporten_nettside.png` | Projects — Teknologiporten card |
-| `emil_link.png`                | Projects — EMIL-Link card       |
+Theme IDs, `DEFAULT_COLOR_THEME`, `usesDarkChrome()`, `isThyloChrome()`, swatch colours.
+
+### `config/ui-theme.css`
+
+CSS variables per palette, `@theme inline` mapping to Tailwind tokens, `.thylo-chrome` navbar/footer overrides.

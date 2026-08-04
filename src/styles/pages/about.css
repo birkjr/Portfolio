@@ -1,0 +1,13 @@
+@layer components {
+  .about-root {
+    @apply mx-auto max-w-3xl;
+  }
+
+  .about-paragraphs {
+    @apply space-y-5;
+  }
+
+  .about-paragraph {
+    @apply text-base leading-relaxed text-muted-foreground sm:text-lg;
+  }
+}

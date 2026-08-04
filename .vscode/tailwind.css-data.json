@@ -1,0 +1,37 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@config",
+      "description": "Tailwind CSS v4 — load tailwind.config.js"
+    },
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS v4 — define design tokens"
+    },
+    {
+      "name": "@source",
+      "description": "Tailwind CSS v4 — add content sources"
+    },
+    {
+      "name": "@plugin",
+      "description": "Tailwind CSS v4 — register a plugin"
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Tailwind CSS v4 — define a custom variant"
+    },
+    {
+      "name": "@utility",
+      "description": "Tailwind CSS v4 — define a custom utility"
+    },
+    {
+      "name": "@apply",
+      "description": "Tailwind CSS — inline utility classes"
+    },
+    {
+      "name": "@layer",
+      "description": "Tailwind CSS — cascade layer (base, components, utilities)"
+    }
+  ]
+}

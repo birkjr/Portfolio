@@ -24,8 +24,8 @@ const LEGACY_THEME_MAP: Record<string, ColorThemeId> = {
 };
 
 export function ThemePicker({
-  className = "",
-  buttonClassName = "",
+  className,
+  buttonClassName,
 }: {
   className?: string;
   buttonClassName?: string;
@@ -128,7 +128,7 @@ export function ThemePicker({
             ref={menuRef}
             role="listbox"
             aria-label={language === "no" ? "Fargetemaer" : "Color themes"}
-            className="fixed z-[200] max-h-[min(24rem,calc(100vh-6rem))] overflow-y-auto rounded-2xl border-2 border-border/70 bg-white/95 p-1.5 shadow-[0_20px_60px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-slate-700/60 dark:bg-slate-900/95 dark:shadow-black/40"
+            className="theme-picker-menu"
             style={{
               top: menuStyle.top,
               left: menuStyle.left,
@@ -144,22 +144,21 @@ export function ThemePicker({
                   role="option"
                   aria-selected={selected}
                   onClick={() => selectTheme(option.id)}
-                  className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors ${
+                  className={cn(
+                    "theme-picker-option",
                     selected
-                      ? "bg-muted/80 text-foreground"
-                      : "text-foreground/85 hover:bg-muted/50"
-                  }`}
+                      ? "theme-picker-option--selected"
+                      : "theme-picker-option--idle"
+                  )}
                 >
                   <span
-                    className="h-4 w-4 shrink-0 rounded-full border border-black/10 shadow-sm dark:border-white/15"
+                    className="theme-picker-option-swatch"
                     style={{ backgroundColor: option.swatch }}
                   />
-                  <span className="flex-1 font-medium">
+                  <span className="theme-picker-option-label">
                     {option.label[language]}
                   </span>
-                  {selected && (
-                    <Check className="h-4 w-4 shrink-0 opacity-70" />
-                  )}
+                  {selected && <Check className="theme-picker-option-check" />}
                 </button>
               );
             })}
@@ -169,23 +168,20 @@ export function ThemePicker({
       : null;
 
   return (
-    <div ref={containerRef} className={`relative ${className}`}>
+    <div ref={containerRef} className={cn("theme-picker", className)}>
       <button
         ref={buttonRef}
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className={cn(
-          "group relative flex h-11 min-w-11 items-center justify-center gap-2 rounded-lg border border-slate-200/60 bg-white/60 px-3 text-slate-700 backdrop-blur-sm transition-all duration-300 hover:border-foreground/30 hover:text-slate-950 dark:border-slate-700/50 dark:bg-slate-800/50 dark:text-white/90 dark:hover:text-white",
-          buttonClassName
-        )}
+        className={cn("group theme-picker-trigger", buttonClassName)}
         aria-label={language === "no" ? "Velg fargetema" : "Choose color theme"}
         aria-expanded={open}
         aria-haspopup="listbox"
       >
-        <div className="absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50" />
-        <Palette className="relative z-10 h-4 w-4" />
+        <div className="theme-picker-trigger-hover" />
+        <Palette className="theme-picker-icon" />
         <span
-          className="relative z-10 hidden h-3.5 w-3.5 rounded-full border-2 bg-transparent sm:inline-block"
+          className="theme-picker-swatch"
           style={{
             borderColor: activeTheme.swatchRing ?? activeTheme.swatch,
           }}
