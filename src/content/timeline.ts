@@ -30,8 +30,6 @@ export const timelineSection: Localized<{
   summerIntern: string;
   work: string;
   whatILearned: string;
-  readMore: string;
-  readLess: string;
   architecture: string;
   github: string;
   demo: string;
@@ -46,8 +44,6 @@ export const timelineSection: Localized<{
     work: "Erfaring",
     summerIntern: "Sommerintern",
     whatILearned: "Hva lærte jeg?",
-    readMore: "Les mer",
-    readLess: "Vis mindre",
     architecture: "Arkitektur",
     github: "GitHub",
     demo: "Nettside",
@@ -62,8 +58,6 @@ export const timelineSection: Localized<{
     work: "Experience",
     summerIntern: "Summer internship",
     whatILearned: "What did I learn?",
-    readMore: "Read more",
-    readLess: "Show less",
     architecture: "Architecture",
     github: "GitHub",
     demo: "Website",
@@ -117,7 +111,7 @@ export const timelineEntries: TimelineEntry[] = [
     },
     type: "summerIntern",
     learnings: {
-      no: "Det å jobbe i et scaleup bedrift gjorde meg bevisst på hvor viktig det er å være fleksibel og kreativ når det kommer til problemløsning. Dokumentasjon og kommunikasjon er kritisk for å få det til å fungere.",
+      no: "Det å jobbe i en scaleup bedrift gjorde meg bevisst på hvor viktig det er å være fleksibel og kreativ når det kommer til problemløsning. Dokumentasjon og kommunikasjon er kritisk for å få det til å fungere.",
       en: "Working in a scaleup company made me aware of how important it is to be flexible and creative when it comes to problem solving. Documentation and communication are critical to make it work.",
     },
   },

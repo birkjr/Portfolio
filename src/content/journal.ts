@@ -174,8 +174,8 @@ export const journal: JournalItem[] = [
     },
     paragraphs: {
       no: [
-        "Dette er kanskje spørsmålet jeg får oftest.",
-        "Og jeg tror mange diskuterer det feil.",
+        "Dette er noe jeg tenker mye på.",
+        "Jeg tror mange tenker på det på feil måte.",
         "Det handler ikke om AI er «bra» eller «dårlig».",
         "Det handler om hva du prøver å lære.",
         "Hvis AI kan spare meg fem timer med å skrive en SQL-query jeg allerede forstår, bruker jeg AI. Hver gang.",
@@ -191,8 +191,8 @@ export const journal: JournalItem[] = [
         "Jeg er langt fra noen fasit på dette. Jeg prøver fortsatt å finne balansen selv.",
       ],
       en: [
-        "This is probably the question I get most often.",
-        "And I think a lot of people discuss it the wrong way.",
+        "This is something I think about a lot.",
+        "I think a lot of people think about it the wrong way.",
         'It\'s not about whether AI is "good" or "bad".',
         "It's about what you're trying to learn.",
         "If AI can save me five hours writing a SQL query I already understand, I use AI. Every time.",
@@ -218,7 +218,7 @@ export const journal: JournalItem[] = [
     },
     paragraphs: {
       no: [
-        "Jeg tenker overraskende mye på dette.",
+        "Dette er noe av det som har formet mine karrierevalg aller mest.",
         "På videregående var planen enkel: få gode karakterer, kom inn på drømmestudiet.",
         "Det fungerte.",
         "Men etter at jeg begynte på NTNU begynte jeg å lure på om karakterer alene faktisk var det som tok meg dit jeg ønsket.",
@@ -235,7 +235,7 @@ export const journal: JournalItem[] = [
         "For noen er karakterer den raskeste veien. For meg har det vært å bygge ting.",
       ],
       en: [
-        "I think about this more than you'd expect.",
+        "This is something that has shaped my career choices more than you'd expect.",
         "In high school the plan was simple: get good grades, get into my dream programme.",
         "It worked.",
         "But after starting at NTNU, I began wondering whether grades alone would actually get me where I wanted to go.",

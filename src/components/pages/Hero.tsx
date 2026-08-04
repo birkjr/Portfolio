@@ -61,8 +61,8 @@ export function Hero() {
       const percentY = e.clientY / window.innerHeight - 0.5;
 
       setTilt({
-        rotateX: percentY * -13,
-        rotateY: percentX * 13,
+        rotateX: percentY * -25,
+        rotateY: percentX * 25,
         scale: 1.03,
       });
     };

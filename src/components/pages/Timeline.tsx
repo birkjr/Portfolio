@@ -1,12 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ChevronDown,
-  ExternalLink,
-  Github,
-  MessageCircleQuestion,
-} from "lucide-react";
+import { ExternalLink, Github, MessageCircleQuestion } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "@/components/animations/SectionContainer";
 import {
@@ -34,167 +29,7 @@ function openJournal(slug: string) {
   document.getElementById("journal")?.scrollIntoView({ behavior: "smooth" });
 }
 
-function TimelineCard({
-  entry,
-  isActive,
-  isExpanded,
-  onToggleExpand,
-}: {
-  entry: TimelineEntry;
-  isActive: boolean;
-  isExpanded: boolean;
-  onToggleExpand: () => void;
-}) {
-  const { language } = useLanguage();
-  const t = timelineSection[language];
-  const expandable = entry.expandable;
-  const hasExpandable = Boolean(
-    expandable &&
-      (expandable.architecture ||
-        expandable.github ||
-        expandable.demo ||
-        expandable.journalSlugs?.length)
-  );
-
-  const linkedJournals =
-    expandable?.journalSlugs
-      ?.map((slug) => journal.find((item) => item.slug === slug))
-      .filter(Boolean) ?? [];
-
-  return (
-    <div
-      data-timeline-card
-      className={cn(
-        "timeline-card",
-        isActive ? "timeline-card--active" : "timeline-card--inactive"
-      )}
-    >
-      <div className="timeline-card-inner">
-        <div className="timeline-card-meta">
-          <span className="timeline-card-period">{entry.period}</span>
-          <Badge variant="outline" className="timeline-card-type-badge">
-            {t[timelineTypeLabels[entry.type]]}
-          </Badge>
-        </div>
-
-        <h3 className="timeline-card-role">{entry.subtitle[language]}</h3>
-        <p className="timeline-card-title">{entry.title[language]}</p>
-
-        {entry.description && (
-          <p className="timeline-card-description">
-            {entry.description[language]}
-          </p>
-        )}
-
-        {hasExpandable && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={onToggleExpand}
-            aria-expanded={isExpanded}
-            className="timeline-expand-btn"
-          >
-            {isExpanded ? t.readLess : t.readMore}
-            <ChevronDown
-              className={cn(
-                "timeline-expand-icon",
-                isExpanded && "timeline-expand-icon--open"
-              )}
-            />
-          </Button>
-        )}
-
-        <div
-          className={cn(
-            "timeline-expand-panel",
-            isExpanded && hasExpandable
-              ? "timeline-expand-panel--open"
-              : "timeline-expand-panel--closed"
-          )}
-        >
-          <div className="timeline-expand-panel-inner">
-            {expandable && (
-              <div className="timeline-expand-content">
-                {expandable.architecture && (
-                  <ExpandableSection title={t.architecture}>
-                    <p className="timeline-expand-text">
-                      {expandable.architecture[language]}
-                    </p>
-                  </ExpandableSection>
-                )}
-
-                {(expandable.github || expandable.demo) && (
-                  <ExpandableSection
-                    title={expandable.github ? t.github : t.demo}
-                  >
-                    <div className="timeline-link-actions">
-                      {expandable.github && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="timeline-link-btn"
-                          onClick={() =>
-                            window.open(expandable.github, "_blank")
-                          }
-                        >
-                          <Github className="timeline-link-btn-icon" />
-                          GitHub
-                          <ExternalLink className="timeline-link-btn-icon-end" />
-                        </Button>
-                      )}
-                      {expandable.demo && (
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="timeline-link-btn"
-                          onClick={() => window.open(expandable.demo, "_blank")}
-                        >
-                          {t.demo}
-                          <ExternalLink className="timeline-link-btn-icon-end" />
-                        </Button>
-                      )}
-                    </div>
-                  </ExpandableSection>
-                )}
-
-                {linkedJournals.length > 0 && (
-                  <ExpandableSection title={t.journal}>
-                    <ul className="timeline-journal-list">
-                      {linkedJournals.map((journalItem) => (
-                        <li key={journalItem!.slug}>
-                          <button
-                            type="button"
-                            onClick={() => openJournal(journalItem!.slug)}
-                            className="group timeline-journal-link"
-                          >
-                            <MessageCircleQuestion className="timeline-journal-link-icon" />
-                            <span className="timeline-journal-link-text">
-                              {journalItem!.question[language]}
-                            </span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </ExpandableSection>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="timeline-learnings">
-          <p className="timeline-learnings-label">{t.whatILearned}</p>
-          <p className="timeline-learnings-text">{entry.learnings[language]}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ExpandableSection({
+function DetailSection({
   title,
   children,
 }: {
@@ -209,24 +44,135 @@ function ExpandableSection({
   );
 }
 
+function TimelineCard({
+  entry,
+  isActive,
+}: {
+  entry: TimelineEntry;
+  isActive: boolean;
+}) {
+  const { language } = useLanguage();
+  const t = timelineSection[language];
+  const details = entry.expandable;
+  const hasDetails = Boolean(
+    details &&
+      (details.architecture ||
+        details.github ||
+        details.demo ||
+        details.journalSlugs?.length)
+  );
+
+  const linkedJournals =
+    details?.journalSlugs
+      ?.map((slug) => journal.find((item) => item.slug === slug))
+      .filter(Boolean) ?? [];
+
+  return (
+    <div
+      data-timeline-card
+      className={cn(
+        "timeline-card",
+        isActive ? "timeline-card--active" : "timeline-card--inactive"
+      )}
+    >
+      <div className="timeline-card-inner">
+        <header className="timeline-card-header">
+          <div className="timeline-card-meta">
+            <span className="timeline-card-period">{entry.period}</span>
+            <Badge variant="outline" className="timeline-card-type-badge">
+              {t[timelineTypeLabels[entry.type]]}
+            </Badge>
+          </div>
+
+          <h3 className="timeline-card-role">{entry.subtitle[language]}</h3>
+          <p className="timeline-card-title">{entry.title[language]}</p>
+        </header>
+
+        {entry.description && (
+          <p className="timeline-card-description">
+            {entry.description[language]}
+          </p>
+        )}
+
+        {hasDetails && details && (
+          <div className="timeline-expand-content">
+            {details.architecture && (
+              <DetailSection title={t.architecture}>
+                <p className="timeline-expand-text">
+                  {details.architecture[language]}
+                </p>
+              </DetailSection>
+            )}
+
+            {(details.github || details.demo) && (
+              <DetailSection title={details.github ? t.github : t.demo}>
+                <div className="timeline-link-actions">
+                  {details.github && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="timeline-link-btn"
+                      onClick={() => window.open(details.github, "_blank")}
+                    >
+                      <Github className="timeline-link-btn-icon" />
+                      GitHub
+                      <ExternalLink className="timeline-link-btn-icon-end" />
+                    </Button>
+                  )}
+                  {details.demo && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="timeline-link-btn"
+                      onClick={() => window.open(details.demo, "_blank")}
+                    >
+                      {t.demo}
+                      <ExternalLink className="timeline-link-btn-icon-end" />
+                    </Button>
+                  )}
+                </div>
+              </DetailSection>
+            )}
+
+            {linkedJournals.length > 0 && (
+              <DetailSection title={t.journal}>
+                <ul className="timeline-journal-list">
+                  {linkedJournals.map((journalItem) => (
+                    <li key={journalItem!.slug}>
+                      <button
+                        type="button"
+                        onClick={() => openJournal(journalItem!.slug)}
+                        className="group timeline-journal-link"
+                      >
+                        <MessageCircleQuestion className="timeline-journal-link-icon" />
+                        <span className="timeline-journal-link-text">
+                          {journalItem!.question[language]}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </DetailSection>
+            )}
+          </div>
+        )}
+
+        <div className="timeline-learnings">
+          <p className="timeline-learnings-label">{t.whatILearned}</p>
+          <p className="timeline-learnings-text">{entry.learnings[language]}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Timeline() {
   const { language } = useLanguage();
   const t = timelineSection[language];
   const [activeIndex, setActiveIndex] = useState(0);
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
-
-  const toggleExpanded = useCallback((id: string) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  }, []);
 
   const updateActive = useCallback(() => {
     const nodes = itemRefs.current.filter(Boolean) as HTMLLIElement[];
@@ -235,7 +181,6 @@ export function Timeline() {
     const reducedMotion = prefersReducedMotion();
     const viewportHeight = window.innerHeight;
     const viewportCenter = viewportHeight / 2;
-    const falloff = viewportHeight * 0.52;
     let closestIndex = 0;
     let closestDistance = Number.POSITIVE_INFINITY;
 
@@ -265,37 +210,40 @@ export function Timeline() {
         return;
       }
 
-      // 0 at edges / off-screen, 1 at viewport center
-      let presence = 1 - Math.min(distanceFromCenter / falloff, 1);
+      // Wider sharp zone near viewport center; softer falloff at edges
+      const deadZone = viewportHeight * 0.2;
+      const falloff = viewportHeight * 0.68;
+      const adjustedDistance = Math.max(0, distanceFromCenter - deadZone);
+      let presence = 1 - Math.min(adjustedDistance / falloff, 1);
       presence = presence * presence * (3 - 2 * presence);
 
       if (rect.bottom < 0) {
         const offScreen = Math.min(
-          Math.abs(rect.bottom) / (viewportHeight * 0.4),
+          Math.abs(rect.bottom) / (viewportHeight * 0.45),
           1
         );
-        presence *= 1 - offScreen * 0.8;
+        presence *= 1 - offScreen * 0.65;
       } else if (rect.top > viewportHeight) {
         const offScreen = Math.min(
-          (rect.top - viewportHeight) / (viewportHeight * 0.4),
+          (rect.top - viewportHeight) / (viewportHeight * 0.45),
           1
         );
-        presence *= 1 - offScreen * 0.8;
+        presence *= 1 - offScreen * 0.65;
       }
 
-      const opacity = 0.16 + presence * 0.84;
-      const scale = 0.9 + presence * 0.1;
-      const blur = (1 - presence) * 2.5;
+      const opacity = 0.34 + presence * 0.66;
+      const scale = 0.95 + presence * 0.05;
+      const blur = (1 - presence) * 1.15;
 
       // Dots stay more readable than cards during fade in/out
-      const dotOpacity = 0.58 + presence * 0.42;
-      const dotScale = 0.86 + presence * 0.14;
+      const dotOpacity = 0.62 + presence * 0.38;
+      const dotScale = 0.9 + presence * 0.1;
 
       if (card) {
         card.style.opacity = opacity.toFixed(3);
         card.style.transform = `scale(${scale.toFixed(3)})`;
         card.style.transformOrigin = "center left";
-        card.style.filter = blur > 0.12 ? `blur(${blur.toFixed(2)}px)` : "";
+        card.style.filter = blur > 0.18 ? `blur(${blur.toFixed(2)}px)` : "";
       }
 
       if (dot) {
@@ -328,11 +276,6 @@ export function Timeline() {
       window.removeEventListener("resize", scheduleUpdate);
     };
   }, [updateActive]);
-
-  useEffect(() => {
-    const frame = requestAnimationFrame(updateActive);
-    return () => cancelAnimationFrame(frame);
-  }, [expandedIds, updateActive]);
 
   return (
     <SectionContainer id="timeline">
@@ -374,12 +317,7 @@ export function Timeline() {
                     />
                   </div>
 
-                  <TimelineCard
-                    entry={entry}
-                    isActive={isActive}
-                    isExpanded={expandedIds.has(entry.id)}
-                    onToggleExpand={() => toggleExpanded(entry.id)}
-                  />
+                  <TimelineCard entry={entry} isActive={isActive} />
                 </li>
               );
             })}
