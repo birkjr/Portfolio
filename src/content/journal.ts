@@ -88,6 +88,26 @@ export const journal: JournalItem[] = [
     tag: { no: "Thylo", en: "Thylo" },
   },
   {
+    slug: "code-structure-pattern",
+    question: {
+      no: "Viktigheten av en kodestruktur du kjenner igjen",
+      en: "The importance of a code structure you recognize",
+    },
+    paragraphs: {
+      no: [
+        "Det er lett å gå seg vill i sin egen kode - og spesielt med ai modeller som kan gjør beslutninger underveis som man godtar uten å tenke seg om.",
+        "Min løsning på det er å konsistent følge en struktur som deler inn i 7 mapper: app (klienten som kun kaller på styling, content og evt API'et), components (felles oppsett på gjenbrukbare seksjoner, knapper og sider), lib (logikk for funksjonene), content (språk og tags for innholdet på sider og seksjoner), api/config (API'et og konfigurasjonen)",
+        "Dette gjør det enklere å lese og forstå koden, og gjør det enklere å finne ting igjen - uansett hvilket repo man jobber i.",
+      ],
+      en: [
+        "It's easy to get lost in your own code - and especially with AI models that can make decisions on the fly that you accept without thinking about it.",
+        "My solution to this is to consistently follow a structure that divides into 7 folders: app (the client that only calls styling, content and possibly the API), components (common setup for reusable sections, buttons and pages), lib (logic for functions), content (language and tags for the content on pages and sections), api/config (the API and configuration), tests (tests for functions), styles (styling for the app and components).",
+        "This makes it easier to read and understand the code, and makes it easier to find things again - regardless of which repo you're working in.",
+      ],
+    },
+    tag: { no: "Workflow", en: "Workflow" },
+  },
+  {
     slug: "thylo-idea-to-product",
     question: {
       no: "Hvordan Thylo Insight gikk fra idé til produkt",
