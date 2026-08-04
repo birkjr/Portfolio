@@ -18,7 +18,9 @@ const LEGACY_THEME_MAP: Record<string, ColorThemeId> = {
   dark: "original",
   midnight: "original",
   light: "thylo",
-  ocean: "fjord",
+  ocean: "original",
+  warm: "ember",
+  hellas: "emil",
   forest: "original",
   system: "original",
 };
@@ -58,7 +60,7 @@ export function ThemePicker({
     if (!button) return;
 
     const rect = button.getBoundingClientRect();
-    const menuWidth = 184;
+    const menuWidth = 220;
     const viewportPadding = 12;
     const left = Math.min(
       Math.max(rect.right - menuWidth, viewportPadding),

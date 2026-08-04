@@ -32,7 +32,7 @@
 @keyframes journalSlideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-3rem);
+    transform: translateX(-4.5rem);
   }
   to {
     opacity: 1;
@@ -120,16 +120,27 @@
   }
   58% {
     opacity: 1;
-    transform: translateY(16px) scale(1.03);
-  }
-  76% {
-    transform: translateY(-6px) scale(0.99);
-  }
-  90% {
-    transform: translateY(4px) scale(1.008);
+    transform: translateY(10px) scale(1.02);
   }
   100% {
     opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes techCardRefresh {
+  0%,
+  72%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  8% {
+    transform: translateY(-10px) scale(0.98);
+  }
+  18% {
+    transform: translateY(5px) scale(1.015);
+  }
+  26% {
     transform: translateY(0) scale(1);
   }
 }
@@ -283,9 +294,12 @@
   opacity: 0;
 }
 
+.tech-card-refresh {
+  animation: techCardRefresh 3s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
 .journal-card-slide-in {
-  animation: journalSlideInLeft 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-  opacity: 0;
+  animation: journalSlideInLeft 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .card-fade-in-up {

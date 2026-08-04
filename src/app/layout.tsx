@@ -19,7 +19,7 @@ export const viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Birk Jonathan Ramstad | Full-Stack Developer",
+    default: "Birk Jonathan Ramstad",
     template: "%s | Birk Jonathan Ramstad",
   },
   icons: {

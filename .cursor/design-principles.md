@@ -21,7 +21,7 @@ Communicate **craft, precision, and confidence**. Clean whitespace, strong type 
 
 ## Colour & Theme System
 
-Eight palettes selectable via `ThemePicker`: `original`, `thylo`, `paper`, `warm`, `fjord`, `hellas`, `terminal`, `ember`.
+Six palettes selectable via `ThemePicker`: `original`, `thylo`, `paper`, `emil`, `terminal`, `ember`.
 
 **Source of truth:** `src/config/ui-theme.css`
 

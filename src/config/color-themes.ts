@@ -1,10 +1,13 @@
+/**
+ * ThemePicker metadata (labels, swatches, dark/light flags).
+ * CSS variables for each palette: src/palette/<name>.css
+ */
 export type ColorThemeId =
   | "original"
   | "thylo"
   | "paper"
-  | "warm"
-  | "fjord"
-  | "hellas"
+  | "emil"
+  | "teknologiporten"
   | "terminal"
   | "ember";
 
@@ -37,27 +40,23 @@ export const colorThemes: ColorThemeOption[] = [
     darkChrome: true,
   },
   {
-    id: "paper",
-    label: { no: "Papir", en: "Paper" },
-    swatch: "#f5efe4",
+    id: "teknologiporten",
+    label: { no: "Teknologiporten", en: "Teknologiporten" },
+    swatch: "#0f2535",
+    swatchRing: "#f1e9e3",
     isDark: false,
   },
   {
-    id: "warm",
-    label: { no: "Warm sand", en: "Warm sand" },
-    swatch: "#c4956a",
-    isDark: true,
+    id: "emil",
+    label: { no: "EMIL-Link", en: "EMIL-Link" },
+    swatch: "#2E9468",
+    swatchRing: "#2B73B8",
+    isDark: false,
   },
   {
-    id: "fjord",
-    label: { no: "Fjord", en: "Fjord" },
-    swatch: "#7a9aad",
-    isDark: true,
-  },
-  {
-    id: "hellas",
-    label: { no: "Hellas", en: "Greece" },
-    swatch: "#2A9D8F",
+    id: "paper",
+    label: { no: "Papir", en: "Paper" },
+    swatch: "#f5efe4",
     isDark: false,
   },
   {

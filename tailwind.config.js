@@ -7,7 +7,7 @@ module.exports = {
 
   /*
    * Farger, fonter og radius kommer fra src/config/ui-theme.css (@theme inline).
-   * Tema byttes via html-klasser: original, thylo, paper, warm, fjord, hellas, terminal, ember.
+   * Tema byttes via html-klasser: original, thylo, paper, emil, terminal, ember.
    * Egne animasjoner/utilities ligger i src/styles/animations.css og components.css.
    */
   theme: {

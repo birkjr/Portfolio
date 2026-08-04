@@ -1,38 +1,21 @@
 @layer components {
-  .journal-filters {
-    @apply mb-5 flex flex-wrap justify-center gap-2;
-  }
-
-  .journal-filter-chip {
-    @apply rounded-full border px-3 py-1 text-xs font-medium transition-colors;
-  }
-
-  .journal-filter-chip--active {
-    @apply border-foreground/30 bg-foreground text-background;
-  }
-
-  .journal-filter-chip--inactive {
-    @apply border-border bg-card/40 text-muted-foreground hover:border-foreground/20 hover:text-foreground;
-  }
-
   .journal-list {
     @apply space-y-3;
   }
 
-  .journal-card--hidden {
-    @apply opacity-0;
-  }
-
   .journal-card {
-    @apply cursor-pointer rounded-2xl border-2 border-border/60 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
+    @apply cursor-pointer rounded-2xl border-2 border-border/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
     background: var(--card-gradient);
   }
 
-  .journal-card:hover {
+  .journal-card--scroll-driven {
+    @apply will-change-[transform,opacity];
+  }
+
+  .journal-card--scroll-driven:hover {
     box-shadow:
       0 0 30px var(--glow-color),
       0 0 60px var(--glow-color-secondary);
-    transform: translateY(-2px);
   }
 
   .journal-card-content {
@@ -69,14 +52,6 @@
 
   .journal-card-link-icon {
     @apply h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5;
-  }
-
-  .journal-pagination {
-    @apply mt-6 flex flex-wrap justify-center gap-3;
-  }
-
-  .journal-show-less {
-    @apply gap-2 text-muted-foreground;
   }
 
   /* Modal */

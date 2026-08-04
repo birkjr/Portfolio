@@ -1,0 +1,48 @@
+html.original {
+  --brand: 215 20% 65%;
+  --brand-secondary: 215 20% 65%;
+  --brand-muted: 215 20% 65%;
+  --hero-border: #e3d4c3;
+
+  --background: 222 84% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 84% 5%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 215 20% 65%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217 32% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 217 32% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217 32% 17%;
+  --input: 217 32% 17%;
+  --ring: 215 20% 65%;
+  --chart-1: 220 70% 50%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(15 23 42),
+    rgb(15 23 42),
+    rgb(2 6 23)
+  );
+  --page-grid-dot: rgba(255, 255, 255, 0.24);
+  --grid-pattern-dot: rgba(255, 255, 255, 0.652);
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-gradient: var(--card-gradient-dark);
+
+  --glow-color: rgba(148, 163, 184, 0.2);
+  --glow-color-secondary: rgba(148, 163, 184, 0.06);
+  --focus-ring: rgba(148, 163, 184, 0.45);
+}

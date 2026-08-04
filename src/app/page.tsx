@@ -27,8 +27,8 @@ export default function Home() {
           aboutMobile={<About />}
         />
         <Timeline />
-        <Journal />
         <Skills />
+        <Journal />
         <Footer />
       </main>
     </>

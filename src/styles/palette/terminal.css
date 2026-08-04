@@ -1,0 +1,53 @@
+html.terminal {
+  --brand: 43 88% 52%;
+  --brand-secondary: 43 88% 52%;
+  --brand-muted: 43 88% 52%;
+  --hero-border: #c9a227;
+
+  --background: 140 12% 4%;
+  --foreground: 43 30% 88%;
+  --card: 140 10% 7%;
+  --card-foreground: 43 30% 88%;
+  --popover: 140 12% 4%;
+  --popover-foreground: 43 30% 88%;
+  --primary: 43 88% 52%;
+  --primary-foreground: 140 12% 4%;
+  --secondary: 140 8% 12%;
+  --secondary-foreground: 43 30% 88%;
+  --muted: 140 8% 12%;
+  --muted-foreground: 43 40% 62%;
+  --accent: 140 8% 12%;
+  --accent-foreground: 43 30% 88%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 43 30% 88%;
+  --border: 140 8% 14%;
+  --input: 140 8% 14%;
+  --ring: 43 88% 52%;
+  --chart-1: 43 80% 48%;
+  --chart-2: 120 40% 42%;
+  --chart-3: 30 60% 50%;
+  --chart-4: 200 40% 45%;
+  --chart-5: 340 50% 48%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(8 14 10),
+    rgb(6 10 8),
+    rgb(3 6 4)
+  );
+  --page-grid-dot: rgba(212, 160, 23, 0.14);
+  --grid-pattern-dot: rgba(212, 160, 23, 0.32);
+
+  --glass-bg: rgba(212, 160, 23, 0.03);
+  --glass-border: rgba(212, 160, 23, 0.1);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(10 18 12 / 0.94),
+    rgb(6 12 8 / 0.97),
+    rgb(2 5 3 / 0.99)
+  );
+
+  --glow-color: rgba(212, 160, 23, 0.22);
+  --glow-color-secondary: rgba(212, 160, 23, 0.07);
+  --focus-ring: rgba(212, 160, 23, 0.38);
+}

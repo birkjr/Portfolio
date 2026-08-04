@@ -78,7 +78,7 @@ Ambient background motion and dot grid magnet effect.
 
 ### `ThemePicker` — `src/components/ui/ThemePicker.tsx`
 
-Multi-palette picker (original, thylo, paper, warm, fjord, hellas, terminal, ember).
+Multi-palette picker (original, thylo, paper, emil, terminal, ember).
 
 ---
 

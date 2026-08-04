@@ -1,0 +1,167 @@
+html.thylo {
+  /* Thylo Insight — light page · #594D84 · #392853 · #5B3A8E · #F8F6FC */
+  --brand: 252 26% 41%;
+  --brand-secondary: 265 35% 24%;
+  --brand-muted: 270 42% 39%;
+  --hero-border: #c9b8e0;
+
+  --background: 260 33% 98%;
+  --foreground: 265 35% 24%;
+  --card: 260 40% 99%;
+  --card-foreground: 265 35% 24%;
+  --popover: 260 40% 99%;
+  --popover-foreground: 265 35% 24%;
+  --primary: 270 42% 39%;
+  --primary-foreground: 260 33% 98%;
+  --secondary: 260 28% 94%;
+  --secondary-foreground: 265 35% 24%;
+  --muted: 260 24% 93%;
+  --muted-foreground: 252 22% 42%;
+  --accent: 260 28% 94%;
+  --accent-foreground: 265 35% 24%;
+  --destructive: 0 72% 48%;
+  --destructive-foreground: 260 33% 98%;
+  --border: 260 20% 88%;
+  --input: 260 20% 88%;
+  --ring: 270 42% 39%;
+  --chart-1: 252 26% 41%;
+  --chart-2: 270 42% 39%;
+  --chart-3: 265 35% 24%;
+  --chart-4: 200 30% 50%;
+  --chart-5: 340 45% 52%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(248 246 252),
+    rgb(242 236 250),
+    rgb(248 246 252)
+  );
+  --page-grid-dot: rgba(89, 77, 132, 0.14);
+  --grid-pattern-dot: rgba(91, 58, 142, 0.24);
+
+  --glass-bg: rgba(255, 255, 255, 0.68);
+  --glass-border: rgba(89, 77, 132, 0.12);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(255 255 255),
+    rgb(250 246 254),
+    rgb(244 238 252)
+  );
+
+  --glow-color: rgba(91, 58, 142, 0.22);
+  --glow-color-secondary: rgba(89, 77, 132, 0.09);
+  --focus-ring: rgba(91, 58, 142, 0.4);
+}
+
+/* Navbar / footer chrome — opaque match for from-[#f6f2f6] to-[#594d84]/10 */
+html.thylo .thylo-chrome {
+  border-color: rgb(89 77 132 / 0.2);
+  background: linear-gradient(to right, #f6f2f6, #e6e2eb);
+  color: rgb(51 65 85);
+}
+
+html.thylo .thylo-chrome .nav-chrome-link {
+  color: rgb(51 65 85);
+}
+
+html.thylo .thylo-chrome .nav-chrome-link:hover,
+html.thylo .thylo-chrome .nav-chrome-link:hover .nav-chrome-link-text {
+  color: rgb(15 23 42);
+}
+
+/* Navbar utility buttons — ghost, same feel as other palettes */
+html.thylo .thylo-chrome .nav-chrome-btn:not(.navbar-overlay-close) {
+  background: transparent;
+  border-color: transparent;
+  color: hsl(var(--brand));
+  box-shadow: none;
+}
+
+html.thylo .thylo-chrome .nav-chrome-btn:not(.navbar-overlay-close):hover {
+  background: transparent;
+  border-color: transparent;
+  color: hsl(var(--brand-muted));
+}
+
+html.thylo .thylo-chrome .theme-picker-trigger.nav-chrome-btn {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close)
+  .nav-chrome-btn-icon,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close)
+  .navbar-lang-icon,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close)
+  .navbar-lang-label,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close)
+  .theme-picker-icon {
+  color: hsl(var(--brand));
+}
+
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .nav-chrome-btn-icon,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .navbar-lang-icon,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .navbar-lang-label,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .theme-picker-icon {
+  color: hsl(var(--brand-muted));
+}
+
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close)
+  .theme-picker-swatch {
+  border-color: hsl(var(--brand));
+}
+
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .navbar-chrome-btn-hover,
+html.thylo
+  .thylo-chrome
+  .nav-chrome-btn:not(.navbar-overlay-close):hover
+  .theme-picker-trigger-hover {
+  background: hsl(var(--brand) / 0.08);
+}
+
+html.thylo .thylo-chrome .nav-chrome-logo {
+  background: hsl(var(--brand));
+  border-color: hsl(var(--brand) / 0.65);
+  color: hsl(var(--primary-foreground));
+}
+
+html.thylo .thylo-chrome .nav-chrome-logo-text {
+  color: hsl(var(--primary-foreground));
+}
+
+html.thylo .thylo-chrome .nav-chrome-menu-item {
+  background: hsl(var(--primary) / 0.92);
+  border-color: hsl(var(--brand) / 0.55);
+  color: hsl(var(--primary-foreground));
+}
+
+html.thylo .thylo-chrome .nav-chrome-menu-item:hover {
+  background: hsl(var(--brand-muted));
+  border-color: hsl(var(--brand) / 0.75);
+}

@@ -7,18 +7,11 @@ export interface JournalItem {
   tag: { no: string; en: string };
 }
 
-export const JOURNAL_INITIAL_VISIBLE = 3;
-export const JOURNAL_LOAD_MORE = 3;
-
-/** Section headings for the Journal block */
 export const journalSection: Localized<{
   label: string;
   title: string;
   subtitle: string;
   readAnswer: string;
-  filterAll: string;
-  showMore: string;
-  showLess: string;
 }> = {
   no: {
     label: "Journal",
@@ -26,9 +19,6 @@ export const journalSection: Localized<{
     subtitle:
       "Selv om jeg er langt fra noe ekspert, så er dette noe av de tingene jeg tenker mye på og tror andre vil finne interessant.",
     readAnswer: "Les svar",
-    filterAll: "Alle",
-    showMore: "Vis flere",
-    showLess: "Vis færre",
   },
   en: {
     label: "Journal",
@@ -36,9 +26,6 @@ export const journalSection: Localized<{
     subtitle:
       "Even though I'm far from being an expert, these are some of the things I think about and I think others will find interesting.",
     readAnswer: "Read answer",
-    filterAll: "All",
-    showMore: "Show more",
-    showLess: "Show less",
   },
 };
 
@@ -95,14 +82,10 @@ export const journal: JournalItem[] = [
     },
     paragraphs: {
       no: [
-        "Det er lett å gå seg vill i sin egen kode - og spesielt med ai modeller som kan gjør beslutninger underveis som man godtar uten å tenke seg om.",
-        "Min løsning på det er å konsistent følge en struktur som deler inn i 7 mapper: app (klienten som kun kaller på styling, content og evt API'et), components (felles oppsett på gjenbrukbare seksjoner, knapper og sider), lib (logikk for funksjonene), content (språk og tags for innholdet på sider og seksjoner), api/config (API'et og konfigurasjonen)",
-        "Dette gjør det enklere å lese og forstå koden, og gjør det enklere å finne ting igjen - uansett hvilket repo man jobber i.",
+        "Det er lett å gå seg vill i sin egen kode - og spesielt med ai modeller som kan gjør beslutninger underveis som man godtar uten å tenke seg om. Min løsning på det er å konsistent følge en struktur som deler inn i 7 mapper: app (klienten som kun kaller på styling, content og evt API'et), components (felles oppsett på gjenbrukbare seksjoner, knapper og sider), lib (logikk for funksjonene), content (språk og tags for innholdet på sider og seksjoner), api/config (API'et og konfigurasjonen). Dette gjør det enklere å lese og forstå koden, og gjør det enklere å finne ting igjen - uansett hvilket repo man jobber i.",
       ],
       en: [
-        "It's easy to get lost in your own code - and especially with AI models that can make decisions on the fly that you accept without thinking about it.",
-        "My solution to this is to consistently follow a structure that divides into 7 folders: app (the client that only calls styling, content and possibly the API), components (common setup for reusable sections, buttons and pages), lib (logic for functions), content (language and tags for the content on pages and sections), api/config (the API and configuration), tests (tests for functions), styles (styling for the app and components).",
-        "This makes it easier to read and understand the code, and makes it easier to find things again - regardless of which repo you're working in.",
+        "It's easy to get lost in your own code - and especially with AI models that can make decisions on the fly that you accept without thinking about it. My solution to this is to consistently follow a structure that divides into 7 folders: app (the client that only calls styling, content and possibly the API), components (common setup for reusable sections, buttons and pages), lib (logic for functions), content (language and tags for the content on pages and sections), api/config (the API and configuration), tests (tests for functions), styles (styling for the app and components). This makes it easier to read and understand the code, and makes it easier to find things again - regardless of which repo you're working in.",
       ],
     },
     tag: { no: "Workflow", en: "Workflow" },

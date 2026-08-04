@@ -63,11 +63,11 @@
   }
 
   .navbar-link {
-    @apply relative cursor-pointer overflow-hidden whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium tracking-wide text-slate-900/80 transition-all duration-300 hover:text-slate-950 dark:text-white/90 dark:hover:text-white;
+    @apply relative inline-flex min-h-11 cursor-pointer items-center overflow-hidden whitespace-nowrap rounded-lg px-4 py-2.5 text-sm font-medium tracking-wide text-slate-900/80 transition-colors duration-300 hover:text-slate-950 dark:text-white/90 dark:hover:text-white;
   }
 
   .navbar-link-hover-bg {
-    @apply absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50;
+    @apply pointer-events-none absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50;
   }
 
   .navbar-link-text {
@@ -82,12 +82,16 @@
     @apply mr-6 h-8 w-px bg-gradient-to-b from-transparent via-slate-700/50 to-transparent;
   }
 
+  .nav-chrome-btn {
+    @apply relative inline-flex shrink-0 items-center justify-center;
+  }
+
   .navbar-lang-btn {
     @apply flex items-center gap-2 text-slate-900/80;
   }
 
   .navbar-lang-btn--desktop {
-    @apply px-4 py-2;
+    @apply min-h-11 gap-2 px-3;
   }
 
   .navbar-lang-btn--mobile {
@@ -95,7 +99,7 @@
   }
 
   .navbar-chrome-btn-hover {
-    @apply absolute inset-0 transition-all duration-300 group-hover:bg-muted/50 dark:group-hover:bg-white/10;
+    @apply pointer-events-none absolute inset-0 rounded-lg transition-all duration-300 group-hover:bg-muted/50 dark:group-hover:bg-white/10;
   }
 
   .navbar-lang-icon {
@@ -103,7 +107,7 @@
   }
 
   .navbar-lang-label {
-    @apply relative z-10 font-medium uppercase transition-all duration-300 group-hover:text-foreground;
+    @apply relative z-10 font-medium uppercase text-slate-500 transition-colors duration-300 group-hover:text-foreground dark:text-slate-400 dark:group-hover:text-foreground;
   }
 
   .navbar-lang-label--desktop {
@@ -119,11 +123,11 @@
   }
 
   .navbar-mobile-actions {
-    @apply flex items-center gap-3 md:hidden;
+    @apply flex items-center md:hidden;
   }
 
   .navbar-menu-btn {
-    @apply flex h-11 w-11 items-center justify-center text-slate-900 hover:text-foreground dark:text-white dark:hover:text-foreground;
+    @apply relative flex h-11 w-11 items-center justify-center text-slate-900 hover:text-foreground dark:text-white dark:hover:text-foreground;
   }
 
   .navbar-menu-icon-wrap {
@@ -181,6 +185,51 @@
     padding-bottom: calc(2.75rem + env(safe-area-inset-bottom, 0px));
   }
 
+  .navbar-overlay-toolbar {
+    @apply absolute left-6 right-6 top-6 z-10 flex items-center justify-between;
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .navbar-overlay-toolbar-left {
+    @apply flex items-center gap-3;
+  }
+
+  .navbar-overlay-tool-btn {
+    @apply relative flex h-14 min-w-14 items-center justify-center border-0 bg-transparent text-foreground shadow-none;
+  }
+
+  .navbar-overlay-tool-btn.theme-picker-trigger {
+    @apply h-14 min-w-14 rounded-none border-0 bg-transparent px-3 text-inherit shadow-none backdrop-blur-none;
+  }
+
+  .navbar-overlay-tool-btn-hover,
+  .navbar-overlay-tool-btn .theme-picker-trigger-hover {
+    @apply pointer-events-none absolute inset-0 rounded-xl bg-transparent transition-all duration-300;
+  }
+
+  .navbar-overlay-tool-btn:hover .navbar-overlay-tool-btn-hover,
+  .navbar-overlay-tool-btn:hover .theme-picker-trigger-hover {
+    @apply bg-muted/40;
+  }
+
+  .navbar-overlay-tool-icon {
+    @apply relative z-10 h-4 w-4;
+  }
+
+  .navbar-overlay-tool-btn .navbar-lang-icon,
+  .navbar-overlay-tool-btn .navbar-lang-label--overlay,
+  .navbar-overlay-tool-btn .theme-picker-icon {
+    @apply relative z-10 text-inherit;
+  }
+
+  .navbar-lang-btn--overlay {
+    @apply gap-2 px-3;
+  }
+
+  .navbar-lang-label--overlay {
+    @apply text-xs font-medium uppercase;
+  }
+
   .navbar-overlay-content--open {
     @apply translate-y-0;
   }
@@ -190,7 +239,7 @@
   }
 
   .navbar-overlay-close {
-    @apply absolute right-6 top-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-slate-200/70 bg-white/70 text-slate-900 shadow-xl shadow-slate-900/10 transition-all duration-300 hover:scale-110 hover:rotate-90 hover:border-foreground/30 hover:bg-white hover:shadow-black/10 dark:border-slate-700/50 dark:bg-slate-800/90 dark:text-white dark:hover:bg-slate-700;
+    @apply flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-slate-200/70 bg-white/70 text-slate-900 shadow-xl shadow-slate-900/10 transition-all duration-300 hover:scale-110 hover:rotate-90 hover:border-foreground/30 hover:bg-white hover:shadow-black/10 dark:border-slate-700/50 dark:bg-slate-800/90 dark:text-white dark:hover:bg-slate-700;
   }
 
   .navbar-mobile-nav {
@@ -202,7 +251,7 @@
   }
 
   .navbar-mobile-item-hover {
-    @apply absolute inset-0 transition-all duration-300 group-hover:bg-muted/50;
+    @apply pointer-events-none absolute inset-0 transition-all duration-300 group-hover:bg-muted/50;
   }
 
   .navbar-mobile-item-inner {
@@ -220,4 +269,50 @@
   .navbar-mobile-item-line {
     @apply absolute bottom-0 left-0 h-[2px] w-0 bg-foreground/30 transition-all duration-500 group-hover:w-full;
   }
+}
+
+/* Loaded after palette CSS — Thylo mobile menu toolbar (globe + palette) */
+html.thylo .navbar-overlay .navbar-overlay-tool-btn {
+  background: transparent;
+  border-color: transparent;
+  color: hsl(var(--brand));
+}
+
+html.thylo .navbar-overlay .navbar-overlay-tool-btn:hover {
+  color: hsl(var(--brand-muted));
+}
+
+html.thylo .navbar-overlay .navbar-overlay-tool-btn .navbar-lang-icon,
+html.thylo .navbar-overlay .navbar-overlay-tool-btn .navbar-lang-label--overlay,
+html.thylo .navbar-overlay .navbar-overlay-tool-btn .navbar-overlay-tool-icon,
+html.thylo .navbar-overlay .navbar-overlay-tool-btn .theme-picker-icon {
+  color: hsl(var(--brand));
+}
+
+html.thylo .navbar-overlay .navbar-overlay-tool-btn:hover .navbar-lang-icon,
+html.thylo
+  .navbar-overlay
+  .navbar-overlay-tool-btn:hover
+  .navbar-lang-label--overlay,
+html.thylo
+  .navbar-overlay
+  .navbar-overlay-tool-btn:hover
+  .navbar-overlay-tool-icon,
+html.thylo .navbar-overlay .navbar-overlay-tool-btn:hover .theme-picker-icon {
+  color: hsl(var(--brand-muted));
+}
+
+html.thylo .navbar-overlay .navbar-overlay-tool-btn .theme-picker-swatch {
+  border-color: hsl(var(--brand));
+}
+
+html.thylo
+  .navbar-overlay
+  .navbar-overlay-tool-btn:hover
+  .navbar-overlay-tool-btn-hover,
+html.thylo
+  .navbar-overlay
+  .navbar-overlay-tool-btn:hover
+  .theme-picker-trigger-hover {
+  background: hsl(var(--brand) / 0.08);
 }

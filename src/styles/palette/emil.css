@@ -1,0 +1,285 @@
+html.emil {
+  /* EMIL-Link — green primary · blue accent · light page */
+  --brand: 152 56% 34%;
+  --brand-secondary: 205 68% 42%;
+  --brand-muted: 152 48% 42%;
+  --hero-border: #4a9f6e;
+
+  --background: 208 38% 97%;
+  --foreground: 152 30% 14%;
+  --card: 152 35% 94%;
+  --card-foreground: 152 30% 14%;
+  --popover: 152 35% 94%;
+  --popover-foreground: 152 30% 14%;
+  --primary: 152 56% 34%;
+  --primary-foreground: 152 30% 98%;
+  --secondary: 205 45% 88%;
+  --secondary-foreground: 205 55% 26%;
+  --muted: 152 30% 88%;
+  --muted-foreground: 152 28% 32%;
+  --accent: 205 42% 90%;
+  --accent-foreground: 205 55% 26%;
+  --destructive: 0 72% 48%;
+  --destructive-foreground: 152 30% 98%;
+  --border: 152 28% 68%;
+  --input: 152 28% 68%;
+  --ring: 152 56% 34%;
+  --chart-1: 152 56% 34%;
+  --chart-2: 205 68% 42%;
+  --chart-3: 152 30% 14%;
+  --chart-4: 152 48% 48%;
+  --chart-5: 205 55% 55%;
+
+  --page-gradient: linear-gradient(
+    to bottom right,
+    rgb(247 250 253),
+    rgb(232 242 251),
+    rgb(244 249 253)
+  );
+  --page-grid-dot: rgba(59, 127, 196, 0.13);
+  --grid-pattern-dot: rgba(52, 160, 107, 0.2);
+
+  --glass-bg: rgba(228, 244, 234, 0.85);
+  --glass-border: rgba(46, 148, 104, 0.32);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(255 255 255),
+    rgb(232 246 238),
+    rgb(210 232 218)
+  );
+
+  --glow-color: rgba(46, 148, 104, 0.38);
+  --glow-color-secondary: rgba(59, 127, 196, 0.22);
+  --focus-ring: rgba(46, 148, 104, 0.48);
+}
+
+/* Section chrome */
+html.emil .section-badge {
+  border-color: hsl(var(--brand) / 0.48);
+  background: hsl(var(--brand) / 0.18);
+}
+
+html.emil .section-badge-dot {
+  background: hsl(var(--brand-secondary));
+}
+
+html.emil .section-badge-label {
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .tag-pill {
+  border-color: hsl(var(--brand-secondary) / 0.42);
+  background: hsl(var(--brand-secondary) / 0.12);
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .hero-meta-chip-label {
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .ui-badge--outline,
+html.emil .ui-badge--secondary {
+  border-color: hsl(var(--brand-secondary) / 0.45);
+  background: hsl(var(--brand-secondary) / 0.12);
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .timeline-card-type-badge {
+  color: hsl(var(--brand-secondary));
+  border-color: hsl(var(--brand-secondary) / 0.45);
+}
+
+/* Navbar */
+html.emil .navbar-shell--default {
+  border-color: hsl(var(--brand) / 0.5);
+  background: linear-gradient(to right, rgb(228 244 234), rgb(204 228 210));
+  box-shadow: 0 12px 32px rgba(46, 148, 104, 0.18);
+}
+
+html.emil .navbar-logo-badge {
+  background: hsl(var(--brand));
+  border-color: hsl(var(--brand) / 0.7);
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 4px 14px rgba(46, 148, 104, 0.28);
+}
+
+html.emil .navbar-logo-text {
+  color: hsl(var(--primary-foreground));
+}
+
+html.emil .navbar-link {
+  color: hsl(152 32% 22%);
+}
+
+html.emil .navbar-link:hover .navbar-link-text,
+html.emil .navbar-link:hover {
+  color: hsl(var(--brand));
+}
+
+html.emil .navbar-link:hover .navbar-link-hover-bg {
+  background: hsl(var(--brand) / 0.16);
+}
+
+html.emil .navbar-link-indicator {
+  background: hsl(var(--brand-secondary) / 0.65);
+}
+
+html.emil .navbar-separator {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    hsl(var(--brand) / 0.45),
+    transparent
+  );
+}
+
+html.emil .navbar-lang-icon,
+html.emil .navbar-lang-label {
+  color: hsl(var(--brand));
+}
+
+html.emil .navbar-lang-btn:hover .navbar-lang-icon,
+html.emil .navbar-lang-btn:hover .navbar-lang-label {
+  color: hsl(var(--brand-muted));
+}
+
+html.emil .theme-picker-trigger {
+  border-color: hsl(var(--brand) / 0.45);
+  background: hsl(var(--brand) / 0.12);
+  color: hsl(var(--brand));
+}
+
+html.emil .theme-picker-trigger:hover {
+  border-color: hsl(var(--brand-secondary) / 0.55);
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .theme-picker-swatch {
+  border-color: hsl(var(--brand-secondary));
+}
+
+html.emil .navbar-menu-btn {
+  color: hsl(var(--brand));
+}
+
+html.emil .navbar-menu-btn:hover {
+  color: hsl(var(--brand-muted));
+}
+
+/* Hero */
+html.emil .hero-headline {
+  color: hsl(152 28% 16%);
+}
+
+html.emil .hero-portrait-card {
+  border-color: hsl(var(--brand) / 0.55);
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255),
+    rgb(228 244 234),
+    rgb(204 228 210)
+  );
+  box-shadow: 0 22px 55px rgba(46, 148, 104, 0.2);
+}
+
+html.emil .hero-portrait-footer {
+  border-top-color: hsl(var(--brand) / 0.5);
+  background: linear-gradient(to bottom, rgb(236 248 241), rgb(214 234 220));
+}
+
+html.emil .hero-portrait-name {
+  color: hsl(152 30% 16%);
+}
+
+html.emil .hero-portrait-logo-badge {
+  background: hsl(var(--brand-secondary));
+  border-color: hsl(var(--brand-secondary) / 0.65);
+  color: hsl(205 40% 98%);
+}
+
+html.emil .hero-meta-chip {
+  border-color: hsl(var(--brand) / 0.4);
+  background: hsl(var(--brand) / 0.14);
+}
+
+html.emil .hero-cta-primary {
+  border-color: hsl(var(--brand) / 0.75);
+  background: hsl(var(--brand));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 8px 22px rgba(46, 148, 104, 0.28);
+}
+
+html.emil .hero-cta-primary:hover {
+  background: hsl(152 56% 29%);
+  border-color: hsl(var(--brand));
+}
+
+html.emil .hero-cta-secondary {
+  border-color: hsl(var(--brand-secondary) / 0.55);
+  background: linear-gradient(to bottom, rgb(244 249 255), rgb(224 237 252));
+  color: hsl(205 45% 24%);
+}
+
+html.emil .hero-cta-secondary:hover {
+  border-color: hsl(var(--brand-secondary));
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .hero-social-link {
+  border-color: hsl(var(--brand) / 0.45);
+  background: linear-gradient(to bottom, rgb(244 252 247), rgb(220 238 226));
+  color: hsl(var(--brand));
+}
+
+html.emil .hero-social-link:hover {
+  border-color: hsl(var(--brand-secondary));
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .hero-accent-surface {
+  border-color: hsl(var(--brand) / 0.45);
+}
+
+/* Timeline — blue accents (dots, badges, card text); section titles stay dark */
+html.emil .timeline-line {
+  background: hsl(var(--brand-secondary) / 0.28);
+}
+
+html.emil .timeline-dot--active {
+  border-color: hsl(var(--brand-secondary));
+  background: hsl(var(--brand-secondary));
+  box-shadow: 0 0 14px hsl(var(--brand-secondary) / 0.5);
+}
+
+html.emil .timeline-dot--inactive {
+  border-color: hsl(var(--brand-secondary) / 0.5);
+  background: hsl(var(--brand-secondary) / 0.22);
+}
+
+html.emil .timeline-card-role {
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .timeline-card-title {
+  color: hsl(205 52% 34%);
+}
+
+html.emil .timeline-card-description,
+html.emil .timeline-expand-text,
+html.emil .timeline-learnings-text {
+  color: hsl(205 38% 30%);
+}
+
+html.emil .timeline-card-period,
+html.emil .timeline-expand-section-title,
+html.emil .timeline-learnings-label {
+  color: hsl(var(--brand-secondary) / 0.78);
+}
+
+html.emil .timeline-journal-link-text {
+  color: hsl(var(--brand-secondary));
+}
+
+html.emil .timeline-journal-link:hover .timeline-journal-link-text {
+  color: hsl(205 68% 36%);
+}

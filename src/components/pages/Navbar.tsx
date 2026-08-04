@@ -131,19 +131,6 @@ export default function Navbar() {
 
               <div className="navbar-mobile-actions">
                 <button
-                  onClick={toggleLanguage}
-                  className="group nav-chrome-btn navbar-lang-btn navbar-lang-btn--mobile"
-                >
-                  <div className="navbar-chrome-btn-hover" />
-                  <Globe className="nav-chrome-btn-icon navbar-lang-icon" />
-                  <span className="navbar-lang-label navbar-lang-label--mobile">
-                    {language}
-                  </span>
-                </button>
-
-                <ThemePicker buttonClassName="nav-chrome-btn" />
-
-                <button
                   onClick={() => setIsOpen(!isOpen)}
                   className="group nav-chrome-btn navbar-menu-btn"
                   aria-label="Toggle menu"
@@ -197,13 +184,36 @@ export default function Navbar() {
           )}
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={() => setIsOpen(false)}
-            className="nav-chrome-btn navbar-overlay-close"
-            aria-label="Close menu"
-          >
-            <X size={26} />
-          </button>
+          <div className="navbar-overlay-toolbar">
+            <div className="navbar-overlay-toolbar-left">
+              <button
+                onClick={toggleLanguage}
+                className="group navbar-overlay-tool-btn navbar-lang-btn navbar-lang-btn--overlay"
+                aria-label={
+                  language === "no" ? "Bytt språk" : "Switch language"
+                }
+              >
+                <div className="navbar-overlay-tool-btn-hover" />
+                <Globe className="navbar-overlay-tool-icon navbar-lang-icon" />
+                <span className="navbar-lang-label navbar-lang-label--overlay">
+                  {language}
+                </span>
+              </button>
+
+              <ThemePicker
+                className="navbar-overlay-theme-picker"
+                buttonClassName="navbar-overlay-tool-btn"
+              />
+            </div>
+
+            <button
+              onClick={() => setIsOpen(false)}
+              className="nav-chrome-btn navbar-overlay-close"
+              aria-label="Close menu"
+            >
+              <X size={26} />
+            </button>
+          </div>
 
           <nav className="navbar-mobile-nav">
             {currentNavItems.map((item, index) => (

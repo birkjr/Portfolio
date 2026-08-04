@@ -1,73 +1,32 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  ArrowUpRight,
-  ChevronDown,
-  ChevronUp,
-  MessageCircleQuestion,
-  X,
-} from "lucide-react";
+import { ArrowUpRight, MessageCircleQuestion, X } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { SectionContainer } from "@/components/animations/SectionContainer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  JOURNAL_INITIAL_VISIBLE,
-  JOURNAL_LOAD_MORE,
-  journalSection,
-  journal,
-} from "@/content/journal";
+import { journalSection, journal } from "@/content/journal";
 import { getJournalSlugFromHash } from "@/content/timeline";
+import { computeJournalCardMotion } from "@/lib/scroll-presence";
 import { cn, prefersReducedMotion } from "@/lib/utils";
 
 function JournalArticleCard({
   item,
-  index,
   language,
   readAnswerLabel,
   isModalOpen,
-  animationKey,
   onOpen,
+  liRef,
 }: {
   item: (typeof journal)[number];
-  index: number;
   language: "no" | "en";
   readAnswerLabel: string;
   isModalOpen: boolean;
-  animationKey: string;
   onOpen: (slug: string) => void;
+  liRef: (el: HTMLLIElement | null) => void;
 }) {
-  const liRef = useRef<HTMLLIElement>(null);
-  const [entered, setEntered] = useState(false);
-
-  useEffect(() => {
-    setEntered(false);
-
-    if (prefersReducedMotion()) {
-      setEntered(true);
-      return;
-    }
-
-    const node = liRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setEntered(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -4% 0px" }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [item.slug, animationKey]);
-
   const question = item.question[language];
   const teaser = item.paragraphs[language][0];
   const tag = item.tag[language];
@@ -75,6 +34,7 @@ function JournalArticleCard({
   return (
     <li ref={liRef}>
       <Card
+        data-journal-card
         role="button"
         tabIndex={isModalOpen ? -1 : 0}
         onClick={() => onOpen(item.slug)}
@@ -84,15 +44,7 @@ function JournalArticleCard({
             onOpen(item.slug);
           }
         }}
-        className={cn(
-          "group journal-card",
-          entered ? "journal-card-slide-in" : "journal-card--hidden"
-        )}
-        style={
-          entered
-            ? { animationDelay: `${Math.min(index, 10) * 0.07}s` }
-            : undefined
-        }
+        className="group journal-card journal-card--scroll-driven"
       >
         <CardContent className="journal-card-content">
           <div className="journal-card-icon-wrap">
@@ -121,31 +73,62 @@ export function Journal() {
   const { language } = useLanguage();
   const t = journalSection[language];
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
-  const [activeTag, setActiveTag] = useState<string | null>(null);
-  const [visibleCountsByFilter, setVisibleCountsByFilter] = useState<
-    Record<string, number>
-  >({});
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
-  const filterKey = `${language}:${activeTag ?? "all"}`;
-  const visibleCount =
-    visibleCountsByFilter[filterKey] ?? JOURNAL_INITIAL_VISIBLE;
+  const updateJournalCards = useCallback(() => {
+    const nodes = itemRefs.current.filter(Boolean) as HTMLLIElement[];
+    if (nodes.length === 0) return;
 
-  const tags = useMemo(
-    () => [...new Set(journal.map((item) => item.tag[language]))],
-    [language]
-  );
+    const reducedMotion = prefersReducedMotion();
+    const viewportHeight = window.innerHeight;
 
-  const filteredJournal = useMemo(
-    () =>
-      activeTag === null
-        ? journal
-        : journal.filter((item) => item.tag[language] === activeTag),
-    [activeTag, language]
-  );
+    nodes.forEach((node) => {
+      const card = node.querySelector<HTMLElement>("[data-journal-card]");
+      if (!card) return;
 
-  const visibleJournal = filteredJournal.slice(0, visibleCount);
-  const hasMore = visibleCount < filteredJournal.length;
-  const canCollapse = visibleCount > JOURNAL_INITIAL_VISIBLE;
+      if (reducedMotion) {
+        card.style.opacity = "";
+        card.style.transform = "";
+        return;
+      }
+
+      const rect = node.getBoundingClientRect();
+      const { translateX, opacity } = computeJournalCardMotion(
+        rect,
+        viewportHeight
+      );
+
+      card.style.opacity = opacity.toFixed(3);
+      card.style.transform = `translateX(${translateX.toFixed(2)}px)`;
+    });
+  }, []);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const scheduleUpdate = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateJournalCards);
+    };
+
+    frame = requestAnimationFrame(() => {
+      requestAnimationFrame(scheduleUpdate);
+    });
+
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
+  }, [updateJournalCards]);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(updateJournalCards);
+    return () => cancelAnimationFrame(frame);
+  }, [language, updateJournalCards]);
 
   const closeArticle = () => {
     setSelectedSlug(null);
@@ -248,7 +231,7 @@ export function Journal() {
       : null;
 
   return (
-    <SectionContainer id="journal">
+    <SectionContainer id="journal" motion="none">
       <div className={cn("page-body", isModalOpen && "page-body--blurred")}>
         <div className="page-header">
           <div className="section-badge">
@@ -259,85 +242,21 @@ export function Journal() {
           <p className="page-subtitle">{t.subtitle}</p>
         </div>
 
-        <div className="journal-filters">
-          <button
-            type="button"
-            onClick={() => setActiveTag(null)}
-            className={cn(
-              "journal-filter-chip",
-              activeTag === null
-                ? "journal-filter-chip--active"
-                : "journal-filter-chip--inactive"
-            )}
-          >
-            {t.filterAll}
-          </button>
-          {tags.map((tag) => (
-            <button
-              key={tag}
-              type="button"
-              onClick={() => setActiveTag(tag)}
-              className={cn(
-                "journal-filter-chip",
-                activeTag === tag
-                  ? "journal-filter-chip--active"
-                  : "journal-filter-chip--inactive"
-              )}
-            >
-              {tag}
-            </button>
-          ))}
-        </div>
-
         <ul className="journal-list">
-          {visibleJournal.map((item, index) => (
+          {journal.map((item, index) => (
             <JournalArticleCard
               key={item.slug}
               item={item}
-              index={index}
               language={language}
               readAnswerLabel={t.readAnswer}
               isModalOpen={isModalOpen}
-              animationKey={filterKey}
               onOpen={openArticle}
+              liRef={(el) => {
+                itemRefs.current[index] = el;
+              }}
             />
           ))}
         </ul>
-
-        {(hasMore || canCollapse) && (
-          <div className="journal-pagination">
-            {hasMore && (
-              <Button
-                variant="outline"
-                onClick={() =>
-                  setVisibleCountsByFilter((prev) => ({
-                    ...prev,
-                    [filterKey]: visibleCount + JOURNAL_LOAD_MORE,
-                  }))
-                }
-                className="gap-2"
-              >
-                {t.showMore}
-                <ChevronDown className="h-4 w-4" />
-              </Button>
-            )}
-            {canCollapse && (
-              <Button
-                variant="ghost"
-                onClick={() =>
-                  setVisibleCountsByFilter((prev) => ({
-                    ...prev,
-                    [filterKey]: JOURNAL_INITIAL_VISIBLE,
-                  }))
-                }
-                className="journal-show-less"
-              >
-                {t.showLess}
-                <ChevronUp className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
-        )}
       </div>
 
       {modal}

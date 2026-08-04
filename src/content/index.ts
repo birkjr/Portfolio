@@ -16,10 +16,4 @@ export {
   type TimelineEntry,
   type TimelineEntryType,
 } from "./timeline";
-export {
-  journalSection,
-  journal,
-  JOURNAL_INITIAL_VISIBLE,
-  JOURNAL_LOAD_MORE,
-  type JournalItem,
-} from "./journal";
+export { journalSection, journal, type JournalItem } from "./journal";

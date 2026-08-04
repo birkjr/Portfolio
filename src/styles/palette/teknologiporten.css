@@ -1,0 +1,325 @@
+html.teknologiporten {
+  /* Teknologiporten — tpBlue #0f2535 · tpBeige #f1e9e3 · tpBg #f1f0ef */
+  --brand: 205 56% 13%;
+  --brand-secondary: 205 40% 28%;
+  --brand-muted: 205 35% 32%;
+  --hero-border: #0f2535;
+
+  --background: 30 7% 94%;
+  --foreground: 205 56% 13%;
+  --card: 26 33% 96%;
+  --card-foreground: 205 56% 13%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 205 56% 13%;
+  --primary: 205 56% 13%;
+  --primary-foreground: 30 7% 96%;
+  --secondary: 26 33% 92%;
+  --secondary-foreground: 205 56% 13%;
+  --muted: 30 8% 90%;
+  --muted-foreground: 205 22% 36%;
+  --accent: 26 33% 92%;
+  --accent-foreground: 205 56% 13%;
+  --destructive: 0 72% 48%;
+  --destructive-foreground: 30 7% 96%;
+  --border: 205 28% 72%;
+  --input: 205 28% 72%;
+  --ring: 205 56% 13%;
+  --chart-1: 205 56% 13%;
+  --chart-2: 26 33% 72%;
+  --chart-3: 205 40% 28%;
+  --chart-4: 30 12% 55%;
+  --chart-5: 205 30% 45%;
+
+  --page-gradient: linear-gradient(to bottom right, #f1f0ef, #f1e9e3, #f1f0ef);
+  --page-grid-dot: rgba(15, 37, 53, 0.1);
+  --grid-pattern-dot: rgba(15, 37, 53, 0.18);
+
+  --glass-bg: rgba(241, 240, 239, 0.88);
+  --glass-border: rgba(15, 37, 53, 0.16);
+  --card-gradient: linear-gradient(
+    to bottom,
+    rgb(255 255 255),
+    rgb(241 233 227),
+    rgb(232 222 214)
+  );
+
+  --glow-color: rgba(15, 37, 53, 0.22);
+  --glow-color-secondary: rgba(15, 37, 53, 0.1);
+  --focus-ring: rgba(15, 37, 53, 0.42);
+}
+
+/* Section chrome */
+html.teknologiporten .section-badge {
+  border-color: hsl(var(--brand) / 0.4);
+  background: hsl(var(--brand) / 0.1);
+}
+
+html.teknologiporten .section-badge-dot {
+  background: hsl(var(--brand));
+}
+
+html.teknologiporten .section-badge-label {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .tag-pill {
+  border-color: hsl(var(--brand) / 0.35);
+  background: hsl(var(--brand) / 0.08);
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-meta-chip-label {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .ui-badge--outline,
+html.teknologiporten .ui-badge--secondary {
+  border-color: hsl(var(--brand) / 0.4);
+  background: hsl(var(--brand) / 0.08);
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .timeline-card-type-badge {
+  color: hsl(var(--brand));
+  border-color: hsl(var(--brand) / 0.4);
+}
+
+/* Navbar — solid tpBlue */
+html.teknologiporten .navbar-shell--default {
+  border-color: rgb(15 37 53 / 0.85);
+  background: #0f2535;
+  box-shadow: 0 12px 32px rgba(15, 37, 53, 0.28);
+}
+
+html.teknologiporten .navbar-logo-badge {
+  background: #f1e9e3;
+  border-color: rgb(241 233 227 / 0.9);
+  color: #0f2535;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+html.teknologiporten .navbar-logo-text {
+  color: #0f2535;
+}
+
+html.teknologiporten .navbar-link {
+  color: rgb(241 240 239 / 0.9);
+}
+
+html.teknologiporten .navbar-link:hover .navbar-link-text,
+html.teknologiporten .navbar-link:hover {
+  color: #f1e9e3;
+}
+
+html.teknologiporten .navbar-link:hover .navbar-link-hover-bg {
+  background: rgb(241 233 227 / 0.12);
+}
+
+html.teknologiporten .navbar-link-indicator {
+  background: rgb(241 233 227 / 0.7);
+}
+
+html.teknologiporten .navbar-separator {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(241 233 227 / 0.35),
+    transparent
+  );
+}
+
+html.teknologiporten .navbar-lang-icon,
+html.teknologiporten .navbar-lang-label {
+  color: #f1e9e3;
+}
+
+html.teknologiporten .navbar-lang-btn:hover .navbar-lang-icon,
+html.teknologiporten .navbar-lang-btn:hover .navbar-lang-label {
+  color: #f1f0ef;
+}
+
+html.teknologiporten .theme-picker-trigger {
+  border-color: rgb(241 233 227 / 0.35);
+  background: rgb(241 233 227 / 0.1);
+  color: #f1e9e3;
+}
+
+html.teknologiporten .theme-picker-trigger:hover {
+  border-color: rgb(241 233 227 / 0.55);
+  color: #f1f0ef;
+}
+
+html.teknologiporten .theme-picker-swatch {
+  border-color: #f1e9e3;
+}
+
+html.teknologiporten .navbar-menu-btn {
+  color: #f1e9e3;
+}
+
+html.teknologiporten .navbar-menu-btn:hover {
+  color: #f1f0ef;
+}
+
+html.teknologiporten .navbar-overlay .navbar-overlay-tool-btn {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .navbar-overlay .navbar-overlay-tool-btn .navbar-lang-icon,
+html.teknologiporten
+  .navbar-overlay
+  .navbar-overlay-tool-btn
+  .navbar-lang-label--overlay,
+html.teknologiporten
+  .navbar-overlay
+  .navbar-overlay-tool-btn
+  .theme-picker-icon {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten
+  .nav-chrome-btn:not(.navbar-overlay-tool-btn):not(.navbar-overlay-close) {
+  border-color: rgb(241 233 227 / 0.3);
+  color: #f1e9e3;
+}
+
+/* Hero */
+html.teknologiporten .hero-headline {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-portrait-card {
+  border-color: hsl(var(--brand) / 0.55);
+  background: linear-gradient(
+    to bottom,
+    rgb(255 255 255),
+    rgb(241 233 227),
+    rgb(226 214 204)
+  );
+  box-shadow: 0 22px 55px rgba(15, 37, 53, 0.16);
+}
+
+html.teknologiporten .hero-portrait-footer {
+  border-top-color: hsl(var(--brand) / 0.35);
+  background: linear-gradient(to bottom, rgb(241 233 227), rgb(226 214 204));
+}
+
+html.teknologiporten .hero-portrait-name {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-portrait-logo-badge {
+  background: hsl(var(--brand));
+  border-color: hsl(var(--brand) / 0.75);
+  color: hsl(var(--primary-foreground));
+}
+
+html.teknologiporten .hero-meta-chip {
+  border-color: hsl(var(--brand) / 0.35);
+  background: hsl(var(--brand) / 0.08);
+}
+
+html.teknologiporten .hero-cta-primary {
+  border-color: hsl(var(--brand) / 0.85);
+  background: hsl(var(--brand));
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 8px 22px rgba(15, 37, 53, 0.28);
+}
+
+html.teknologiporten .hero-cta-primary:hover {
+  background: hsl(205 56% 18%);
+  border-color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-cta-secondary {
+  border-color: hsl(var(--brand) / 0.4);
+  background: linear-gradient(to bottom, rgb(255 255 255), rgb(241 233 227));
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-cta-secondary:hover {
+  border-color: hsl(var(--brand));
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-social-link {
+  border-color: hsl(var(--brand) / 0.4);
+  background: linear-gradient(to bottom, rgb(255 255 255), rgb(241 233 227));
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-social-link:hover {
+  border-color: hsl(var(--brand));
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .hero-accent-surface {
+  border-color: hsl(var(--brand) / 0.4);
+}
+
+/* Timeline — tpBlue accents */
+html.teknologiporten .timeline-line {
+  background: hsl(var(--brand) / 0.22);
+}
+
+html.teknologiporten .timeline-dot--active {
+  border-color: hsl(var(--brand));
+  background: hsl(var(--brand));
+  box-shadow: 0 0 14px hsl(var(--brand) / 0.4);
+}
+
+html.teknologiporten .timeline-dot--inactive {
+  border-color: hsl(var(--brand) / 0.45);
+  background: hsl(var(--brand) / 0.18);
+}
+
+html.teknologiporten .timeline-card-role {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .timeline-journal-link-text {
+  color: hsl(var(--brand));
+}
+
+html.teknologiporten .timeline-journal-link:hover .timeline-journal-link-text {
+  color: hsl(var(--brand-muted));
+}
+
+/* Footer — solid tpBlue */
+html.teknologiporten .footer-card--default {
+  border-color: rgb(15 37 53 / 0.9);
+  background: #0f2535;
+  color: #f1f0ef;
+  box-shadow: 0 12px 32px rgba(15, 37, 53, 0.28);
+}
+
+html.teknologiporten .footer-title {
+  color: #f1e9e3;
+}
+
+html.teknologiporten .footer-subtitle,
+html.teknologiporten .footer-copyright {
+  color: rgb(241 233 227 / 0.72);
+}
+
+html.teknologiporten .footer-social-btn {
+  color: rgb(241 233 227 / 0.72);
+}
+
+html.teknologiporten .footer-social-btn:hover {
+  color: #f1e9e3;
+}
+
+html.teknologiporten .footer-divider {
+  border-color: rgb(241 233 227 / 0.18);
+}
+
+html.teknologiporten .footer-logo-badge {
+  background: #f1e9e3;
+  border-color: rgb(241 233 227 / 0.9);
+  color: #0f2535;
+}
+
+html.teknologiporten .footer-logo-text {
+  color: #0f2535;
+}

@@ -13,14 +13,19 @@
   }
 
   .skills-card:hover {
+    animation-play-state: paused;
     box-shadow:
       0 0 30px var(--glow-color),
       0 0 60px var(--glow-color-secondary);
     transform: translateY(-2px);
   }
 
-  .skills-card--hidden {
-    @apply opacity-0;
+  .skills-card--refresh {
+    @apply opacity-100;
+  }
+
+  .skills-card--refresh-paused {
+    animation-play-state: paused;
   }
 
   .skills-card-content {

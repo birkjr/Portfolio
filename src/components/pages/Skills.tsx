@@ -14,7 +14,11 @@ import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/context/LanguageContext";
 import { getTechItems, skillsSection, type TechIcon } from "@/content/skills";
 import { SectionContainer } from "@/components/animations/SectionContainer";
-import { cn, getGridRevealObserverOptions } from "@/lib/utils";
+import {
+  cn,
+  getGridRevealObserverOptions,
+  prefersReducedMotion,
+} from "@/lib/utils";
 import { Github, TerminalSquare, X, type LucideIcon } from "lucide-react";
 
 const TECH_ICONS: Record<TechIcon, LucideIcon> = {
@@ -54,10 +58,10 @@ export function Skills() {
   const { language } = useLanguage();
   const t = skillsSection[language];
   const techItems = getTechItems(language);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState<number | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const hasRevealed = useRef(false);
+  const reduceMotion = prefersReducedMotion();
 
   useEffect(() => {
     const node = gridRef.current;
@@ -65,13 +69,7 @@ export function Skills() {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasRevealed.current) {
-          hasRevealed.current = true;
-          setIsVisible(false);
-          requestAnimationFrame(() => {
-            setIsVisible(true);
-          });
-        }
+        setIsInView(entry.isIntersecting);
       });
     }, getGridRevealObserverOptions());
 
@@ -153,7 +151,7 @@ export function Skills() {
       : null;
 
   return (
-    <SectionContainer id="skills">
+    <SectionContainer id="skills" motion="none">
       <div className={cn("page-body", isModalOpen && "page-body--blurred")}>
         <div className="page-header">
           <div className="section-badge">
@@ -167,6 +165,7 @@ export function Skills() {
         <div ref={gridRef} className="skills-grid">
           {techItems.map((item, index) => {
             const Icon = item.icon ? TECH_ICONS[item.icon] : undefined;
+            const animateRefresh = isInView && !reduceMotion && !isModalOpen;
 
             return (
               <Card
@@ -181,10 +180,15 @@ export function Skills() {
                   }
                 }}
                 className={cn(
-                  "group skills-card",
-                  isVisible ? "tech-card-slide-up" : "skills-card--hidden"
+                  "group skills-card skills-card--refresh",
+                  animateRefresh && "tech-card-refresh",
+                  (!isInView || isModalOpen) && "skills-card--refresh-paused"
                 )}
-                style={{ animationDelay: `${index * 0.07}s` }}
+                style={
+                  animateRefresh
+                    ? { animationDelay: `${index * 0.08}s` }
+                    : undefined
+                }
               >
                 <div className="card-shine" />
                 <CardContent className="skills-card-content">

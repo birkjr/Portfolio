@@ -111,7 +111,7 @@ Never hardcode English-only strings.
 
 ## Theme System
 
-- Palettes: `original`, `thylo`, `paper`, `warm`, `fjord`, `hellas`, `terminal`, `ember`
+- Palettes: `original`, `thylo`, `paper`, `emil`, `terminal`, `ember`
 - Tokens: `config/ui-theme.css` (`@theme inline` + `html.<theme>` blocks)
 - Helpers: `usesDarkChrome()`, `isThyloChrome()` from `config/color-themes.ts`
 - Navbar/footer chrome: combine semantic class + `thylo-chrome` when needed
