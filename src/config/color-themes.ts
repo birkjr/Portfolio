@@ -33,7 +33,7 @@ export const colorThemes: ColorThemeOption[] = [
   },
   {
     id: "thylo",
-    label: { no: "Thylo", en: "Thylo" },
+    label: { no: "Thylo Insight", en: "Thylo Insight" },
     swatch: "#594D84",
     swatchRing: "#a89fbf",
     isDark: false,

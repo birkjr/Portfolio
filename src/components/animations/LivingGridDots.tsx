@@ -99,7 +99,7 @@ function computeMagneticTarget(
     return { x: 0, y: 0, strength: 0 };
   }
 
-  const strength = 1 - dist / MAGNET_RADIUS;
+  const strength = Math.max(0, Math.min(1, 1 - dist / MAGNET_RADIUS));
   const pull = strength * strength * MAX_PULL;
 
   return {
@@ -110,6 +110,7 @@ function computeMagneticTarget(
 }
 
 function cursorPulseStrength(progress: number) {
+  if (progress <= 0) return 0;
   if (progress < 0.1) {
     return progress / 0.1;
   }
@@ -125,8 +126,9 @@ function drawTwinkleDot(
   cursor: boolean,
   radius = cursor ? CURSOR_TWINKLE_RADIUS : RANDOM_TWINKLE_RADIUS
 ) {
+  const safeRadius = Math.max(0.01, radius);
   ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.arc(x, y, safeRadius, 0, Math.PI * 2);
   ctx.fillStyle = getTwinkleColor(alpha, cursor);
   ctx.fill();
 }
@@ -283,6 +285,8 @@ export function LivingGridDots() {
             radius += pulse * 0.9;
           }
         }
+
+        radius = Math.max(BASE_DOT_RADIUS, radius);
 
         if (isNearest) {
           alpha = Math.max(alpha, CURSOR_RESTING_ALPHA + strength * 0.35);

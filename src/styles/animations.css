@@ -295,7 +295,7 @@
 }
 
 .tech-card-refresh {
-  animation: techCardRefresh 3s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  animation: techCardRefresh 5s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
 }
 
 .journal-card-slide-in {

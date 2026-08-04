@@ -1,6 +1,6 @@
 @layer components {
   .hero-layout {
-    @apply mt-0 flex flex-col items-center gap-4 sm:mt-16 sm:gap-6 md:mt-12 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12;
+    @apply mt-0 flex flex-col items-center gap-4 sm:mt-6 sm:gap-6 md:mt-4 lg:mt-0 lg:grid lg:grid-cols-2 lg:items-stretch lg:gap-12;
   }
 
   .hero-column-left {

@@ -156,12 +156,31 @@ html.thylo .thylo-chrome .nav-chrome-logo-text {
 }
 
 html.thylo .thylo-chrome .nav-chrome-menu-item {
-  background: hsl(var(--primary) / 0.92);
-  border-color: hsl(var(--brand) / 0.55);
+  background: #594d84;
+  border-color: rgb(89 77 132 / 0.75);
   color: hsl(var(--primary-foreground));
 }
 
 html.thylo .thylo-chrome .nav-chrome-menu-item:hover {
-  background: hsl(var(--brand-muted));
-  border-color: hsl(var(--brand) / 0.75);
+  background: #4f4475;
+  border-color: rgb(89 77 132 / 0.9);
+}
+
+html.thylo .thylo-chrome .nav-chrome-menu-item .navbar-mobile-item-label {
+  color: hsl(var(--primary-foreground));
+}
+
+html.thylo .thylo-chrome .nav-chrome-menu-item .navbar-mobile-item-chevron {
+  color: hsl(var(--primary-foreground) / 0.72);
+}
+
+html.thylo
+  .thylo-chrome
+  .nav-chrome-menu-item:hover
+  .navbar-mobile-item-chevron {
+  color: hsl(var(--primary-foreground));
+}
+
+html.thylo .thylo-chrome .nav-chrome-menu-item .navbar-mobile-item-line {
+  background: hsl(var(--primary-foreground) / 0.35);
 }
