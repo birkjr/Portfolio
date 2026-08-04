@@ -153,7 +153,7 @@ export function Hero() {
           data-hero-side="left"
           className="order-1 flex w-full flex-col items-center gap-14 text-center will-change-transform sm:gap-16 lg:grid lg:h-full lg:grid-rows-[1fr_auto] lg:items-start lg:gap-14 lg:text-left"
         >
-          <div className="flex w-full flex-col items-center gap-14 sm:gap-16 lg:items-start lg:gap-14">
+          <div className="flex w-full flex-col items-center gap-8 sm:gap-16 lg:items-start lg:gap-14">
             {/* Badge */}
             <div className="section-badge">
               <div className="section-badge-dot" />
