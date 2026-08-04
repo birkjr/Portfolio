@@ -209,7 +209,7 @@ export default function Navbar() {
             {currentNavItems.map((item, index) => (
               <button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavClick(item.href)}
                 className="group nav-chrome-menu-item navbar-mobile-item"
                 style={{
                   animation: isOpen

@@ -7,6 +7,7 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import TextType from "@/components/ui/TextType";
 import { SectionContainer } from "@/components/animations/SectionContainer";
+import { hero } from "@/content/hero";
 import { scrollToSection } from "@/lib/scroll-nav";
 
 function PortraitImage() {
