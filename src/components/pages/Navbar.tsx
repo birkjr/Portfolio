@@ -13,6 +13,7 @@ import {
   usesDarkChrome,
 } from "@/config/color-themes";
 import { cn } from "@/lib/utils";
+import { scrollToSection } from "@/lib/scroll-nav";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,21 +53,8 @@ export default function Navbar() {
     setLanguage(language === "no" ? "en" : "no");
   };
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const navElement = document.querySelector("nav");
-      const navOffset =
-        navElement instanceof HTMLElement ? navElement.offsetHeight : 0;
-      const elementPosition =
-        element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = Math.max(elementPosition - navOffset, 0);
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
+  const handleNavClick = (href: string) => {
+    scrollToSection(href);
     setIsOpen(false);
   };
 
@@ -110,7 +98,7 @@ export default function Navbar() {
                   {currentNavItems.map((item) => (
                     <button
                       key={item.name}
-                      onClick={() => scrollToSection(item.href)}
+                      onClick={() => handleNavClick(item.href)}
                       className="group nav-chrome-link navbar-link"
                     >
                       <div className="navbar-link-hover-bg" />

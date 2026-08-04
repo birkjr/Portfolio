@@ -7,7 +7,7 @@ import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import TextType from "@/components/ui/TextType";
 import { SectionContainer } from "@/components/animations/SectionContainer";
-import { hero } from "@/content/hero";
+import { scrollToSection } from "@/lib/scroll-nav";
 
 function PortraitImage() {
   const [hasError, setHasError] = useState(false);
@@ -105,17 +105,8 @@ export function Hero() {
     };
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.querySelector(id);
-    if (element) {
-      const navElement = document.querySelector("nav");
-      const navOffset =
-        navElement instanceof HTMLElement ? navElement.offsetHeight : 0;
-      const elementPosition =
-        element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = Math.max(elementPosition - navOffset, 0);
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-    }
+  const scrollToSectionById = (id: string) => {
+    scrollToSection(id.startsWith("#") ? id : `#${id}`);
   };
 
   const tiltStyle = {
@@ -158,10 +149,6 @@ export function Hero() {
                       <PortraitImageFrame />
                     </div>
                     <div className="hero-portrait-footer">
-                      <div className="hero-portrait-name-row">
-                        <p className="hero-portrait-name">{t.name}</p>
-                        <div className="hero-portrait-logo-badge">BJR</div>
-                      </div>
                       <div className="hero-portrait-tags">
                         {t.tags.map((tag) => (
                           <span key={tag} className="tag-pill">
@@ -178,7 +165,7 @@ export function Hero() {
 
           <div className="hero-cta-row">
             <Button
-              onClick={() => scrollToSection("#journal")}
+              onClick={() => scrollToSectionById("#journal")}
               className="group hero-cta-primary"
             >
               {t.cta}
@@ -186,7 +173,7 @@ export function Hero() {
             </Button>
             <Button
               variant="outline"
-              onClick={() => scrollToSection("#contact")}
+              onClick={() => scrollToSectionById("#contact")}
               className="group hero-cta-secondary"
             >
               <div className="card-shine" aria-hidden />

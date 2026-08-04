@@ -4,14 +4,15 @@ import { ReactNode, useEffect, useRef, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { isMobileViewport, prefersReducedMotion } from "@/lib/utils";
+import { SCROLL_JOURNEY_TRANSITION_SHARE } from "@/lib/scroll-nav";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
 /** Share of scroll used for hero → About transition (rest = hold before page continues). */
-const TRANSITION_SHARE = 0.52;
-const HOLD_SHARE = 0.48;
+const TRANSITION_SHARE = SCROLL_JOURNEY_TRANSITION_SHARE;
+const HOLD_SHARE = 1 - TRANSITION_SHARE;
 
 /**
  * Sticky journey: hero peels left/right, About settles in the real viewport center.
@@ -134,7 +135,7 @@ export function ScrollIntoMachine({
   }
 
   return (
-    <div ref={trackRef} className="relative h-[195vh]">
+    <div ref={trackRef} data-scroll-machine className="relative h-[195vh]">
       {/* Transparent sticky stage — same dots/gradient as the rest of the page */}
       <div className="sticky top-0 h-dvh w-full overflow-hidden bg-transparent">
         <div ref={heroRef} className="absolute inset-0 flex items-center">
