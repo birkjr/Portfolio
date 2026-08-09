@@ -113,7 +113,7 @@ export const techItems: TechItemEntry[] = [
       en: "PostgreSQL is the database tool I've used the most. It's a robust, open-source-based tool that allows me to build scalable and flexible databases. I've used it in Thylo Insight, Teknologiporten and EMIL-Link, and it has helped me solve complex problems with data modeling and scaling.",
     },
     iconType: "image",
-    imageSrc: "/Icons/postgresql.jpeg",
+    imageSrc: "/Icons/postgresql.png",
   },
 ];
 
