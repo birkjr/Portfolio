@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# lokal sparekalkulator (ikke på nettsiden)
+investment/__pycache__/
+investment/state.json
